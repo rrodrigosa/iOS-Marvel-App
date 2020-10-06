@@ -56,6 +56,9 @@
 		CB78EA7E252CEA6B00CC48E6 /* MarvelHeroes */ = {
 			isa = PBXGroup;
 			children = (
+				CB78EA96252CF00100CC48E6 /* Controller */,
+				CB78EA95252CEFF700CC48E6 /* View */,
+				CB78EA94252CEFEC00CC48E6 /* Model */,
 				CB78EA7F252CEA6B00CC48E6 /* AppDelegate.swift */,
 				CB78EA81252CEA6B00CC48E6 /* SceneDelegate.swift */,
 				CB78EA83252CEA6B00CC48E6 /* ViewController.swift */,
@@ -65,6 +68,27 @@
 				CB78EA8D252CEA6C00CC48E6 /* Info.plist */,
 			);
 			path = MarvelHeroes;
+			sourceTree = "<group>";
+		};
+		CB78EA94252CEFEC00CC48E6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CB78EA95252CEFF700CC48E6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CB78EA96252CF00100CC48E6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
