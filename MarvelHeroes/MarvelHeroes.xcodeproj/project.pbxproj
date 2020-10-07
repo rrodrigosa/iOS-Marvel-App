@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -50,8 +50,14 @@
 				CA8CA443BCD1090136731DD5 /* Pods-MarvelHeroes.debug.xcconfig */,
 				418A11A8260AE5A2927C40D5 /* Pods-MarvelHeroes.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		CB1FF995252E3F4A00ED7ACA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		CB78EA73252CEA6B00CC48E6 = {
@@ -75,6 +81,7 @@
 		CB78EA7E252CEA6B00CC48E6 /* MarvelHeroes */ = {
 			isa = PBXGroup;
 			children = (
+				CB1FF995252E3F4A00ED7ACA /* Utils */,
 				CB78EA94252CEFEC00CC48E6 /* Model */,
 				CB78EA95252CEFF700CC48E6 /* View */,
 				CB78EA96252CF00100CC48E6 /* Controller */,
