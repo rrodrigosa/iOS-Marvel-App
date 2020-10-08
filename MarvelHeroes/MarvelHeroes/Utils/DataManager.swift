@@ -27,7 +27,7 @@ public class DataManager {
     // get keys on resources bundle
     func getKeys() -> KeyDict {
         if let path = Bundle.main.path(forResource: "apikeys", ofType: "plist") {
-            self.keys = NSDictionary(contentsOfFile: path)!
+            keys = NSDictionary(contentsOfFile: path)!
         }
         
         if let data = keys {
@@ -44,14 +44,13 @@ public class DataManager {
     
     func downloadCharacters(limit: Int, offset: Int, completion:  @escaping (_ dataSet: APIReturnDataSet?, _ results: [APIResult]?, _ errorString:String) -> Void) {
         let dict: KeyDict = self.getKeys()
-        let baseMarvelURL = "https://gateway.marvel.com:443/v1/public/characters"
+        let baseMarvelURL = "https://gateway.marvel.com/v1/public/characters"
         let ts = NSDate().timeIntervalSince1970.description
         
         let params: Parameters = [
             "apikey": dict.publicKey!,
             "ts": ts,
             "hash": (ts + dict.privateKey! + dict.publicKey!).md5(),
-            "orderBy": "-focDate",
             "limit" : limit,
             "offset" : offset,
         ]
