@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 class CharactersController: UITableViewController {
-
+    
     @IBOutlet var charactersTableView: UITableView!
     
     var charAttributionText: String?
@@ -28,24 +28,24 @@ class CharactersController: UITableViewController {
         
         populateTable(limit: limit, offset: offset)
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return charList.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
         let cellData = self.charList[indexPath.row]
         
         cell.charactersNameLabel.text = cellData.name
         cell.charactersDescriptionLabel.text = cellData.description
-//        cell.charactersImgView.image = 
+        //        cell.charactersImgView.image =
         return cell
     }
     
@@ -56,7 +56,7 @@ class CharactersController: UITableViewController {
             self.populateTable(limit:limit, offset:offset)
         }
     }
-
+    
     /*
      // MARK: - Navigation
      
@@ -73,17 +73,17 @@ class CharactersController: UITableViewController {
             (data: APIReturnDataSet?, results: [APIResult]?, error: String) in
             
             var newImport: [APIResult] = []
-
+            
             for result in results! {
                 var duplicate = false
-
+                
                 for item in self.prevImportList {
                     if result.id == item.id {
                         print("found duplicate for result.id:\(String(describing: result.id))!")
                         duplicate = true
                     }
                 }
-
+                
                 if !duplicate {
                     newImport.append(result)
                 }
@@ -94,12 +94,12 @@ class CharactersController: UITableViewController {
             self.offset += (data?.data?.count)!
             // copy response array to previous imported array
             self.prevImportList = results!
-
+            
             self.charAttributionText = data?.attributionText
-
+            
             self.loadingData = false
             self.tableView.reloadData()
         }
     }
-
+    
 }
