@@ -119,6 +119,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UMd-YT-hD0"/>
+                    <connections>
+                        <outlet property="characterDescriptionLabel" destination="iby-qn-Nev" id="ow6-E5-5GY"/>
+                        <outlet property="characterImgView" destination="rOG-bu-dBZ" id="QTa-ox-fCz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pHE-cB-wpQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

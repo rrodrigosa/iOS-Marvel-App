@@ -9,10 +9,18 @@ import UIKit
 
 class CharacterCellController: UIViewController {
 
+    @IBOutlet weak var characterImgView: UIImageView!
+    @IBOutlet weak var characterDescriptionLabel: UILabel!
+    
+    var characterImg = UIImage()
+    var characterDescription = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        characterImgView.image = characterImg
+        characterDescriptionLabel.text = characterDescription
     }
     
 }
