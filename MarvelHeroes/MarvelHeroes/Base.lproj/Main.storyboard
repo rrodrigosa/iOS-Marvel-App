@@ -63,6 +63,7 @@
                                     <outlet property="charactersDescriptionLabel" destination="SmJ-rz-rhb" id="z2m-w8-5d3"/>
                                     <outlet property="charactersImgView" destination="aT4-AN-GcZ" id="7iE-Tn-CpX"/>
                                     <outlet property="charactersNameLabel" destination="y2n-3b-cds" id="u3n-HU-07O"/>
+                                    <segue destination="gk1-OV-o2z" kind="show" id="sQQ-7H-E02"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -84,9 +85,32 @@
                     <view key="view" contentMode="scaleToFill" id="u3C-Tf-NR3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rOG-bu-dBZ">
+                                <rect key="frame" x="8" y="96" width="398" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="U2f-YR-eRo"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iby-qn-Nev">
+                                <rect key="frame" x="8" y="404" width="398" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="AQn-ZN-Pux"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iby-qn-Nev" firstAttribute="top" secondItem="rOG-bu-dBZ" secondAttribute="bottom" constant="8" symbolic="YES" id="45w-do-OSi"/>
+                            <constraint firstItem="AQn-ZN-Pux" firstAttribute="trailing" secondItem="rOG-bu-dBZ" secondAttribute="trailing" constant="8" id="Gfq-Vd-S2a"/>
+                            <constraint firstItem="iby-qn-Nev" firstAttribute="leading" secondItem="AQn-ZN-Pux" secondAttribute="leading" constant="8" id="Ih4-mA-RW3"/>
+                            <constraint firstItem="rOG-bu-dBZ" firstAttribute="leading" secondItem="AQn-ZN-Pux" secondAttribute="leading" constant="8" id="LpT-96-Iuy"/>
+                            <constraint firstItem="rOG-bu-dBZ" firstAttribute="top" secondItem="AQn-ZN-Pux" secondAttribute="top" constant="8" id="cNv-3G-Zjw"/>
+                            <constraint firstItem="AQn-ZN-Pux" firstAttribute="trailing" secondItem="iby-qn-Nev" secondAttribute="trailing" constant="8" id="t99-jy-KDJ"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="UMd-YT-hD0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pHE-cB-wpQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
