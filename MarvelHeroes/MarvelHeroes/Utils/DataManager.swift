@@ -42,6 +42,24 @@ public class DataManager {
     func requestData() {
     }
     
+    func downloadCharacters() {
+        let dict: KeyDict = self.getKeys()
+        let baseMarvelURL = "https://gateway.marvel.com:443/v1/public/characters"
+        let ts = NSDate().timeIntervalSince1970.description
+        
+        let params: Parameters = [
+            "apikey": dict.publicKey!,
+            "ts": ts,
+            "hash": (ts + dict.privateKey! + dict.publicKey!).md5(),
+            "orderBy": "-focDate",
+            "limit" : 20,
+            "offset" : 0,
+        ]
+        
+        AF.request(baseMarvelURL, parameters: params).responseJSON { response in
+            
+        }
+    }
     
     // MARK: -> delegate
     func setData(decodedData: [Character]) -> Void {
