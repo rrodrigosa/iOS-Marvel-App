@@ -33,16 +33,28 @@
                                             </constraints>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xIE-aJ-M0m">
-                                            <rect key="frame" x="76" y="8" width="330" height="60.5"/>
+                                            <rect key="frame" x="76" y="8" width="78.5" height="38.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2n-3b-cds">
+                                                    <rect key="frame" x="0.0" y="0.0" width="78.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmJ-rz-rhb">
+                                                    <rect key="frame" x="0.0" y="20.5" width="78.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </stackView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="xIE-aJ-M0m" firstAttribute="leading" secondItem="aT4-AN-GcZ" secondAttribute="trailing" constant="8" id="7Q1-UV-G9z"/>
                                         <constraint firstAttribute="bottom" secondItem="aT4-AN-GcZ" secondAttribute="bottom" constant="8" id="It1-xD-VVl"/>
-                                        <constraint firstAttribute="trailing" secondItem="xIE-aJ-M0m" secondAttribute="trailing" constant="8" id="K1Q-Cy-5fe"/>
                                         <constraint firstItem="xIE-aJ-M0m" firstAttribute="top" secondItem="TYN-C8-9dL" secondAttribute="top" constant="8" id="QYb-52-jYc"/>
                                         <constraint firstItem="aT4-AN-GcZ" firstAttribute="top" secondItem="TYN-C8-9dL" secondAttribute="top" constant="8" id="f4l-BJ-ALM"/>
-                                        <constraint firstAttribute="bottom" secondItem="xIE-aJ-M0m" secondAttribute="bottom" constant="8" id="iW5-kU-Ui5"/>
                                         <constraint firstItem="aT4-AN-GcZ" firstAttribute="leading" secondItem="TYN-C8-9dL" secondAttribute="leading" constant="8" id="sw7-P0-UD3"/>
                                     </constraints>
                                 </tableViewCellContentView>
