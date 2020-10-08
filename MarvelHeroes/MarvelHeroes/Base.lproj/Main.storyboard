@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="l86-wZ-V0G">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="l86-wZ-V0G" customClass="CharacterCell" customModule="MarvelHeroes" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="76.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l86-wZ-V0G" id="TYN-C8-9dL">
@@ -58,6 +58,12 @@
                                         <constraint firstItem="aT4-AN-GcZ" firstAttribute="leading" secondItem="TYN-C8-9dL" secondAttribute="leading" constant="8" id="sw7-P0-UD3"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="charactersContentView" destination="TYN-C8-9dL" id="qZB-qp-KDb"/>
+                                    <outlet property="charactersDescriptionLabel" destination="SmJ-rz-rhb" id="z2m-w8-5d3"/>
+                                    <outlet property="charactersImgView" destination="aT4-AN-GcZ" id="7iE-Tn-CpX"/>
+                                    <outlet property="charactersNameLabel" destination="y2n-3b-cds" id="u3n-HU-07O"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
