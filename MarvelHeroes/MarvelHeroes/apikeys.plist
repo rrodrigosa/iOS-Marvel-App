@@ -13,5 +13,5 @@ Copyright (c) 2020 ___ORGANIZATIONNAME___. All rights reserved.
     <string>YOUR_PUBLIC_KEY_HERE</string>
     <key>privateKey</key>
     <string>YOUR_PRIVATE_KEY_HERE</string>
-<dict/>
+</dict>
 </plist>
