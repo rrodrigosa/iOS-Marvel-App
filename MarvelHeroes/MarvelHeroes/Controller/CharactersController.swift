@@ -15,6 +15,8 @@ class CharactersController: UITableViewController {
         super.viewDidLoad()
         // remove empty cells
         self.charactersTableView.tableFooterView = UIView()
+        // add view title
+        self.title = "Characters List"
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
