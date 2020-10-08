@@ -13,26 +13,40 @@ struct APIData: Codable {
     let total: Int?
     let count: Int?
     let results: [APIResult]?
-    
-    enum CodingKeys: String, CodingKey {
-        case offset
-        case limit
-        case total
-        case count
-        case results
-    }
 }
 
 struct APIResult: Codable {
-    var id: Int
-    var name: String
-    var description: String
-    var thumbnail: URL?
+    let id: Int?
+    let name: String?
+    let description: String?
+    let thumbnail: APIImageResult?
+}
+
+struct APIImageResult: Codable {
+    let fileExtension: String?
+    private let _path: String!
+    
+    var path: String? {
+        return self.securePath(path: _path)
+    }
+    
+    var url: URL? {
+        return URL(string: self.securePath(path: self._path) + "." + self.fileExtension!)
+    }
+    
+    func securePath(path:String) -> String {
+        if path.hasPrefix("http://") {
+            let range = path.range(of: "http://")
+            var newPath = path
+            newPath.removeSubrange(range!)
+            return "https://" + newPath
+        } else {
+            return path
+        }
+    }
     
     enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case description
-        case thumbnail
+        case _path = "path"
+        case fileExtension = "extension"
     }
 }

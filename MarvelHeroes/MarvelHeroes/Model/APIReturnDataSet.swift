@@ -8,18 +8,9 @@
 import Foundation
 
 struct APIReturnDataSet: Codable {
-    var code: Int?
-    var status: String?
-    var attributionText: String?
+    let code: Int?
+    let status: String?
+    let attributionText: String?
     
-    var data: APIData?
-    
-    enum CodingKeys: String, CodingKey {
-        case code
-        case status
-        case attributionText
-        case data
-    }
-
-    
+    let data: APIData?
 }
