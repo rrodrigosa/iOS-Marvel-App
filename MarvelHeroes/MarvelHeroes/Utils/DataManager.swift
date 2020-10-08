@@ -10,7 +10,7 @@ import Alamofire
 import CryptoSwift
 
 protocol DataDelegate {
-    func didReceive(data: [Character])
+    func didReceive(data: [APIResult])
     func didFail(_with error: Error)
 }
 
@@ -42,7 +42,7 @@ public class DataManager {
     func requestData() {
     }
     
-    func downloadCharacters() {
+    func downloadCharacters(completion:  @escaping (_ dataSet: APIReturnDataSet?, _ results: [APIResult]?, _ errorString:String) -> Void) {
         let dict: KeyDict = self.getKeys()
         let baseMarvelURL = "https://gateway.marvel.com:443/v1/public/characters"
         let ts = NSDate().timeIntervalSince1970.description
@@ -56,13 +56,40 @@ public class DataManager {
             "offset" : 0,
         ]
         
-        AF.request(baseMarvelURL, parameters: params).responseJSON { response in
-            
+        AF.request(baseMarvelURL, parameters: params).validate().responseJSON { response in
+            guard let responseData = response.data else {
+                completion(nil, [], "Error no data received")
+                return
+            }
+            guard let marvelReturnData = self.decodeAPIReturnDataSet(data: responseData) else {
+                completion(nil, [], "Error initializating marvel data object")
+                return
+            }
+            guard marvelReturnData.code == 200 else {
+                completion(nil, [], "Error Return Code: \(String(describing: marvelReturnData.code))")
+                return
+            }
+            guard let results = marvelReturnData.data?.results else {
+                completion(nil, [], "No data returned")
+                return
+            }
+            completion(marvelReturnData, results, "No Errors")
+        }
+    }
+    
+    func decodeAPIReturnDataSet(data: Data) -> APIReturnDataSet? {
+        do {
+            let decodedData = try JSONDecoder().decode(APIReturnDataSet.self,
+                                                       from: data)
+            return decodedData
+        } catch {
+            print("rdsa - parse error: \(error)")
+            return nil
         }
     }
     
     // MARK: -> delegate
-    func setData(decodedData: [Character]) -> Void {
+    func setData(decodedData: [APIResult]) -> Void {
         delegate?.didReceive(data: decodedData)
     }
     
