@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 
 class CharactersController: UITableViewController {
     
@@ -45,7 +46,14 @@ class CharactersController: UITableViewController {
         
         cell.charactersNameLabel.text = cellData.name
         cell.charactersDescriptionLabel.text = cellData.description
-        //        cell.charactersImgView.image =
+        
+        if let unwrappedUrl = cellData.thumbnail?.url {
+            AF.request(unwrappedUrl).responseImage { response in
+                if case .success(let image) = response.result {
+                    cell.charactersImgView.image = image
+                }
+            }
+        }
         return cell
     }
     
