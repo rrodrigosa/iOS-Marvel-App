@@ -1,23 +1,23 @@
+////
+////  Character.swift
+////  MarvelHeroes
+////
+////  Created by RodrigoSA on 10/6/20.
+////
 //
-//  Character.swift
-//  MarvelHeroes
+//import Foundation
+//import UIKit
 //
-//  Created by RodrigoSA on 10/6/20.
+//struct Character: Codable {
 //
-
-import Foundation
-import UIKit
-
-struct Character: Codable {
-    
-    var name: String
-    var description: String
-    var thumbnail: URL?
-    var image: UIImage?
-    
-    enum CodingKeys: String, CodingKey {
-        case name
-        case description
-        case thumbnail
-    }
-}
+//    var name: String
+//    var description: String
+//    var thumbnail: URL?
+//    var image: UIImage?
+//
+//    enum CodingKeys: String, CodingKey {
+//        case name
+//        case description
+//        case thumbnail
+//    }
+//}
