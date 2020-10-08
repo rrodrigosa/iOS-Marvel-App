@@ -73,6 +73,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="gsI-WN-56j"/>
                     <connections>
+                        <outlet property="charactersTableView" destination="0ou-Ao-nYV" id="Lyw-hF-CEj"/>
                         <segue destination="gk1-OV-o2z" kind="show" identifier="CellDetails" id="AdO-u2-G3D"/>
                     </connections>
                 </tableViewController>

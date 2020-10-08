@@ -9,6 +9,8 @@ import UIKit
 
 class CharactersController: UITableViewController {
 
+    @IBOutlet var charactersTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
