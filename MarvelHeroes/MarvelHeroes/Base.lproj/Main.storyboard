@@ -63,7 +63,6 @@
                                     <outlet property="charactersDescriptionLabel" destination="SmJ-rz-rhb" id="z2m-w8-5d3"/>
                                     <outlet property="charactersImgView" destination="aT4-AN-GcZ" id="7iE-Tn-CpX"/>
                                     <outlet property="charactersNameLabel" destination="y2n-3b-cds" id="u3n-HU-07O"/>
-                                    <segue destination="gk1-OV-o2z" kind="show" id="sQQ-7H-E02"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -73,15 +72,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="gsI-WN-56j"/>
+                    <connections>
+                        <segue destination="gk1-OV-o2z" kind="show" identifier="CellDetails" id="AdO-u2-G3D"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BkG-mW-o80" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-430.43478260869568" y="33.482142857142854"/>
         </scene>
-        <!--View Controller-->
+        <!--Character Cell Controller-->
         <scene sceneID="9Sr-1s-dej">
             <objects>
-                <viewController id="gk1-OV-o2z" sceneMemberID="viewController">
+                <viewController id="gk1-OV-o2z" customClass="CharacterCellController" customModule="MarvelHeroes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u3C-Tf-NR3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
