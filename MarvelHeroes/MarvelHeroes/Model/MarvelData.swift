@@ -23,10 +23,10 @@ struct APIResult: Codable {
 }
 
 struct APIImageResult: Codable {
-    let fileExtension: String?
+    private let fileExtension: String?
     private let _path: String!
     
-    var path: String? {
+    private var path: String? {
         return self.securePath(path: _path)
     }
     
@@ -34,7 +34,7 @@ struct APIImageResult: Codable {
         return URL(string: self.securePath(path: self._path) + "." + self.fileExtension!)
     }
     
-    func securePath(path:String) -> String {
+    private func securePath(path:String) -> String {
         if path.hasPrefix("http://") {
             let range = path.range(of: "http://")
             var newPath = path
