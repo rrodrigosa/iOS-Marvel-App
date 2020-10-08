@@ -20,7 +20,6 @@
 		CB78EA87252CEA6B00CC48E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB78EA85252CEA6B00CC48E6 /* Main.storyboard */; };
 		CB78EA89252CEA6C00CC48E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB78EA88252CEA6C00CC48E6 /* Assets.xcassets */; };
 		CB78EA8C252CEA6C00CC48E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB78EA8A252CEA6C00CC48E6 /* LaunchScreen.storyboard */; };
-		CB78EA9C252D1BF700CC48E6 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB78EA9B252D1BF700CC48E6 /* Character.swift */; };
 		FA3A1CE8DBA4ABBB2A59A811 /* Pods_MarvelHeroes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 126DB096D93BB6F33DF6BD76 /* Pods_MarvelHeroes.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,7 +42,6 @@
 		CB78EA88252CEA6C00CC48E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB78EA8B252CEA6C00CC48E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB78EA8D252CEA6C00CC48E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CB78EA9B252D1BF700CC48E6 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +113,6 @@
 		CB78EA94252CEFEC00CC48E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CB78EA9B252D1BF700CC48E6 /* Character.swift */,
 				CB1FF9A9252E987400ED7ACA /* APIReturnDataSet.swift */,
 				CB1FF9AF252E9AC800ED7ACA /* MarvelData.swift */,
 			);
@@ -269,7 +266,6 @@
 				CB1FF9B7252EB35500ED7ACA /* CharacterCell.swift in Sources */,
 				CB1FF9B0252E9AC800ED7ACA /* MarvelData.swift in Sources */,
 				CB78EA80252CEA6B00CC48E6 /* AppDelegate.swift in Sources */,
-				CB78EA9C252D1BF700CC48E6 /* Character.swift in Sources */,
 				CB1FF9B4252EB2CD00ED7ACA /* CharactersController.swift in Sources */,
 				CB78EA82252CEA6B00CC48E6 /* SceneDelegate.swift in Sources */,
 			);
