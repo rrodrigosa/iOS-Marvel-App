@@ -13,6 +13,8 @@ class CharactersController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // remove empty cells
+        self.charactersTableView.tableFooterView = UIView()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
