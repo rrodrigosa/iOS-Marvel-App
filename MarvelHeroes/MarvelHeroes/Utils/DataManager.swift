@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Alamofire
+import CryptoSwift
 
 protocol DataDelegate {
     func didReceive(data: [Character])
