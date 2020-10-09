@@ -48,4 +48,4 @@ https://github.com/AnasAlhasani/Marvel
 https://github.com/micheltlutz/marvelapp  
 
 #article#  
-https://www.raywenderlich.com/6587213-alamofire-5-tutorial-for-ios-getting-started#toc-anchor-005
+https://www.raywenderlich.com/6587213-alamofire-5-tutorial-for-ios-getting-started#toc-anchor-001
