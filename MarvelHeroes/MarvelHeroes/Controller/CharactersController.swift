@@ -45,6 +45,7 @@ class CharactersController: UITableViewController {
     // MARK: -> cellForRowAt
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
+        changeCellHighlightColor(cell: cell)
         let cellData = self.charList[indexPath.row]
         
         cell.charactersNameLabel.text = cellData.name
@@ -235,6 +236,13 @@ class CharactersController: UITableViewController {
     private func addImageNotFound(spinner: UIActivityIndicatorView, cell: CharacterCell) {
         spinner.stopAnimating()
         cell.charactersImgView.image = #imageLiteral(resourceName: "marvel_image_not_available")
+    }
+    
+    private func changeCellHighlightColor(cell: CharacterCell) {
+        // can't change cell highlight color to custom color on interface builder
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor(named: "MarvelCellHighlightRed")
+        cell.selectedBackgroundView = bgColorView
     }
     
 }
