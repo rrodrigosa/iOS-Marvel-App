@@ -42,6 +42,7 @@ class CharactersController: UITableViewController {
         return charList.count
     }
     
+    // MARK: -> cellForRowAt
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
         let cellData = self.charList[indexPath.row]
@@ -59,6 +60,7 @@ class CharactersController: UITableViewController {
         return cell
     }
     
+    // MARK: -> willDisplay
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         if !self.loadingData && indexPath.row == self.charList.count - 1 {
@@ -97,7 +99,7 @@ class CharactersController: UITableViewController {
         }
     }
     
-    // MARK: - populate
+    // MARK: - Helper populateTable
     private func populateTable(limit:Int, offset:Int) {
         DataManager().downloadCharacters(limit: limit, offset: offset) {
             (data: APIReturnDataSet?, results: [APIResult]?, error: String) in
