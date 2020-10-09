@@ -13,6 +13,8 @@ class CharactersController: UITableViewController {
     
     @IBOutlet var charactersTableView: UITableView!
     
+    let segueIdentifier = "CellDetails"
+    
     var charAttributionText: String?
     var charList: [APIResult] = []
     var prevImportList: [APIResult] = []
@@ -65,15 +67,35 @@ class CharactersController: UITableViewController {
         }
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    // MARK: - Navigation
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // informs navitation to start the segue
+        performSegue(withIdentifier: segueIdentifier, sender: indexPath.row)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if  segue.identifier == segueIdentifier,
+            let destination = segue.destination as? CharacterCellController
+        {
+            let selectedRow = sender as? Int
+            if let unwrappedSelectedRow = selectedRow {
+                let character = charList[unwrappedSelectedRow]
+                
+                let indexPath = tableView.indexPathForSelectedRow!
+                let cell = tableView.cellForRow(at: indexPath ) as! CharacterCell
+                
+                if let unwrappedImg = cell.charactersImgView.image {
+                    destination.characterImg = unwrappedImg
+                } else {
+//                    destination.characterImg = #imageLiteral(resourceName: "MarvelImageNotFound")
+                }
+                
+                if let unwrappedDescription = character.description {
+                    destination.characterDescription = unwrappedDescription
+                }
+            }
+        }
+    }
     
     // MARK: - populate
     private func populateTable(limit:Int, offset:Int) {
