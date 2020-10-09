@@ -31,8 +31,10 @@ Now you only need a few steps:
  - In the same page where your keys are located, scroll down and add another authorized referrer: "gateway.marvel.com" as it's being used by the project  
 
 #### Todo
-Here are the next implementations I still want to test:   
+Here are the next implementations I still want to test in the future:   
 - [ ] Caching the images to help with the asynchronously loading
+- [ ] Cleaner architecture pattern and code implementation
+- [ ] Implement SwiftUI
 
 #### Guides
 Thank you for the provided material used during the development, such as official documentation, tutorials, projects repositories and ideas for the app design.
