@@ -4,9 +4,9 @@ Demo app used as challenge for iOS development position.
 The app uses Marvel API to fetch characters so it can populate a character list with some informations, like names, descriptions and thumbnails.
 
 ### Images
-![Splash](https://imgur.com/BeoJX79)
-![CharacterList](https://imgur.com/D5zCehE)
-![DetailsScreen](https://imgur.com/gLCysf1)
+![Splash](https://imgur.com/BeoJX79.png)
+![CharacterList](https://imgur.com/D5zCehE.png)
+![DetailsScreen](https://imgur.com/gLCysf1.png)
 
 ### Used build, take it as a guide for the requirements
 - XCode 12.0.1
