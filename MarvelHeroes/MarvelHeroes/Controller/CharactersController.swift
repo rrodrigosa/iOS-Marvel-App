@@ -49,7 +49,12 @@ class CharactersController: UITableViewController {
         let cellData = self.charList[indexPath.row]
         
         cell.charactersNameLabel.text = cellData.name
-        cell.charactersDescriptionLabel.text = cellData.description
+        
+        if (cellData.description == "" || cellData.description == nil) {
+            cell.charactersDescriptionLabel.text = "No description avaiable"
+        } else {
+            cell.charactersDescriptionLabel.text = cellData.description
+        }
         
         let spinner = UIActivityIndicatorView(style: .medium)
         startSpinner(spinner: spinner, cell: cell)
