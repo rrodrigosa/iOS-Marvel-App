@@ -49,25 +49,15 @@ class CharactersController: UITableViewController {
         
         cell.charactersNameLabel.text = cellData.name
         cell.charactersDescriptionLabel.text = cellData.description
-           
-        // if there isn't any image on the cell, proceed to manage the image
-        if cell.charactersImgView.image == nil {
-            // only instantiate spinner on imageView position if no images are set
-            let spinner = UIActivityIndicatorView(style: .medium)
-            startSpinner(spinner: spinner, cell: cell)
-            
+        
+        let spinner = UIActivityIndicatorView(style: .medium)
+        startSpinner(spinner: spinner, cell: cell)
+        
+        if let unwrappedId = cellData.id {
+            imageManager(characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, spinner: spinner, cell: cell, index: indexPath.row) { (image) in
+                self.addImageToCell(cell: cell, spinner: spinner, image: image)
+            }
         }
-        
-        
-//        if let unwrappedUrl = cellData.thumbnail?.url {
-//            AF.request(unwrappedUrl).responseImage { response in
-//                if case .success(let image) = response.result {
-//
-//                    // tests with image here
-//                    cell.charactersImgView.image = image
-//                }
-//            }
-//        }
         return cell
     }
     
@@ -144,12 +134,113 @@ class CharactersController: UITableViewController {
             self.tableView.reloadData()
         }
     }
-
-    // MARK: - Helper methods
+    
+    // MARK: Helper imageManager
+    private func imageManager(characterId: String, imageUrl: URL?, spinner: UIActivityIndicatorView, cell: CharacterCell, index: Int, completion: @escaping (UIImage) -> Void) {
+        
+        // open a background thread to prevent ui freeze
+        DispatchQueue.global().async {
+            // tries to retrieve the image from documents folder
+            let imageFromDocuments = self.retrieveImage(imageName: characterId)
+            
+            // if image was retrieved from folder, update it
+            if let unwrappedImageFromDocuments = imageFromDocuments {
+                
+                DispatchQueue.main.async {
+                    completion(unwrappedImageFromDocuments)
+                }
+            }
+            // if image wasn't retrieved try to download from the internet
+            else {
+                if let unwrappedImageUrl = imageUrl {
+                    self.downloadManager(imageUrl: unwrappedImageUrl) { image in
+                        if let unwrappedImage = image {
+                            // save images locally on user documents folder so it can be used whenever it's needed
+                            self.storeImage(image: unwrappedImage, imageName: characterId)
+                            
+                            DispatchQueue.main.async {
+                                completion(unwrappedImage)
+                            }
+                        }
+                    }
+                }
+                // if download was not successful
+                else {
+                    DispatchQueue.main.async {
+                        self.addImageNotFound(spinner: spinner, cell: cell)
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: Helper retrieveImage
+    private func retrieveImage(imageName: String) -> UIImage? {
+        if let imagePath = self.imagePath(imageName: imageName),
+            let imageData = FileManager.default.contents(atPath: imagePath.path),
+            let image = UIImage(data: imageData) {
+            return image
+        }
+        return nil
+    }
+    
+    // MARK: Helper storeImage
+    private func storeImage(image: UIImage, imageName: String) {
+        if let jpgRepresentation = image.jpegData(compressionQuality: 1) {
+            if let imagePath = self.imagePath(imageName: imageName) {
+                do  {
+                    try jpgRepresentation.write(to: imagePath,
+                                                options: .atomic)
+                } catch let err {
+                    print("rdsa - -------------")
+                    print("rdsa - Saving image locally resulted in error: ", err)
+                }
+            }
+        }
+    }
+    
+    // MARK: Helper imagePath
+    private func imagePath(imageName: String) -> URL? {
+        let fileManager = FileManager.default
+        // path to save the images on documents directory
+        guard let documentPath = fileManager.urls(for: .documentDirectory,
+                                                  in: FileManager.SearchPathDomainMask.userDomainMask).first else { return nil }
+        let appendedDocumentPath = documentPath.appendingPathComponent(imageName)
+//                print("rdsa - -------------")
+//                print("rdsa - documents path: ", appendedDocumentPath)
+        return appendedDocumentPath
+    }
+    
+    // MARK: Helper downloadManager
+    private func downloadManager(imageUrl: URL, completion: @escaping (UIImage?) -> Void) {
+        AF.request(imageUrl).responseImage { response in
+            if case .success(let image) = response.result {
+                completion(image)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
+    // MARK: Helper startSpinner
     private func startSpinner(spinner: UIActivityIndicatorView, cell: CharacterCell) {
         spinner.center = cell.charactersImgView.center
         cell.charactersContentView.addSubview(spinner)
         spinner.startAnimating()
+    }
+    
+    // MARK: Helper addImageToCell
+    private func addImageToCell(cell: CharacterCell, spinner: UIActivityIndicatorView, image: UIImage) {
+        DispatchQueue.main.async {
+            spinner.stopAnimating()
+            cell.charactersImgView.image = image
+        }
+    }
+    
+    // MARK: Helper addImageNotFound
+    private func addImageNotFound(spinner: UIActivityIndicatorView, cell: CharacterCell) {
+        spinner.stopAnimating()
+        cell.charactersImgView.image = #imageLiteral(resourceName: "marvel_image_not_available")
     }
     
 }
