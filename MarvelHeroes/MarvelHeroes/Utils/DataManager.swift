@@ -82,7 +82,6 @@ public class DataManager {
                                                        from: data)
             return decodedData
         } catch {
-            print("rdsa - parse error: \(error)")
             return nil
         }
     }

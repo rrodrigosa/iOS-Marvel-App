@@ -118,7 +118,6 @@ class CharactersController: UITableViewController {
                 
                 for item in self.prevImportList {
                     if result.id == item.id {
-                        print("found duplicate for result.id:\(String(describing: result.id))!")
                         duplicate = true
                     }
                 }
@@ -198,8 +197,6 @@ class CharactersController: UITableViewController {
                     try jpgRepresentation.write(to: imagePath,
                                                 options: .atomic)
                 } catch let err {
-                    print("rdsa - -------------")
-                    print("rdsa - Saving image locally resulted in error: ", err)
                 }
             }
         }
@@ -212,8 +209,6 @@ class CharactersController: UITableViewController {
         guard let documentPath = fileManager.urls(for: .documentDirectory,
                                                   in: FileManager.SearchPathDomainMask.userDomainMask).first else { return nil }
         let appendedDocumentPath = documentPath.appendingPathComponent(imageName)
-//                print("rdsa - -------------")
-//                print("rdsa - documents path: ", appendedDocumentPath)
         return appendedDocumentPath
     }
     
