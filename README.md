@@ -33,19 +33,19 @@ Now you only need a few steps:
 #### Guides
 Thank you for the provided material used during the development, such as official documentation, tutorials, projects repositories and ideas for the app design.
 
-#official documentation#
-https://developer.marvel.com/documentation/entity_types
-https://developer.marvel.com/documentation/apiresults
-https://developer.marvel.com/documentation/authorization
-https://developer.marvel.com/docs
+#official documentation# 
+https://developer.marvel.com/documentation/entity_types 
+https://developer.marvel.com/documentation/apiresults 
+https://developer.marvel.com/documentation/authorization 
+https://developer.marvel.com/docs 
 
-#project repositories#
-https://github.com/asfourco/marvel-api-ios-app
-https://github.com/ciceroduarte/MarvelCharacters
-https://github.com/pamnovalli/marvel-app-ios
-https://github.com/soujohnreis/marvel-catalog-ios
-https://github.com/AnasAlhasani/Marvel
-https://github.com/micheltlutz/marvelapp
+#project repositories# 
+https://github.com/asfourco/marvel-api-ios-app 
+https://github.com/ciceroduarte/MarvelCharacters 
+https://github.com/pamnovalli/marvel-app-ios 
+https://github.com/soujohnreis/marvel-catalog-ios 
+https://github.com/AnasAlhasani/Marvel 
+https://github.com/micheltlutz/marvelapp 
 
-#article#
+#article# 
 https://www.raywenderlich.com/6587213-alamofire-5-tutorial-for-ios-getting-started#toc-anchor-005
