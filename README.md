@@ -1,6 +1,6 @@
 # ios-marvel-app
 ### Description
-Demo app used as challenge for iOS development position.
+Demo app used as challenge for iOS development position.  
 The app uses Marvel API to fetch characters so it can populate a character list with some informations, like names, descriptions and thumbnails.
 
 ### Images
@@ -21,7 +21,7 @@ The app uses Marvel API to fetch characters so it can populate a character list 
 - iOS 14.0
 
 ### Building the app
-Because this is a small project, the podfiles were pushed to the git repository as the size of the libraries weren't too much.
+Because this is a small project, the podfiles were pushed to the git repository as the size of the libraries weren't too much.  
 This is to facilitate, so there is no need to install cocoapods in your system and the libraries in the project as they are already there.
 Now you only need a few steps:
 - Clone the repository and open the project by the MarvelHeroes.xcworkspace file 
@@ -33,19 +33,19 @@ Now you only need a few steps:
 #### Guides
 Thank you for the provided material used during the development, such as official documentation, tutorials, projects repositories and ideas for the app design.
 
-#official documentation# 
-https://developer.marvel.com/documentation/entity_types 
-https://developer.marvel.com/documentation/apiresults 
-https://developer.marvel.com/documentation/authorization 
-https://developer.marvel.com/docs 
+#official documentation#  
+https://developer.marvel.com/documentation/entity_types  
+https://developer.marvel.com/documentation/apiresults  
+https://developer.marvel.com/documentation/authorization  
+https://developer.marvel.com/docs  
 
-#project repositories# 
-https://github.com/asfourco/marvel-api-ios-app 
-https://github.com/ciceroduarte/MarvelCharacters 
-https://github.com/pamnovalli/marvel-app-ios 
-https://github.com/soujohnreis/marvel-catalog-ios 
-https://github.com/AnasAlhasani/Marvel 
-https://github.com/micheltlutz/marvelapp 
+#project repositories#  
+https://github.com/asfourco/marvel-api-ios-app  
+https://github.com/ciceroduarte/MarvelCharacters  
+https://github.com/pamnovalli/marvel-app-ios  
+https://github.com/soujohnreis/marvel-catalog-ios  
+https://github.com/AnasAlhasani/Marvel  
+https://github.com/micheltlutz/marvelapp  
 
-#article# 
+#article#  
 https://www.raywenderlich.com/6587213-alamofire-5-tutorial-for-ios-getting-started#toc-anchor-005
