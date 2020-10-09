@@ -53,6 +53,12 @@ class CharactersController: UITableViewController {
         
         let spinner = UIActivityIndicatorView(style: .medium)
         startSpinner(spinner: spinner, cell: cell)
+        
+        if let unwrappedId = cellData.id {
+            imageManager(characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, spinner: spinner, cell: cell, index: indexPath.row) { (image) in
+                self.addImageToCell(cell: cell, spinner: spinner, image: image)
+            }
+        }
         return cell
     }
     
