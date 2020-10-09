@@ -49,14 +49,25 @@ class CharactersController: UITableViewController {
         
         cell.charactersNameLabel.text = cellData.name
         cell.charactersDescriptionLabel.text = cellData.description
-        
-        if let unwrappedUrl = cellData.thumbnail?.url {
-            AF.request(unwrappedUrl).responseImage { response in
-                if case .success(let image) = response.result {
-                    cell.charactersImgView.image = image
-                }
-            }
+           
+        // if there isn't any image on the cell, proceed to manage the image
+        if cell.charactersImgView.image == nil {
+            // only instantiate spinner on imageView position if no images are set
+            let spinner = UIActivityIndicatorView(style: .medium)
+            startSpinner(spinner: spinner, cell: cell)
+            
         }
+        
+        
+//        if let unwrappedUrl = cellData.thumbnail?.url {
+//            AF.request(unwrappedUrl).responseImage { response in
+//                if case .success(let image) = response.result {
+//
+//                    // tests with image here
+//                    cell.charactersImgView.image = image
+//                }
+//            }
+//        }
         return cell
     }
     
@@ -132,6 +143,13 @@ class CharactersController: UITableViewController {
             self.loadingData = false
             self.tableView.reloadData()
         }
+    }
+
+    // MARK: - Helper methods
+    private func startSpinner(spinner: UIActivityIndicatorView, cell: CharacterCell) {
+        spinner.center = cell.charactersImgView.center
+        cell.charactersContentView.addSubview(spinner)
+        spinner.startAnimating()
     }
     
 }
