@@ -27,7 +27,7 @@ class CharactersController: UITableViewController {
         // remove empty cells
         self.charactersTableView.tableFooterView = UIView()
         // add view title
-        self.title = "Characters List"
+        self.title = "MARVEL CHARACTERS"
         
         populateTable(limit: limit, offset: offset)
     }
