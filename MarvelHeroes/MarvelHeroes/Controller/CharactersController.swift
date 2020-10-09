@@ -182,8 +182,8 @@ class CharactersController: UITableViewController {
     // MARK: Helper retrieveImage
     private func retrieveImage(imageName: String) -> UIImage? {
         if let imagePath = self.imagePath(imageName: imageName),
-            let imageData = FileManager.default.contents(atPath: imagePath.path),
-            let image = UIImage(data: imageData) {
+           let imageData = FileManager.default.contents(atPath: imagePath.path),
+           let image = UIImage(data: imageData) {
             return image
         }
         return nil
