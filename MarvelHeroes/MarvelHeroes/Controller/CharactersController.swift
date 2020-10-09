@@ -87,7 +87,7 @@ class CharactersController: UITableViewController {
                 if let unwrappedImg = cell.charactersImgView.image {
                     destination.characterImg = unwrappedImg
                 } else {
-//                    destination.characterImg = #imageLiteral(resourceName: "MarvelImageNotFound")
+                    destination.characterImg = #imageLiteral(resourceName: "marvel_image_not_available")
                 }
                 
                 if let unwrappedDescription = character.description {
