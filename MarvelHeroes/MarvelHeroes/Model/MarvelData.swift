@@ -19,7 +19,7 @@ struct APIData: Decodable {
 struct APIResult: Decodable {
     let id: Int?
     let name: String?
-    let description: String?
+    var description: String?
     let thumbnail: APIImageResult?
     
     var image: UIImage?
