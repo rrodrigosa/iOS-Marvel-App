@@ -51,7 +51,9 @@ class CharactersController: UITableViewController {
         cell.charactersNameLabel.text = cellData.name
         
         if (cellData.description == "" || cellData.description == nil) {
-            cell.charactersDescriptionLabel.text = "No description avaiable"
+            cell.charactersDescriptionLabel.text = "No description available"
+            // update the character object with no description available
+            charList[indexPath.row].description = "No description available"
         } else {
             cell.charactersDescriptionLabel.text = cellData.description
         }
