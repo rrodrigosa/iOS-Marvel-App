@@ -159,10 +159,10 @@ class CharactersController: UITableViewController {
                         }
                     }
                 }
-                // if download was not successful
+                // if there is no url
                 else {
                     DispatchQueue.main.async {
-                        self.addImageNotFound(spinner: spinner, cell: cell)
+                        completion(#imageLiteral(resourceName: "marvel_image_not_available"))
                     }
                 }
             }
@@ -208,7 +208,7 @@ class CharactersController: UITableViewController {
             if case .success(let image) = response.result {
                 completion(image)
             } else {
-                completion(nil)
+                completion(#imageLiteral(resourceName: "marvel_image_not_available"))
             }
         }
     }
@@ -226,12 +226,6 @@ class CharactersController: UITableViewController {
             spinner.stopAnimating()
             cell.charactersImgView.image = image
         }
-    }
-    
-    // MARK: Helper addImageNotFound
-    private func addImageNotFound(spinner: UIActivityIndicatorView, cell: CharacterCell) {
-        spinner.stopAnimating()
-        cell.charactersImgView.image = #imageLiteral(resourceName: "marvel_image_not_available")
     }
     
     private func changeCellHighlightColor(cell: CharacterCell) {
