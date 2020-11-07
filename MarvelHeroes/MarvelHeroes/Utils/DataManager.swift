@@ -9,19 +9,12 @@ import Foundation
 import Alamofire
 import CryptoSwift
 
-protocol DataDelegate {
-    func didReceive(data: [APIResult])
-    func didFail(_with error: Error)
-}
-
 struct KeyDict {
     let publicKey: String!
     let privateKey: String!
 }
 
 public class DataManager {
-    var delegate: DataDelegate?
-    
     private var keys: NSDictionary?
     
     // get keys on resources bundle
@@ -38,10 +31,6 @@ public class DataManager {
     }
     
     // MARK: -> requestData
-    // for online json - TODO
-    func requestData() {
-    }
-    
     func downloadCharacters(limit: Int, offset: Int, completion:  @escaping (_ dataSet: APIReturnDataSet?, _ results: [APIResult]?, _ errorString:String) -> Void) {
         let dict: KeyDict = self.getKeys()
         let baseMarvelURL = "https://gateway.marvel.com/v1/public/characters"
@@ -84,15 +73,6 @@ public class DataManager {
         } catch {
             return nil
         }
-    }
-    
-    // MARK: -> delegate
-    func setData(decodedData: [APIResult]) -> Void {
-        delegate?.didReceive(data: decodedData)
-    }
-    
-    func setError(error: Error) {
-        delegate?.didFail(_with: error)
     }
     
 }
