@@ -61,6 +61,8 @@ class CharactersController: UITableViewController {
         
         if let unwrappedId = cellData.id {
             imageManager(characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, spinner: spinner, cell: cell, index: indexPath.row) { (image) in
+                // update the character object with the image
+                self.charList[indexPath.row].image = image
                 self.addImageToCell(cell: cell, spinner: spinner, image: image)
             }
         }
@@ -89,19 +91,7 @@ class CharactersController: UITableViewController {
             let selectedRow = sender as? Int
             if let unwrappedSelectedRow = selectedRow {
                 let character = charList[unwrappedSelectedRow]
-                
-                let indexPath = tableView.indexPathForSelectedRow!
-                let cell = tableView.cellForRow(at: indexPath ) as! CharacterCell
-                
-                if let unwrappedImg = cell.charactersImgView.image {
-                    destination.characterImg = unwrappedImg
-                } else {
-                    destination.characterImg = #imageLiteral(resourceName: "marvel_image_not_available")
-                }
-                
-                if let unwrappedDescription = character.description {
-                    destination.characterDescription = unwrappedDescription
-                }
+                destination.character = character
             }
         }
     }
