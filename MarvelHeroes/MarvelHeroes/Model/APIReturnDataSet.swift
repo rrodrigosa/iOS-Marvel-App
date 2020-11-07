@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct APIReturnDataSet: Codable {
+struct APIReturnDataSet: Decodable {
     let code: Int?
     let status: String?
     let attributionText: String?

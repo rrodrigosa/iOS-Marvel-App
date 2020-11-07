@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
-struct APIData: Codable {
+struct APIData: Decodable {
     let offset: Int?
     let limit: Int?
     let total: Int?
@@ -15,14 +16,20 @@ struct APIData: Codable {
     let results: [APIResult]?
 }
 
-struct APIResult: Codable {
+struct APIResult: Decodable {
     let id: Int?
     let name: String?
     let description: String?
     let thumbnail: APIImageResult?
+    
+    var image: UIImage?
+    
+    private enum CodingKeys: String, CodingKey {
+        case id, name, description, thumbnail
+    }
 }
 
-struct APIImageResult: Codable {
+struct APIImageResult: Decodable {
     private let fileExtension: String?
     private let _path: String!
     
