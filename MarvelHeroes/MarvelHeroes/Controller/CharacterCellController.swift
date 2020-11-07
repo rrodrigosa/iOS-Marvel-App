@@ -12,15 +12,14 @@ class CharacterCellController: UIViewController {
     @IBOutlet weak var characterImgView: UIImageView!
     @IBOutlet weak var characterDescriptionLabel: UILabel!
     
-    var characterImg = UIImage()
-    var characterDescription = String()
+    var character: APIResult?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        characterImgView.image = characterImg
-        characterDescriptionLabel.text = characterDescription
+        characterImgView.image = character?.image
+        characterDescriptionLabel.text = character?.description
     }
     
 }
