@@ -33,7 +33,6 @@ class CharactersController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -47,13 +46,11 @@ class CharactersController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
         changeCellHighlightColor(cell: cell)
         let cellData = self.charList[indexPath.row]
-        
         return organizeCell(cell: cell, cellData: cellData, index: indexPath.row)
     }
     
     // MARK: -> willDisplay
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
         if !self.loadingData && indexPath.row == self.charList.count - 1 {
             self.loadingData = true
             self.populateTable(limit:limit, offset:offset)
@@ -143,7 +140,6 @@ class CharactersController: UITableViewController {
     
     // MARK: Helper imageManager
     private func imageManager(characterId: String, imageUrl: URL?, spinner: UIActivityIndicatorView, cell: CharacterCell, index: Int, completion: @escaping (UIImage) -> Void) {
-        
         // open a background thread to prevent ui freeze
         DispatchQueue.global().async {
             // tries to retrieve the image from documents folder
@@ -151,7 +147,6 @@ class CharactersController: UITableViewController {
             
             // if image was retrieved from folder, update it
             if let unwrappedImageFromDocuments = imageFromDocuments {
-                
                 DispatchQueue.main.async {
                     completion(unwrappedImageFromDocuments)
                 }
@@ -163,7 +158,6 @@ class CharactersController: UITableViewController {
                         if let unwrappedImage = image {
                             // save images locally on user documents folder so it can be used whenever it's needed
                             self.storeImage(image: unwrappedImage, imageName: characterId)
-                            
                             DispatchQueue.main.async {
                                 completion(unwrappedImage)
                             }
