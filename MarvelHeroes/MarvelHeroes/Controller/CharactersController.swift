@@ -48,27 +48,7 @@ class CharactersController: UITableViewController {
         changeCellHighlightColor(cell: cell)
         let cellData = self.charList[indexPath.row]
         
-        cell.charactersNameLabel.text = cellData.name
-        
-        if (cellData.description == "" || cellData.description == nil) {
-            cell.charactersDescriptionLabel.text = "No description available"
-            // update the character object with no description available
-            charList[indexPath.row].description = "No description available"
-        } else {
-            cell.charactersDescriptionLabel.text = cellData.description
-        }
-        
-        let spinner = UIActivityIndicatorView(style: .medium)
-        startSpinner(spinner: spinner, cell: cell)
-        
-        if let unwrappedId = cellData.id {
-            imageManager(characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, spinner: spinner, cell: cell, index: indexPath.row) { (image) in
-                // update the character object with the image
-                self.charList[indexPath.row].image = image
-                self.addImageToCell(cell: cell, spinner: spinner, image: image)
-            }
-        }
-        return cell
+        return organizeCell(cell: cell, cellData: cellData, index: indexPath.row)
     }
     
     // MARK: -> willDisplay
@@ -130,6 +110,35 @@ class CharactersController: UITableViewController {
             self.loadingData = false
             self.tableView.reloadData()
         }
+    }
+    
+    // MARK: Helper organizeCell
+    func organizeCell(cell: CharacterCell, cellData: APIResult, index: Int) -> CharacterCell {
+        // Character name
+        cell.charactersNameLabel.text = cellData.name
+        
+        // Character description
+        if (cellData.description == "" || cellData.description == nil) {
+            cell.charactersDescriptionLabel.text = "No description available"
+            // update the character object with no description available
+            charList[index].description = "No description available"
+        } else {
+            cell.charactersDescriptionLabel.text = cellData.description
+        }
+        
+        // Spinner
+        let spinner = UIActivityIndicatorView(style: .medium)
+        startSpinner(spinner: spinner, cell: cell)
+        
+        if let unwrappedId = cellData.id {
+            // Checks if image already exists on user documents or if it's needed to be downloaded
+            imageManager(characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, spinner: spinner, cell: cell, index: index) { (image) in
+                // update the character object with the image
+                self.charList[index].image = image
+                self.addImageToCell(cell: cell, spinner: spinner, image: image)
+            }
+        }
+        return cell
     }
     
     // MARK: Helper imageManager
