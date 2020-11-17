@@ -35,6 +35,7 @@ Here are the next implementations I still want to test in the future:
 - [ ] Caching the images to help with the asynchronously loading
 - [ ] Cleaner architecture pattern and code implementation
 - [ ] Implement SwiftUI
+- [ ] Remove apikeys.plist file from project directory and implement better solution for keys security
 
 #### Guides
 Thank you for the provided material used during the development, such as official documentation, tutorials, projects repositories and ideas for the app design.
