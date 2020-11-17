@@ -25,7 +25,7 @@ class CharactersController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // remove empty cells
-        self.charactersTableView.tableFooterView = UIView()
+        charactersTableView.tableFooterView = UIView()
         // add view title
         self.title = "MARVEL CHARACTERS"
         
@@ -45,15 +45,15 @@ class CharactersController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
         changeCellHighlightColor(cell: cell)
-        let cellData = self.charList[indexPath.row]
+        let cellData = charList[indexPath.row]
         return organizeCell(cell: cell, cellData: cellData, index: indexPath.row)
     }
     
     // MARK: -> willDisplay
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if !self.loadingData && indexPath.row == self.charList.count - 1 {
-            self.loadingData = true
-            self.populateTable(limit:limit, offset:offset)
+        if !loadingData && indexPath.row == charList.count - 1 {
+            loadingData = true
+            populateTable(limit:limit, offset:offset)
         }
     }
     
@@ -176,7 +176,7 @@ class CharactersController: UITableViewController {
     
     // MARK: Helper retrieveImage
     private func retrieveImage(imageName: String) -> UIImage? {
-        if let imagePath = self.imagePath(imageName: imageName),
+        if let imagePath = imagePath(imageName: imageName),
            let imageData = FileManager.default.contents(atPath: imagePath.path),
            let image = UIImage(data: imageData) {
             return image
@@ -187,7 +187,7 @@ class CharactersController: UITableViewController {
     // MARK: Helper storeImage
     private func storeImage(image: UIImage, imageName: String) {
         if let jpgRepresentation = image.jpegData(compressionQuality: 1) {
-            if let imagePath = self.imagePath(imageName: imageName) {
+            if let imagePath = imagePath(imageName: imageName) {
                 do  {
                     try jpgRepresentation.write(to: imagePath,
                                                 options: .atomic)
