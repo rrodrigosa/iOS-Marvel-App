@@ -19,7 +19,7 @@ class CharactersController: UITableViewController {
     var charList: [APIResult] = []
     var prevImportList: [APIResult] = []
     var loadingData = false
-    let limit:Int = 10
+    let limit:Int = 50
     var offset:Int = 0
     
     override func viewDidLoad() {
