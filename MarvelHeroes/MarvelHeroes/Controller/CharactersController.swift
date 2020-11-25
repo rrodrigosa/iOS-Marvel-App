@@ -127,6 +127,9 @@ class CharactersController: UITableViewController {
         let spinner = UIActivityIndicatorView(style: .medium)
         startSpinner(spinner: spinner, cell: cell)
         
+        // clear cell image because of its reusability
+        cell.charactersImgView.image = nil
+            
         if let unwrappedId = cellData.id {
             // Checks if image already exists on user documents or if it's needed to be downloaded
             imageManager(characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, spinner: spinner, cell: cell, index: index) { (image) in
