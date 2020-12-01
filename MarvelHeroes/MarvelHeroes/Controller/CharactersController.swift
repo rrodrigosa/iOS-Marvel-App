@@ -56,17 +56,23 @@ class CharactersController: UITableViewController {
     // MARK: - Navigation
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // informs navitation to start the segue
-        performSegue(withIdentifier: segueIdentifier, sender: indexPath.row)
+        performSegue(withIdentifier: segueIdentifier, sender: indexPath)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if  segue.identifier == segueIdentifier,
             let destination = segue.destination as? CharacterCellController
         {
-            let selectedRow = sender as? Int
-            if let unwrappedSelectedRow = selectedRow {
-                let character = charList[unwrappedSelectedRow]
-                destination.character = character
+            let indexPath = sender as? IndexPath
+            if let unwrappedIndexPath = indexPath {
+                let cell = tableView.cellForRow(at: unwrappedIndexPath) as! CharacterCell
+                if let unwrappedSelectedRow = indexPath?.row {
+                    var character = charList[unwrappedSelectedRow]
+                    if let unwrappedImg = cell.charactersImgView.image {
+                        character.image = unwrappedImg
+                        destination.character = character
+                    }
+                }
             }
         }
     }
@@ -129,8 +135,6 @@ class CharactersController: UITableViewController {
         if let unwrappedId = cellData.id {
             // Checks if image already exists on user documents or if it's needed to be downloaded
             imageManager(characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, spinner: spinner, cell: cell, index: index) { (image) in
-                // update the character object with the image
-                self.charList[index].image = image
                 self.addImageToCell(cell: cell, spinner: spinner, image: image)
             }
         }
