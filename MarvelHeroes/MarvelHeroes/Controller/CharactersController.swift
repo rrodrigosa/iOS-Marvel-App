@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import ImageIO
 
 class CharactersController: UITableViewController {
     
@@ -21,6 +22,8 @@ class CharactersController: UITableViewController {
     var loadingData = false
     let limit:Int = 50
     var offset:Int = 0
+    
+    let imageCache = AutoPurgingImageCache()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,7 +137,7 @@ class CharactersController: UITableViewController {
             
         if let unwrappedId = cellData.id {
             // Checks if image already exists on user documents or if it's needed to be downloaded
-            imageManager(characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, spinner: spinner, cell: cell, index: index) { (image) in
+            imageManager(characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, cell: cell, index: index) { (image) in
                 self.addImageToCell(cell: cell, spinner: spinner, image: image)
             }
         }
@@ -142,39 +145,90 @@ class CharactersController: UITableViewController {
     }
     
     // MARK: Helper imageManager
-    private func imageManager(characterId: String, imageUrl: URL?, spinner: UIActivityIndicatorView, cell: CharacterCell, index: Int, completion: @escaping (UIImage) -> Void) {
-        // open a background thread to prevent ui freeze
-        DispatchQueue.global().async {
-            // tries to retrieve the image from documents folder
-            let imageFromDocuments = self.retrieveImage(imageName: characterId)
-            
-            // if image was retrieved from folder, update it
-            if let unwrappedImageFromDocuments = imageFromDocuments {
-                DispatchQueue.main.async {
-                    completion(unwrappedImageFromDocuments)
-                }
+    private func imageManager(characterId: String, imageUrl: URL?, cell: CharacterCell, index: Int, completion: @escaping (UIImage) -> Void) {
+        // Fetch from alamofire image cache
+        let cachedImage = self.imageCache.image(withIdentifier: characterId)
+        if let unwrappedCachedImage = cachedImage {
+            DispatchQueue.main.async {
+                completion(unwrappedCachedImage)
             }
-            // if image wasn't retrieved try to download from the internet
-            else {
-                if let unwrappedImageUrl = imageUrl {
-                    self.downloadManager(imageUrl: unwrappedImageUrl) { image in
-                        if let unwrappedImage = image {
-                            // save images locally on user documents folder so it can be used whenever it's needed
-                            self.storeImage(image: unwrappedImage, imageName: characterId)
+        }
+        else {
+            // open a background thread to prevent ui freeze
+            DispatchQueue.global().async {
+                let imageExists = self.checkIfImageExists(imageName: characterId)
+                if imageExists == true {
+                    let imagePath = self.imagePath(imageName: characterId)
+                    if let unwrappedImagePath = imagePath {
+                        let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
+                        if let unwrappedResizedImage = resizedImage {
                             DispatchQueue.main.async {
-                                completion(unwrappedImage)
+                                completion(unwrappedResizedImage)
                             }
                         }
                     }
                 }
-                // if there is no url
+                // if image wasn't retrieved try to download from the internet
                 else {
-                    DispatchQueue.main.async {
-                        completion(#imageLiteral(resourceName: "marvel_image_not_available"))
+                    if let unwrappedImageUrl = imageUrl {
+                        self.downloadManager(imageUrl: unwrappedImageUrl, imageName: characterId) { path in
+                            if let unwrappedImagePath = path {
+                                let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
+                                if let unwrappedResizedImage = resizedImage {
+                                    DispatchQueue.main.async {
+                                        completion(unwrappedResizedImage)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // if there is no url
+                    else {
+                        DispatchQueue.main.async {
+                            completion(#imageLiteral(resourceName: "marvel_image_not_available"))
+                        }
                     }
                 }
             }
         }
+    }
+    
+    private func configureResizeImage(path: URL, cell: CharacterCell, characterId: String) -> UIImage? {
+        let width = cell.charactersImgView.bounds.size.width
+        let height = cell.charactersImgView.bounds.size.height
+        let size = CGSize(width: width, height: height)
+        let resizedImage = self.resizeImage(at: path, for: size)
+        if let unwrappedResizedImage = resizedImage {
+            // Add/update to alamofire image cache
+            self.imageCache.add(unwrappedResizedImage, withIdentifier: characterId)
+            return unwrappedResizedImage
+        }
+        return nil
+    }
+    
+    func resizeImage(at url: URL, for size: CGSize) -> UIImage? {
+        let options: [CFString: Any] = [
+            kCGImageSourceCreateThumbnailFromImageIfAbsent: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceShouldCacheImmediately: true,
+            kCGImageSourceThumbnailMaxPixelSize: max(size.width, size.height)
+        ]
+
+        guard let imageSource = CGImageSourceCreateWithURL(url as NSURL, nil),
+            let image = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
+        else {
+            return nil
+        }
+
+        return UIImage(cgImage: image)
+    }
+    
+    private func checkIfImageExists(imageName: String) -> Bool? {
+        if let imagePath = imagePath(imageName: imageName),
+           let _ = FileManager.default.contents(atPath: imagePath.path) {
+            return true
+        }
+        return false
     }
     
     // MARK: Helper retrieveImage
@@ -188,16 +242,19 @@ class CharactersController: UITableViewController {
     }
     
     // MARK: Helper storeImage
-    private func storeImage(image: UIImage, imageName: String) {
+    private func storeImage(image: UIImage, imageName: String) -> URL? {
         if let jpgRepresentation = image.jpegData(compressionQuality: 1) {
             if let imagePath = imagePath(imageName: imageName) {
                 do  {
                     try jpgRepresentation.write(to: imagePath,
                                                 options: .atomic)
+                    return imagePath
                 } catch let err {
+                    return nil
                 }
             }
         }
+        return nil
     }
     
     // MARK: Helper imagePath
@@ -211,12 +268,13 @@ class CharactersController: UITableViewController {
     }
     
     // MARK: Helper downloadManager
-    private func downloadManager(imageUrl: URL, completion: @escaping (UIImage?) -> Void) {
+    private func downloadManager(imageUrl: URL, imageName: String, completion: @escaping (URL?) -> Void) {
         AF.request(imageUrl).responseImage { response in
             if case .success(let image) = response.result {
-                completion(image)
+                let path = self.storeImage(image: image, imageName: imageName)
+                completion(path)
             } else {
-                completion(#imageLiteral(resourceName: "marvel_image_not_available"))
+                completion(nil)
             }
         }
     }
