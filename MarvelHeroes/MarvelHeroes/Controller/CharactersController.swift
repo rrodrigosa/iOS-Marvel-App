@@ -55,7 +55,7 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     func onFetchCompleted(indexPathsToReload: [IndexPath]?) {
         guard let unwrappedIndexPathsToReload = indexPathsToReload else {
             charactersTableView.reloadData()
-          return
+            return
         }
         addNewTableRows(tableView: charactersTableView, indexPathsToReload: unwrappedIndexPathsToReload)
     }
@@ -108,7 +108,7 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
         
         // clear cell image because of its reusability
         cell.charactersImgView.image = nil
-            
+        
         if let unwrappedId = cellData.id {
             // Checks if image already exists on user documents or if it's needed to be downloaded
             imageManager(characterName: cellData.name!, characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, cell: cell, index: index) { (image) in
@@ -187,13 +187,13 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
             kCGImageSourceShouldCacheImmediately: true,
             kCGImageSourceThumbnailMaxPixelSize: max(size.width, size.height)
         ]
-
+        
         guard let imageSource = CGImageSourceCreateWithURL(url as NSURL, nil),
-            let image = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
+              let image = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
         else {
             return nil
         }
-
+        
         return UIImage(cgImage: image)
     }
     

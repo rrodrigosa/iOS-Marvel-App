@@ -22,7 +22,7 @@ final class CharactersViewModel {
     private let dataManager = DataManager()
     
     init(delegate: CharactersViewModelDelegate) {
-      self.delegate = delegate
+        self.delegate = delegate
     }
     
     var charactersCount: Int {
@@ -79,10 +79,10 @@ final class CharactersViewModel {
         }
     }
     
-      private func calculateIndexPathsToReload(from newCharacters: [APIResult]) -> [IndexPath] {
+    private func calculateIndexPathsToReload(from newCharacters: [APIResult]) -> [IndexPath] {
         let startIndex = characters.count - newCharacters.count
         let endIndex = startIndex + newCharacters.count
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
-      }
+    }
     
 }
