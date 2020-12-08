@@ -10,50 +10,58 @@ import Alamofire
 import AlamofireImage
 import ImageIO
 
-class CharactersController: UITableViewController {
-    
+class CharactersController: UITableViewController, UITableViewDataSourcePrefetching, CharactersViewModelDelegate {
     @IBOutlet var charactersTableView: UITableView!
     
     let segueIdentifier = "CellDetails"
-    
-    var charAttributionText: String?
-    var charList: [APIResult] = []
-    var prevImportList: [APIResult] = []
-    var loadingData = false
-    let limit:Int = 50
-    var offset:Int = 0
-    
     let imageCache = AutoPurgingImageCache()
+    private var charactersViewModel: CharactersViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // remove empty cells
-        charactersTableView.tableFooterView = UIView()
+        charactersTableView.dataSource = self
+        charactersTableView.prefetchDataSource = self
+        
         // add view title
         self.title = "MARVEL CHARACTERS"
         
-        populateTable(limit: limit, offset: offset)
+        charactersViewModel = CharactersViewModel(delegate: self)
+        charactersViewModel.fetchCharacters()
+        
+        // remove empty cells
+        charactersTableView.tableFooterView = UIView()
     }
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return charList.count
+        return charactersViewModel.charactersCount
     }
     
     // MARK: -> cellForRowAt
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
         changeCellHighlightColor(cell: cell)
-        let cellData = charList[indexPath.row]
+        let cellData = charactersViewModel.getCharacter(at: indexPath.row)
         return organizeCell(cell: cell, cellData: cellData, index: indexPath.row)
     }
     
-    // MARK: -> willDisplay
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if !loadingData && indexPath.row == charList.count - 1 {
-            loadingData = true
-            populateTable(limit:limit, offset:offset)
+    // MARK: -> prefetchRowsAt
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: isLoadingCell) {
+            charactersViewModel.fetchCharacters()
         }
+    }
+    
+    func onFetchCompleted(indexPathsToReload: [IndexPath]?) {
+        guard let unwrappedIndexPathsToReload = indexPathsToReload else {
+            charactersTableView.reloadData()
+          return
+        }
+        addNewTableRows(tableView: charactersTableView, indexPathsToReload: unwrappedIndexPathsToReload)
+    }
+    
+    func onFetchFailed(error: String) {
+        // TODO
     }
     
     // MARK: - Navigation
@@ -68,49 +76,15 @@ class CharactersController: UITableViewController {
         {
             let indexPath = sender as? IndexPath
             if let unwrappedIndexPath = indexPath {
-                let cell = tableView.cellForRow(at: unwrappedIndexPath) as! CharacterCell
+                let cell = charactersTableView.cellForRow(at: unwrappedIndexPath) as! CharacterCell
                 if let unwrappedSelectedRow = indexPath?.row {
-                    var character = charList[unwrappedSelectedRow]
+                    var character = charactersViewModel.getCharacter(at: unwrappedSelectedRow)
                     if let unwrappedImg = cell.charactersImgView.image {
                         character.image = unwrappedImg
                         destination.character = character
                     }
                 }
             }
-        }
-    }
-    
-    // MARK: - Helper populateTable
-    private func populateTable(limit:Int, offset:Int) {
-        DataManager().downloadCharacters(limit: limit, offset: offset) {
-            (data: APIReturnDataSet?, results: [APIResult]?, error: String) in
-            
-            var newImport: [APIResult] = []
-            
-            for result in results! {
-                var duplicate = false
-                
-                for item in self.prevImportList {
-                    if result.id == item.id {
-                        duplicate = true
-                    }
-                }
-                
-                if !duplicate {
-                    newImport.append(result)
-                }
-            }
-            // append to master array trimmed result set
-            self.charList += newImport
-            // increment offset by what we received
-            self.offset += (data?.data?.count)!
-            // copy response array to previous imported array
-            self.prevImportList = results!
-            
-            self.charAttributionText = data?.attributionText
-            
-            self.loadingData = false
-            self.tableView.reloadData()
         }
     }
     
@@ -123,7 +97,7 @@ class CharactersController: UITableViewController {
         if (cellData.description == "" || cellData.description == nil) {
             cell.charactersDescriptionLabel.text = "No description available"
             // update the character object with no description available
-            charList[index].description = "No description available"
+            charactersViewModel.setCharacterNoDescription(at: index)
         } else {
             cell.charactersDescriptionLabel.text = cellData.description
         }
@@ -137,7 +111,7 @@ class CharactersController: UITableViewController {
             
         if let unwrappedId = cellData.id {
             // Checks if image already exists on user documents or if it's needed to be downloaded
-            imageManager(characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, cell: cell, index: index) { (image) in
+            imageManager(characterName: cellData.name!, characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, cell: cell, index: index) { (image) in
                 self.addImageToCell(cell: cell, spinner: spinner, image: image)
             }
         }
@@ -145,7 +119,7 @@ class CharactersController: UITableViewController {
     }
     
     // MARK: Helper imageManager
-    private func imageManager(characterId: String, imageUrl: URL?, cell: CharacterCell, index: Int, completion: @escaping (UIImage) -> Void) {
+    private func imageManager(characterName: String, characterId: String, imageUrl: URL?, cell: CharacterCell, index: Int, completion: @escaping (UIImage) -> Void) {
         // Fetch from alamofire image cache
         let cachedImage = self.imageCache.image(withIdentifier: characterId)
         if let unwrappedCachedImage = cachedImage {
@@ -299,6 +273,16 @@ class CharactersController: UITableViewController {
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor(named: "MarvelCellHighlightRed")
         cell.selectedBackgroundView = bgColorView
+    }
+    
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row >= charactersViewModel.charactersCount - 1
+    }
+    
+    func addNewTableRows(tableView: UITableView, indexPathsToReload: [IndexPath]) {
+        charactersTableView.beginUpdates()
+        charactersTableView.insertRows(at: indexPathsToReload, with: .automatic)
+        charactersTableView.endUpdates()
     }
     
 }
