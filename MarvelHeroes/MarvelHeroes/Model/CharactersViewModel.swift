@@ -21,12 +21,24 @@ final class CharactersViewModel {
     private var isFetchingAPIData = false
     private let dataManager = DataManager()
     
+    init(delegate: CharactersViewModelDelegate) {
+      self.delegate = delegate
+    }
+    
     var charactersCount: Int {
         return characters.count
     }
     
-    func character(at index: Int) -> APIResult {
+    func getCharacters() -> [APIResult] {
+        return characters
+    }
+    
+    func getCharacter(at index: Int) -> APIResult {
         return characters[index]
+    }
+    
+    func setCharacterNoDescription(at index: Int) {
+        characters[index].description = "No description available"
     }
     
     func fetchCharacters() {
@@ -41,21 +53,23 @@ final class CharactersViewModel {
             
             // Fetch ok
             if let unwrappedResults = results {
-                self.characters += unwrappedResults
+                self.characters.append(contentsOf: unwrappedResults)
                 
                 if let unwrappedAPIReturnDataSet = data {
                     if let unwrappedData = unwrappedAPIReturnDataSet.data {
                         if let unwrappedCount = unwrappedData.count {
                             self.offset += unwrappedCount
                         }
+                        
+                        if let unwrappedOffset = unwrappedData.offset {
+                            if (unwrappedOffset >= self.limit) {
+                                let indexPathsToReload = self.calculateIndexPathsToReload(from: unwrappedResults)
+                                self.delegate?.onFetchCompleted(indexPathsToReload: indexPathsToReload)
+                            } else {
+                                self.delegate?.onFetchCompleted(indexPathsToReload: .none)
+                            }
+                        }
                     }
-                }
-                
-                if (self.offset >= self.limit) {
-                    let indexPathsToReload = self.calculateIndexPathsToReload(from: unwrappedResults)
-                    self.delegate?.onFetchCompleted(indexPathsToReload: indexPathsToReload)
-                } else {
-                    self.delegate?.onFetchCompleted(indexPathsToReload: nil)
                 }
             }
             // Fetch error
