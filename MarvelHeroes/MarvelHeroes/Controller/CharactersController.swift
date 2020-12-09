@@ -41,8 +41,8 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
         changeCellHighlightColor(cell: cell)
-        let cellData = charactersViewModel.getCharacter(at: indexPath.row)
-        return organizeCell(cell: cell, cellData: cellData, index: indexPath.row)
+        let character = charactersViewModel.getCharacter(at: indexPath.row)
+        return organizeCell(cell: cell, character: character, index: indexPath.row)
     }
     
     // MARK: -> prefetchRowsAt
@@ -89,17 +89,17 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     }
     
     // MARK: Helper organizeCell
-    func organizeCell(cell: CharacterCell, cellData: APIResult, index: Int) -> CharacterCell {
+    func organizeCell(cell: CharacterCell, character: APIResult, index: Int) -> CharacterCell {
         // Character name
-        cell.charactersNameLabel.text = cellData.name
+        cell.charactersNameLabel.text = character.name
         
         // Character description
-        if (cellData.description == "" || cellData.description == nil) {
+        if (character.description == "" || character.description == nil) {
             cell.charactersDescriptionLabel.text = "No description available"
             // update the character object with no description available
             charactersViewModel.setCharacterNoDescription(at: index)
         } else {
-            cell.charactersDescriptionLabel.text = cellData.description
+            cell.charactersDescriptionLabel.text = character.description
         }
         
         // Spinner
@@ -109,17 +109,21 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
         // clear cell image because of its reusability
         cell.charactersImgView.image = nil
         
-        if let unwrappedId = cellData.id {
-            // Checks if image already exists on user documents or if it's needed to be downloaded
-            imageManager(characterName: cellData.name!, characterId: String(unwrappedId), imageUrl: cellData.thumbnail?.url, cell: cell, index: index) { (image) in
-                self.addImageToCell(cell: cell, spinner: spinner, image: image)
-            }
+        // Checks if image already exists on user documents or if it's needed to be downloaded
+        imageManager(character: character, cell: cell) { (image) in
+            self.addImageToCell(cell: cell, spinner: spinner, image: image)
         }
         return cell
     }
     
     // MARK: Helper imageManager
-    private func imageManager(characterName: String, characterId: String, imageUrl: URL?, cell: CharacterCell, index: Int, completion: @escaping (UIImage) -> Void) {
+    private func imageManager(character: APIResult, cell: CharacterCell, completion: @escaping (UIImage) -> Void) {
+        guard let unwrappedCharacterId = character.id else {
+            completion(#imageLiteral(resourceName: "marvel_image_not_available"))
+            return
+        }
+        let characterId = String(unwrappedCharacterId)
+        
         // Fetch from alamofire image cache
         let cachedImage = self.imageCache.image(withIdentifier: characterId)
         if let unwrappedCachedImage = cachedImage {
@@ -144,7 +148,7 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
                 }
                 // if image wasn't retrieved try to download from the internet
                 else {
-                    if let unwrappedImageUrl = imageUrl {
+                    if let unwrappedImageUrl = character.thumbnail?.url {
                         self.downloadManager(imageUrl: unwrappedImageUrl, imageName: characterId) { path in
                             if let unwrappedImagePath = path {
                                 let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
