@@ -30,7 +30,7 @@ struct APIResult: Decodable {
 }
 
 struct APIImageResult: Decodable {
-    private let fileExtension: String?
+    let fileExtension: String?
     private let _path: String!
     
     private var path: String? {

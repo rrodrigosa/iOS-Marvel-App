@@ -118,7 +118,7 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     
     // MARK: Helper imageManager
     private func imageManager(character: APIResult, cell: CharacterCell, completion: @escaping (UIImage) -> Void) {
-        guard let unwrappedCharacterId = character.id else {
+        guard let unwrappedCharacterId = character.id, let unwrappedFileExtension = character.thumbnail?.fileExtension else {
             completion(#imageLiteral(resourceName: "marvel_image_not_available"))
             return
         }
@@ -134,9 +134,9 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
         else {
             // open a background thread to prevent ui freeze
             DispatchQueue.global().async {
-                let imageExists = self.checkIfImageExists(imageName: characterId)
+                let imageExists = self.checkIfImageExists(imageName: characterId, fileExtension: unwrappedFileExtension)
                 if imageExists == true {
-                    let imagePath = self.imagePath(imageName: characterId)
+                    let imagePath = self.imagePath(imageName: characterId, fileExtension: unwrappedFileExtension)
                     if let unwrappedImagePath = imagePath {
                         let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
                         if let unwrappedResizedImage = resizedImage {
@@ -149,7 +149,7 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
                 // if image wasn't retrieved try to download from the internet
                 else {
                     if let unwrappedImageUrl = character.thumbnail?.url {
-                        self.downloadManager(imageUrl: unwrappedImageUrl, imageName: characterId) { path in
+                        self.downloadManager(imageUrl: unwrappedImageUrl, imageName: characterId, fileExtension: unwrappedFileExtension) { path in
                             if let unwrappedImagePath = path {
                                 let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
                                 if let unwrappedResizedImage = resizedImage {
@@ -201,8 +201,8 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
         return UIImage(cgImage: image)
     }
     
-    private func checkIfImageExists(imageName: String) -> Bool? {
-        if let imagePath = imagePath(imageName: imageName),
+    private func checkIfImageExists(imageName: String, fileExtension: String) -> Bool? {
+        if let imagePath = imagePath(imageName: imageName, fileExtension: fileExtension),
            let _ = FileManager.default.contents(atPath: imagePath.path) {
             return true
         }
@@ -210,8 +210,8 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     }
     
     // MARK: Helper retrieveImage
-    private func retrieveImage(imageName: String) -> UIImage? {
-        if let imagePath = imagePath(imageName: imageName),
+    private func retrieveImage(imageName: String, fileExtension: String) -> UIImage? {
+        if let imagePath = imagePath(imageName: imageName, fileExtension: fileExtension),
            let imageData = FileManager.default.contents(atPath: imagePath.path),
            let image = UIImage(data: imageData) {
             return image
@@ -220,9 +220,9 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     }
     
     // MARK: Helper storeImage
-    private func storeImage(image: UIImage, imageName: String) -> URL? {
+    private func storeImage(image: UIImage, imageName: String, fileExtension: String) -> URL? {
         if let jpgRepresentation = image.jpegData(compressionQuality: 1) {
-            if let imagePath = imagePath(imageName: imageName) {
+            if let imagePath = imagePath(imageName: imageName, fileExtension: fileExtension) {
                 do  {
                     try jpgRepresentation.write(to: imagePath,
                                                 options: .atomic)
@@ -236,20 +236,20 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     }
     
     // MARK: Helper imagePath
-    private func imagePath(imageName: String) -> URL? {
+    private func imagePath(imageName: String, fileExtension: String) -> URL? {
         let fileManager = FileManager.default
         // path to save the images on documents directory
         guard let documentPath = fileManager.urls(for: .documentDirectory,
                                                   in: FileManager.SearchPathDomainMask.userDomainMask).first else { return nil }
-        let appendedDocumentPath = documentPath.appendingPathComponent(imageName)
+        let appendedDocumentPath = documentPath.appendingPathComponent(imageName).appendingPathExtension(fileExtension)
         return appendedDocumentPath
     }
     
     // MARK: Helper downloadManager
-    private func downloadManager(imageUrl: URL, imageName: String, completion: @escaping (URL?) -> Void) {
+    private func downloadManager(imageUrl: URL, imageName: String, fileExtension: String, completion: @escaping (URL?) -> Void) {
         AF.request(imageUrl).responseImage { response in
             if case .success(let image) = response.result {
-                let path = self.storeImage(image: image, imageName: imageName)
+                let path = self.storeImage(image: image, imageName: imageName, fileExtension: fileExtension)
                 completion(path)
             } else {
                 completion(nil)
