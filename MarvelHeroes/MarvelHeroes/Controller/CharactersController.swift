@@ -149,12 +149,18 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
                 // if image wasn't retrieved try to download from the internet
                 else {
                     if let unwrappedImageUrl = character.thumbnail?.getUrlWithParameters() {
-                        self.downloadManager(imageUrl: unwrappedImageUrl, imageName: characterId, fileExtension: unwrappedFileExtension) { path in
-                            if let unwrappedImagePath = path {
-                                let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
-                                if let unwrappedResizedImage = resizedImage {
-                                    DispatchQueue.main.async {
-                                        completion(unwrappedResizedImage)
+                        if (unwrappedImageUrl.absoluteString.contains("image_not_available")) {
+                            DispatchQueue.main.async {
+                                completion(#imageLiteral(resourceName: "marvel_image_not_available"))
+                            }
+                        } else {
+                            self.downloadManager(imageUrl: unwrappedImageUrl, imageName: characterId, fileExtension: unwrappedFileExtension) { path in
+                                if let unwrappedImagePath = path {
+                                    let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
+                                    if let unwrappedResizedImage = resizedImage {
+                                        DispatchQueue.main.async {
+                                            completion(unwrappedResizedImage)
+                                        }
                                     }
                                 }
                             }
