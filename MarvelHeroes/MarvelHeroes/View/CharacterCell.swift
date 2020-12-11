@@ -10,7 +10,6 @@ import Alamofire
 import AlamofireImage
 
 class CharacterCell: UITableViewCell {
-
     @IBOutlet weak var charactersContentView: UIView!
     @IBOutlet weak var charactersImgView: UIImageView!
     @IBOutlet weak var charactersNameLabel: UILabel!
@@ -61,8 +60,6 @@ class CharacterCell: UITableViewCell {
             return
         }
         let characterId = String(unwrappedCharacterId)
-        
-        // Fetch from alamofire image cache
         let cachedImage = imageManager.imageCache.image(withIdentifier: characterId)
         if let unwrappedCachedImage = cachedImage {
             DispatchQueue.main.async {
@@ -70,7 +67,6 @@ class CharacterCell: UITableViewCell {
             }
         }
         else {
-            // open a background thread to prevent ui freeze
             DispatchQueue.global().async {
                 let imageExists = self.imageManager.checkIfImageExists(imageName: characterId, fileExtension: unwrappedFileExtension)
                 if imageExists == true {
@@ -84,7 +80,6 @@ class CharacterCell: UITableViewCell {
                         }
                     }
                 }
-                // if image wasn't retrieved try to download from the internet
                 else {
                     if let unwrappedImageUrl = character.thumbnail?.getUrlWithParameters() {
                         if (unwrappedImageUrl.absoluteString.contains("image_not_available")) {
@@ -104,7 +99,6 @@ class CharacterCell: UITableViewCell {
                             }
                         }
                     }
-                    // if there is no url
                     else {
                         DispatchQueue.main.async {
                             completion(#imageLiteral(resourceName: "marvel_image_not_available"))

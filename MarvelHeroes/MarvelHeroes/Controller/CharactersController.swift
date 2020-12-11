@@ -11,19 +11,14 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     @IBOutlet var charactersTableView: UITableView!
     
     let segueIdentifier = "CellDetails"
-    
-    private var charactersViewModel: CharactersViewModel!
-    
     let imageManager = ImageManager.sharedInstance
+    private var charactersViewModel: CharactersViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "MARVEL CHARACTERS"
         charactersTableView.dataSource = self
         charactersTableView.prefetchDataSource = self
-        
-        // add view title
-        self.title = "MARVEL CHARACTERS"
-        
         charactersViewModel = CharactersViewModel(delegate: self)
         charactersViewModel.fetchCharacters()
         
@@ -64,7 +59,6 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     
     // MARK: - Navigation
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // informs navitation to start the segue
         performSegue(withIdentifier: segueIdentifier, sender: indexPath)
     }
     

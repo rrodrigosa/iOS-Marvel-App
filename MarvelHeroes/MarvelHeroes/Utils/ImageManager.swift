@@ -11,7 +11,6 @@ import AlamofireImage
 
 class ImageManager {
     static let sharedInstance = ImageManager()
-    
     let imageCache = AutoPurgingImageCache()
     
     func configureResizeImage(path: URL, cell: CharacterCell, characterId: String) -> UIImage? {
@@ -34,13 +33,11 @@ class ImageManager {
             kCGImageSourceShouldCacheImmediately: true,
             kCGImageSourceThumbnailMaxPixelSize: max(size.width, size.height)
         ]
-        
         guard let imageSource = CGImageSourceCreateWithURL(url as NSURL, nil),
               let image = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
         else {
             return nil
         }
-        
         return UIImage(cgImage: image)
     }
     
