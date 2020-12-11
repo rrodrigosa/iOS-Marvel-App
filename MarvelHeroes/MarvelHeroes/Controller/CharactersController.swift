@@ -37,8 +37,7 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     // MARK: -> cellForRowAt
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
-        let character = charactersViewModel.getCharacter(at: indexPath.row)
-        cell.organizeCell(charactersViewModel: charactersViewModel, cell: cell, character: character, index: indexPath.row)
+        cell.organizeCell(charactersViewModel: charactersViewModel, cell: cell, index: indexPath.row)
         return cell
     }
     

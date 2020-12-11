@@ -26,7 +26,9 @@ class CharacterCell: UITableViewCell {
     }
     
     // MARK: Helper organizeCell
-    func organizeCell(charactersViewModel: CharactersViewModel, cell: CharacterCell, character: APIResult, index: Int) {
+    func organizeCell(charactersViewModel: CharactersViewModel, cell: CharacterCell, index: Int) {
+        let character = charactersViewModel.getCharacter(at: index)
+        
         // Character name
         cell.charactersNameLabel.text = character.name
         
