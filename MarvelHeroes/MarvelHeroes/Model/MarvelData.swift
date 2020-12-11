@@ -37,8 +37,8 @@ struct APIImageResult: Decodable {
         return self.securePath(path: _path)
     }
     
-    var url: URL? {
-        return URL(string: self.securePath(path: self._path) + "." + self.fileExtension!)
+    func getUrlWithParameters(imageVariant: ImageVariants = .standard_fantastic) -> URL? {
+        return URL(string: self.securePath(path: self._path) + imageVariant.rawValue + "." + self.fileExtension!)
     }
     
     private func securePath(path:String) -> String {
@@ -56,4 +56,19 @@ struct APIImageResult: Decodable {
         case _path = "path"
         case fileExtension = "extension"
     }
+}
+
+enum ImageVariants: String {
+    /// Image size: 65x65px
+    case standard_small = "/standard_small"
+    /// Image size: 100x100px
+    case standard_medium = "/standard_medium"
+    /// Image size: 140x140px
+    case standard_large = "/standard_large"
+    /// Image size: 180x180px
+    case standard_amazing = "/standard_amazing"
+    /// Image size: 200x200px
+    case standard_xlarge = "/standard_xlarge"
+    /// Image size: 250x250px
+    case standard_fantastic = "/standard_fantastic"
 }

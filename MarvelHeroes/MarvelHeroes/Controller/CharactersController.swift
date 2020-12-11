@@ -148,7 +148,7 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
                 }
                 // if image wasn't retrieved try to download from the internet
                 else {
-                    if let unwrappedImageUrl = character.thumbnail?.url {
+                    if let unwrappedImageUrl = character.thumbnail?.getUrlWithParameters() {
                         self.downloadManager(imageUrl: unwrappedImageUrl, imageName: characterId, fileExtension: unwrappedFileExtension) { path in
                             if let unwrappedImagePath = path {
                                 let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
