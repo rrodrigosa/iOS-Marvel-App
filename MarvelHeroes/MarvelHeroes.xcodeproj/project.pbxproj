@@ -94,6 +94,7 @@
 		CB78EA7E252CEA6B00CC48E6 /* MarvelHeroes */ = {
 			isa = PBXGroup;
 			children = (
+				CBD7DBF225840AD4000DF329 /* ViewModel */,
 				CB1FF995252E3F4A00ED7ACA /* Utils */,
 				CB78EA94252CEFEC00CC48E6 /* Model */,
 				CB78EA95252CEFF700CC48E6 /* View */,
@@ -114,7 +115,6 @@
 			children = (
 				CB1FF9A9252E987400ED7ACA /* APIReturnDataSet.swift */,
 				CB1FF9AF252E9AC800ED7ACA /* MarvelData.swift */,
-				CB5381F8257EF71400F80EA2 /* CharactersViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -134,6 +134,14 @@
 				CB1FF9BF252ECF7600ED7ACA /* CharacterCellController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		CBD7DBF225840AD4000DF329 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CB5381F8257EF71400F80EA2 /* CharactersViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E3E6BA96F5CF0D7AB1977F31 /* Frameworks */ = {
