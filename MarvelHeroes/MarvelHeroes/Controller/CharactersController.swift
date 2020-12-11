@@ -72,7 +72,7 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if  segue.identifier == segueIdentifier,
-            let destination = segue.destination as? CharacterCellController
+            let destination = segue.destination as? CharacterCellDetailController
         {
             let indexPath = sender as? IndexPath
             if let unwrappedSelectedRow = indexPath?.row {
