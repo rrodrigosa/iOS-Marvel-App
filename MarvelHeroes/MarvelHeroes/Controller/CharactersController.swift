@@ -75,12 +75,16 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
             let destination = segue.destination as? CharacterCellController
         {
             let indexPath = sender as? IndexPath
-            if let unwrappedIndexPath = indexPath {
-                let cell = charactersTableView.cellForRow(at: unwrappedIndexPath) as! CharacterCell
-                if let unwrappedSelectedRow = indexPath?.row {
-                    var character = charactersViewModel.getCharacter(at: unwrappedSelectedRow)
-                    if let unwrappedImg = cell.charactersImgView.image {
-                        character.image = unwrappedImg
+            if let unwrappedSelectedRow = indexPath?.row {
+                var character = charactersViewModel.getCharacter(at: unwrappedSelectedRow)
+                if let unwrappedCharacterId = character.id {
+                    if let unwrappedFileExtension = character.thumbnail?.fileExtension {
+                        let image = retrieveImage(imageName: String(unwrappedCharacterId), fileExtension: unwrappedFileExtension)
+                        if let unwrappedImage = image {
+                            character.image = unwrappedImage
+                        } else {
+                            character.image = #imageLiteral(resourceName: "marvel_image_not_available")
+                        }
                         destination.character = character
                     }
                 }
