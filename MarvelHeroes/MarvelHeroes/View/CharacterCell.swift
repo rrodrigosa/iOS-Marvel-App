@@ -16,7 +16,7 @@ class CharacterCell: UITableViewCell {
     @IBOutlet weak var charactersNameLabel: UILabel!
     @IBOutlet weak var charactersDescriptionLabel: UILabel!
     
-    let imageCache = AutoPurgingImageCache()
+    let imageManager = ImageManager.sharedInstance
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -47,13 +47,13 @@ class CharacterCell: UITableViewCell {
         cell.charactersImgView.image = nil
         
         // Checks if image already exists on user documents or if it's needed to be downloaded
-        imageManager(character: character, cell: cell) { (image) in
+        configureImage(character: character, cell: cell) { (image) in
             self.addImageToCell(cell: cell, spinner: spinner, image: image)
         }
     }
     
     // MARK: Helper imageManager
-    private func imageManager(character: APIResult, cell: CharacterCell, completion: @escaping (UIImage) -> Void) {
+    private func configureImage(character: APIResult, cell: CharacterCell, completion: @escaping (UIImage) -> Void) {
         guard let unwrappedCharacterId = character.id, let unwrappedFileExtension = character.thumbnail?.fileExtension else {
             completion(#imageLiteral(resourceName: "marvel_image_not_available"))
             return
@@ -61,7 +61,7 @@ class CharacterCell: UITableViewCell {
         let characterId = String(unwrappedCharacterId)
         
         // Fetch from alamofire image cache
-        let cachedImage = self.imageCache.image(withIdentifier: characterId)
+        let cachedImage = imageManager.imageCache.image(withIdentifier: characterId)
         if let unwrappedCachedImage = cachedImage {
             DispatchQueue.main.async {
                 completion(unwrappedCachedImage)
@@ -70,11 +70,11 @@ class CharacterCell: UITableViewCell {
         else {
             // open a background thread to prevent ui freeze
             DispatchQueue.global().async {
-                let imageExists = self.checkIfImageExists(imageName: characterId, fileExtension: unwrappedFileExtension)
+                let imageExists = self.imageManager.checkIfImageExists(imageName: characterId, fileExtension: unwrappedFileExtension)
                 if imageExists == true {
-                    let imagePath = self.imagePath(imageName: characterId, fileExtension: unwrappedFileExtension)
+                    let imagePath = self.imageManager.imagePath(imageName: characterId, fileExtension: unwrappedFileExtension)
                     if let unwrappedImagePath = imagePath {
-                        let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
+                        let resizedImage = self.imageManager.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
                         if let unwrappedResizedImage = resizedImage {
                             DispatchQueue.main.async {
                                 completion(unwrappedResizedImage)
@@ -92,7 +92,7 @@ class CharacterCell: UITableViewCell {
                         } else {
                             self.downloadManager(imageUrl: unwrappedImageUrl, imageName: characterId, fileExtension: unwrappedFileExtension) { path in
                                 if let unwrappedImagePath = path {
-                                    let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
+                                    let resizedImage = self.imageManager.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
                                     if let unwrappedResizedImage = resizedImage {
                                         DispatchQueue.main.async {
                                             completion(unwrappedResizedImage)
@@ -113,85 +113,11 @@ class CharacterCell: UITableViewCell {
         }
     }
     
-    private func configureResizeImage(path: URL, cell: CharacterCell, characterId: String) -> UIImage? {
-        let width = cell.charactersImgView.bounds.size.width
-        let height = cell.charactersImgView.bounds.size.height
-        let size = CGSize(width: width, height: height)
-        let resizedImage = self.resizeImage(at: path, for: size)
-        if let unwrappedResizedImage = resizedImage {
-            // Add/update to alamofire image cache
-            self.imageCache.add(unwrappedResizedImage, withIdentifier: characterId)
-            return unwrappedResizedImage
-        }
-        return nil
-    }
-    
-    func resizeImage(at url: URL, for size: CGSize) -> UIImage? {
-        let options: [CFString: Any] = [
-            kCGImageSourceCreateThumbnailFromImageIfAbsent: true,
-            kCGImageSourceCreateThumbnailWithTransform: true,
-            kCGImageSourceShouldCacheImmediately: true,
-            kCGImageSourceThumbnailMaxPixelSize: max(size.width, size.height)
-        ]
-        
-        guard let imageSource = CGImageSourceCreateWithURL(url as NSURL, nil),
-              let image = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
-        else {
-            return nil
-        }
-        
-        return UIImage(cgImage: image)
-    }
-    
-    private func checkIfImageExists(imageName: String, fileExtension: String) -> Bool? {
-        if let imagePath = imagePath(imageName: imageName, fileExtension: fileExtension),
-           let _ = FileManager.default.contents(atPath: imagePath.path) {
-            return true
-        }
-        return false
-    }
-    
-    // MARK: Helper retrieveImage
-    private func retrieveImage(imageName: String, fileExtension: String) -> UIImage? {
-        if let imagePath = imagePath(imageName: imageName, fileExtension: fileExtension),
-           let imageData = FileManager.default.contents(atPath: imagePath.path),
-           let image = UIImage(data: imageData) {
-            return image
-        }
-        return nil
-    }
-    
-    // MARK: Helper storeImage
-    private func storeImage(image: UIImage, imageName: String, fileExtension: String) -> URL? {
-        if let jpgRepresentation = image.jpegData(compressionQuality: 1) {
-            if let imagePath = imagePath(imageName: imageName, fileExtension: fileExtension) {
-                do  {
-                    try jpgRepresentation.write(to: imagePath,
-                                                options: .atomic)
-                    return imagePath
-                } catch let err {
-                    return nil
-                }
-            }
-        }
-        return nil
-    }
-    
-    // MARK: Helper imagePath
-    private func imagePath(imageName: String, fileExtension: String) -> URL? {
-        let fileManager = FileManager.default
-        // path to save the images on documents directory
-        guard let documentPath = fileManager.urls(for: .documentDirectory,
-                                                  in: FileManager.SearchPathDomainMask.userDomainMask).first else { return nil }
-        let appendedDocumentPath = documentPath.appendingPathComponent(imageName).appendingPathExtension(fileExtension)
-        return appendedDocumentPath
-    }
-    
     // MARK: Helper downloadManager
     private func downloadManager(imageUrl: URL, imageName: String, fileExtension: String, completion: @escaping (URL?) -> Void) {
         AF.request(imageUrl).responseImage { response in
             if case .success(let image) = response.result {
-                let path = self.storeImage(image: image, imageName: imageName, fileExtension: fileExtension)
+                let path = self.imageManager.storeImage(image: image, imageName: imageName, fileExtension: fileExtension)
                 completion(path)
             } else {
                 completion(nil)
