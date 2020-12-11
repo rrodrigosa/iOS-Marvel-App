@@ -14,6 +14,8 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     
     private var charactersViewModel: CharactersViewModel!
     
+    let imageManager = ImageManager.sharedInstance
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         charactersTableView.dataSource = self
@@ -75,12 +77,12 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
                 var character = charactersViewModel.getCharacter(at: unwrappedSelectedRow)
                 if let unwrappedCharacterId = character.id {
                     if let unwrappedFileExtension = character.thumbnail?.fileExtension {
-//                        let image = retrieveImage(imageName: String(unwrappedCharacterId), fileExtension: unwrappedFileExtension)
-//                        if let unwrappedImage = image {
-//                            character.image = unwrappedImage
-//                        } else {
-//                            character.image = #imageLiteral(resourceName: "marvel_image_not_available")
-//                        }
+                        let image = imageManager.retrieveImage(imageName: String(unwrappedCharacterId), fileExtension: unwrappedFileExtension)
+                        if let unwrappedImage = image {
+                            character.image = unwrappedImage
+                        } else {
+                            character.image = #imageLiteral(resourceName: "marvel_image_not_available")
+                        }
                         destination.character = character
                     }
                 }
