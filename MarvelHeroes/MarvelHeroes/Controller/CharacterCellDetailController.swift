@@ -12,7 +12,7 @@ class CharacterCellDetailController: UIViewController {
     @IBOutlet weak var characterImgView: UIImageView!
     @IBOutlet weak var characterDescriptionLabel: UILabel!
     
-    var character: APIResult?
+    var character: Character?
     
     override func viewDidLoad() {
         super.viewDidLoad()

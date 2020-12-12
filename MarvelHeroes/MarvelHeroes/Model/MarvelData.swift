@@ -13,10 +13,10 @@ struct APIData: Decodable {
     let limit: Int?
     let total: Int?
     let count: Int?
-    let results: [APIResult]?
+    let results: [Character]?
 }
 
-struct APIResult: Decodable {
+struct Character: Decodable {
     let id: Int?
     let name: String?
     var description: String?

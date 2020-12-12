@@ -54,7 +54,7 @@ class CharacterCell: UITableViewCell {
     }
     
     // MARK: Helper imageManager
-    private func configureImage(character: APIResult, cell: CharacterCell, completion: @escaping (UIImage) -> Void) {
+    private func configureImage(character: Character, cell: CharacterCell, completion: @escaping (UIImage) -> Void) {
         guard let unwrappedCharacterId = character.id, let unwrappedFileExtension = character.thumbnail?.fileExtension else {
             completion(#imageLiteral(resourceName: "marvel_image_not_available"))
             return

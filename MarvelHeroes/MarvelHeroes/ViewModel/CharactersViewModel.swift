@@ -15,7 +15,7 @@ protocol CharactersViewModelDelegate: AnyObject {
 final class CharactersViewModel {
     private weak var delegate: CharactersViewModelDelegate?
     
-    private var characters: [APIResult] = []
+    private var characters: [Character] = []
     private let limit = 50
     private var offset = 0
     private var isFetchingAPIData = false
@@ -29,11 +29,11 @@ final class CharactersViewModel {
         return characters.count
     }
     
-    func getCharacters() -> [APIResult] {
+    func getCharacters() -> [Character] {
         return characters
     }
     
-    func getCharacter(at index: Int) -> APIResult {
+    func getCharacter(at index: Int) -> Character {
         return characters[index]
     }
     
@@ -48,7 +48,7 @@ final class CharactersViewModel {
         isFetchingAPIData = true
         
         dataManager.downloadCharacters(limit: limit, offset: offset) {
-            (data: APIReturnDataSet?, results: [APIResult]?, error: String) in
+            (data: APIReturnDataSet?, results: [Character]?, error: String) in
             self.isFetchingAPIData = false
             
             // Fetch ok
@@ -79,7 +79,7 @@ final class CharactersViewModel {
         }
     }
     
-    private func calculateIndexPathsToReload(from newCharacters: [APIResult]) -> [IndexPath] {
+    private func calculateIndexPathsToReload(from newCharacters: [Character]) -> [IndexPath] {
         let startIndex = characters.count - newCharacters.count
         let endIndex = startIndex + newCharacters.count
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
