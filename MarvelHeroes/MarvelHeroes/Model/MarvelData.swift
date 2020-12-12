@@ -8,14 +8,6 @@
 import Foundation
 import UIKit
 
-struct APIData: Decodable {
-    let offset: Int?
-    let limit: Int?
-    let total: Int?
-    let count: Int?
-    let results: [Character]?
-}
-
 struct Character: Decodable {
     let id: Int?
     let name: String?
