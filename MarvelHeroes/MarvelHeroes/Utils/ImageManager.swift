@@ -13,6 +13,9 @@ class ImageManager {
     static let sharedInstance = ImageManager()
     let imageCache = AutoPurgingImageCache()
     
+    private init() {
+    }
+    
     func configureResizeImage(path: URL, cell: CharacterCell, characterId: String) -> UIImage? {
         let width = cell.charactersImgView.bounds.size.width
         let height = cell.charactersImgView.bounds.size.height
