@@ -19,7 +19,6 @@ class ImageManager {
         let size = CGSize(width: width, height: height)
         let resizedImage = resizeImage(at: path, for: size)
         if let unwrappedResizedImage = resizedImage {
-            // Add/update to alamofire image cache
             self.imageCache.add(unwrappedResizedImage, withIdentifier: characterId)
             return unwrappedResizedImage
         }
@@ -75,7 +74,6 @@ class ImageManager {
     
     func imagePath(imageName: String, fileExtension: String) -> URL? {
         let fileManager = FileManager.default
-        // path to save the images on documents directory
         guard let documentPath = fileManager.urls(for: .documentDirectory,
                                                   in: FileManager.SearchPathDomainMask.userDomainMask).first else { return nil }
         let appendedDocumentPath = documentPath.appendingPathComponent(imageName).appendingPathExtension(fileExtension)
