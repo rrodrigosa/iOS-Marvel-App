@@ -10,7 +10,7 @@
 		CB1FF997252E3F7E00ED7ACA /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1FF996252E3F7E00ED7ACA /* DataManager.swift */; };
 		CB1FF99C252E849800ED7ACA /* apikeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB1FF99B252E849800ED7ACA /* apikeys.plist */; };
 		CB1FF9AA252E987400ED7ACA /* APIReturnDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1FF9A9252E987400ED7ACA /* APIReturnDataSet.swift */; };
-		CB1FF9B0252E9AC800ED7ACA /* MarvelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1FF9AF252E9AC800ED7ACA /* MarvelData.swift */; };
+		CB1FF9B0252E9AC800ED7ACA /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1FF9AF252E9AC800ED7ACA /* Character.swift */; };
 		CB1FF9B4252EB2CD00ED7ACA /* CharactersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1FF9B3252EB2CD00ED7ACA /* CharactersController.swift */; };
 		CB1FF9B7252EB35500ED7ACA /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1FF9B6252EB35500ED7ACA /* CharacterCell.swift */; };
 		CB1FF9C0252ECF7600ED7ACA /* CharacterCellDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1FF9BF252ECF7600ED7ACA /* CharacterCellDetailController.swift */; };
@@ -31,7 +31,7 @@
 		CB1FF996252E3F7E00ED7ACA /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		CB1FF99B252E849800ED7ACA /* apikeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = apikeys.plist; sourceTree = "<group>"; };
 		CB1FF9A9252E987400ED7ACA /* APIReturnDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIReturnDataSet.swift; sourceTree = "<group>"; };
-		CB1FF9AF252E9AC800ED7ACA /* MarvelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelData.swift; sourceTree = "<group>"; };
+		CB1FF9AF252E9AC800ED7ACA /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		CB1FF9B3252EB2CD00ED7ACA /* CharactersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersController.swift; sourceTree = "<group>"; };
 		CB1FF9B6252EB35500ED7ACA /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
 		CB1FF9BF252ECF7600ED7ACA /* CharacterCellDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCellDetailController.swift; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				CB1FF9A9252E987400ED7ACA /* APIReturnDataSet.swift */,
-				CB1FF9AF252E9AC800ED7ACA /* MarvelData.swift */,
+				CB1FF9AF252E9AC800ED7ACA /* Character.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -275,7 +275,7 @@
 				CB1FF9C0252ECF7600ED7ACA /* CharacterCellDetailController.swift in Sources */,
 				CB1FF9AA252E987400ED7ACA /* APIReturnDataSet.swift in Sources */,
 				CB1FF9B7252EB35500ED7ACA /* CharacterCell.swift in Sources */,
-				CB1FF9B0252E9AC800ED7ACA /* MarvelData.swift in Sources */,
+				CB1FF9B0252E9AC800ED7ACA /* Character.swift in Sources */,
 				CB78EA80252CEA6B00CC48E6 /* AppDelegate.swift in Sources */,
 				CBCAA8C1258426F400852E3D /* ImageManager.swift in Sources */,
 				CB1FF9B4252EB2CD00ED7ACA /* CharactersController.swift in Sources */,
