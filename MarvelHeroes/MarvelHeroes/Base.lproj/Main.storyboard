@@ -105,10 +105,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iby-qn-Nev">
-                                <rect key="frame" x="20" y="328" width="374" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <rect key="frame" x="20" y="328" width="374" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                </variation>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="AQn-ZN-Pux"/>
