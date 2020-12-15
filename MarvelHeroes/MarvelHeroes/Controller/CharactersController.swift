@@ -7,8 +7,10 @@
 
 import UIKit
 
-class CharactersController: UITableViewController, UITableViewDataSourcePrefetching, CharactersViewModelDelegate {
+class CharactersController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching, CharactersViewModelDelegate {
     @IBOutlet var charactersTableView: UITableView!
+    @IBOutlet weak var downloadIndicatorView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let segueIdentifier = "CellDetails"
     let imageManager = ImageManager.sharedInstance
@@ -17,6 +19,7 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "MARVEL CHARACTERS"
+        charactersTableView.delegate = self
         charactersTableView.dataSource = self
         charactersTableView.prefetchDataSource = self
         charactersViewModel = CharactersViewModel(delegate: self)
@@ -27,12 +30,12 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     }
     
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return charactersViewModel.charactersCount
     }
     
     // MARK: -> cellForRowAt
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
         cell.organizeCell(charactersViewModel: charactersViewModel, cell: cell, index: indexPath.row)
         return cell
@@ -47,6 +50,9 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     
     func onFetchCompleted(indexPathsToReload: [IndexPath]?) {
         guard let unwrappedIndexPathsToReload = indexPathsToReload else {
+            activityIndicator.stopAnimating()
+            downloadIndicatorView.isHidden = true
+            charactersTableView.isHidden = false
             charactersTableView.reloadData()
             return
         }
@@ -58,7 +64,7 @@ class CharactersController: UITableViewController, UITableViewDataSourcePrefetch
     }
     
     // MARK: - Navigation
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: segueIdentifier, sender: indexPath)
     }
     
