@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB1E477D258982F600B4FDF0 /* Footer.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1E477C258982F600B4FDF0 /* Footer.xib */; };
+		CB1E47842589845F00B4FDF0 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1E47832589845F00B4FDF0 /* FooterView.swift */; };
 		CB1FF997252E3F7E00ED7ACA /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1FF996252E3F7E00ED7ACA /* DataManager.swift */; };
 		CB1FF99C252E849800ED7ACA /* apikeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB1FF99B252E849800ED7ACA /* apikeys.plist */; };
 		CB1FF9AA252E987400ED7ACA /* APIReturnDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1FF9A9252E987400ED7ACA /* APIReturnDataSet.swift */; };
@@ -28,6 +30,8 @@
 		126DB096D93BB6F33DF6BD76 /* Pods_MarvelHeroes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarvelHeroes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		418A11A8260AE5A2927C40D5 /* Pods-MarvelHeroes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelHeroes.release.xcconfig"; path = "Target Support Files/Pods-MarvelHeroes/Pods-MarvelHeroes.release.xcconfig"; sourceTree = "<group>"; };
 		CA8CA443BCD1090136731DD5 /* Pods-MarvelHeroes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelHeroes.debug.xcconfig"; path = "Target Support Files/Pods-MarvelHeroes/Pods-MarvelHeroes.debug.xcconfig"; sourceTree = "<group>"; };
+		CB1E477C258982F600B4FDF0 /* Footer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Footer.xib; sourceTree = "<group>"; };
+		CB1E47832589845F00B4FDF0 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		CB1FF996252E3F7E00ED7ACA /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		CB1FF99B252E849800ED7ACA /* apikeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = apikeys.plist; sourceTree = "<group>"; };
 		CB1FF9A9252E987400ED7ACA /* APIReturnDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIReturnDataSet.swift; sourceTree = "<group>"; };
@@ -72,6 +76,7 @@
 			children = (
 				CBCAA8C0258426F400852E3D /* ImageManager.swift */,
 				CB1FF996252E3F7E00ED7ACA /* DataManager.swift */,
+				CB1E47832589845F00B4FDF0 /* FooterView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -109,6 +114,7 @@
 				CB78EA8A252CEA6C00CC48E6 /* LaunchScreen.storyboard */,
 				CB78EA8D252CEA6C00CC48E6 /* Info.plist */,
 				CB1FF99B252E849800ED7ACA /* apikeys.plist */,
+				CB1E477C258982F600B4FDF0 /* Footer.xib */,
 			);
 			path = MarvelHeroes;
 			sourceTree = "<group>";
@@ -216,6 +222,7 @@
 			files = (
 				CB78EA8C252CEA6C00CC48E6 /* LaunchScreen.storyboard in Resources */,
 				CB1FF99C252E849800ED7ACA /* apikeys.plist in Resources */,
+				CB1E477D258982F600B4FDF0 /* Footer.xib in Resources */,
 				CB78EA89252CEA6C00CC48E6 /* Assets.xcassets in Resources */,
 				CB78EA87252CEA6B00CC48E6 /* Main.storyboard in Resources */,
 			);
@@ -276,6 +283,7 @@
 				CB1FF9AA252E987400ED7ACA /* APIReturnDataSet.swift in Sources */,
 				CB1FF9B7252EB35500ED7ACA /* CharacterCell.swift in Sources */,
 				CB1FF9B0252E9AC800ED7ACA /* Character.swift in Sources */,
+				CB1E47842589845F00B4FDF0 /* FooterView.swift in Sources */,
 				CB78EA80252CEA6B00CC48E6 /* AppDelegate.swift in Sources */,
 				CBCAA8C1258426F400852E3D /* ImageManager.swift in Sources */,
 				CB1FF9B4252EB2CD00ED7ACA /* CharactersController.swift in Sources */,
