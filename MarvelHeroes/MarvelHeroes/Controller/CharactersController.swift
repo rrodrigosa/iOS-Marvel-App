@@ -12,9 +12,12 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var downloadIndicatorView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var footerView: FooterView!
+    
     let segueIdentifier = "CellDetails"
     let imageManager = ImageManager.sharedInstance
     private var charactersViewModel: CharactersViewModel!
+    private var marvelAttributionText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +52,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func onFetchCompleted(indexPathsToReload: [IndexPath]?) {
+        updateFooterView()
         guard let unwrappedIndexPathsToReload = indexPathsToReload else {
             activityIndicator.stopAnimating()
             downloadIndicatorView.isHidden = true
@@ -84,6 +88,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
                             character.image = #imageLiteral(resourceName: "marvel_image_not_available")
                         }
                         destination.character = character
+                        destination.marvelAttributionText = marvelAttributionText
                     }
                 }
             }
@@ -98,6 +103,13 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         charactersTableView.beginUpdates()
         charactersTableView.insertRows(at: indexPathsToReload, with: .automatic)
         charactersTableView.endUpdates()
+    }
+    
+    private func updateFooterView() {
+        marvelAttributionText = charactersViewModel.getMarvelAttributionText()
+        if let unwrappedMarvelAttributionText = marvelAttributionText {
+            footerView.updateFooterLabelText(marvelAttributionText: unwrappedMarvelAttributionText)
+        }
     }
     
 }
