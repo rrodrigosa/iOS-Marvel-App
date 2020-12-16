@@ -21,7 +21,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "MARVEL CHARACTERS"
+        title = NSLocalizedString("Marvel Characters", comment: "")
         charactersTableView.delegate = self
         charactersTableView.dataSource = self
         charactersTableView.prefetchDataSource = self

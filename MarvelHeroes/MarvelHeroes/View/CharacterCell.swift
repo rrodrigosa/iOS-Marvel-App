@@ -34,7 +34,7 @@ class CharacterCell: UITableViewCell {
         
         // Character description
         if (character.description == "" || character.description == nil) {
-            cell.charactersDescriptionLabel.text = "No description available"
+            cell.charactersDescriptionLabel.text = NSLocalizedString("No description available", comment: "")
             // update the character object with no description available
             charactersViewModel.setCharacterNoDescription(at: index)
         } else {
