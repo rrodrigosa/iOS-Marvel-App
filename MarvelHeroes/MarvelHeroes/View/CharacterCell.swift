@@ -26,6 +26,7 @@ class CharacterCell: UITableViewCell {
     
     // MARK: Helper organizeCell
     func organizeCell(charactersViewModel: CharactersViewModel, cell: CharacterCell, index: Int) {
+        changeAcessoryColor(cell: cell)
         let character = charactersViewModel.getCharacter(at: index)
         
         // Character name
@@ -141,6 +142,13 @@ class CharacterCell: UITableViewCell {
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor(named: "MarvelCellHighlightRed")
         selectedBackgroundView = bgColorView
+    }
+    
+    // default accessory disclosureIndicator doesn't change colors. Using SF Symbols, available for iOS 13 and later
+    private func changeAcessoryColor(cell: CharacterCell) {
+        let imageTest = UIImage(systemName: "chevron.right")
+        let imageView = UIImageView(image: imageTest)
+        cell.accessoryView = imageView
     }
 
 }
