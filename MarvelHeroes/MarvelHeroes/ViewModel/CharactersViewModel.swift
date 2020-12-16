@@ -20,6 +20,7 @@ final class CharactersViewModel {
     private var offset = 0
     private var isFetchingAPIData = false
     private let dataManager = DataManager()
+    private var marvelAttributionText = ""
     
     init(delegate: CharactersViewModelDelegate) {
         self.delegate = delegate
@@ -41,6 +42,10 @@ final class CharactersViewModel {
         characters[index].description = "No description available"
     }
     
+    func getMarvelAttributionText() -> String {
+        return marvelAttributionText
+    }
+    
     func fetchCharacters() {
         guard !isFetchingAPIData else {
             return
@@ -56,6 +61,9 @@ final class CharactersViewModel {
                 self.characters.append(contentsOf: unwrappedResults)
                 
                 if let unwrappedAPIReturnDataSet = data {
+                    if let unwrappedAttributionText = unwrappedAPIReturnDataSet.attributionText {
+                        self.marvelAttributionText = unwrappedAttributionText
+                    }
                     if let unwrappedData = unwrappedAPIReturnDataSet.data {
                         if let unwrappedCount = unwrappedData.count {
                             self.offset += unwrappedCount
