@@ -8,6 +8,8 @@
 
 "Marvel Characters" = "Marvel Characters";
 "No description available" = "No description available";
+"Error" = "Error";
+"Retry" = "Retry";
 "No data received from API" = "No data received from API";
 "Could not decode API data into characters" = "Could not decode API data into characters";
 "No character data received from API" = "No character data received from API";
