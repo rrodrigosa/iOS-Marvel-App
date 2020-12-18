@@ -14,7 +14,7 @@ struct KeyDict {
     let privateKey: String!
 }
 
-public class DataManager {
+class DataManager {
     private var keys: NSDictionary?
     
     // get keys on resources bundle
