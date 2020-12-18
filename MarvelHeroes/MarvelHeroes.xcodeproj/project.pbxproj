@@ -119,12 +119,10 @@
 				CB78EA96252CF00100CC48E6 /* Controller */,
 				CB78EA7F252CEA6B00CC48E6 /* AppDelegate.swift */,
 				CB78EA81252CEA6B00CC48E6 /* SceneDelegate.swift */,
-				CB78EA85252CEA6B00CC48E6 /* Main.storyboard */,
 				CB78EA88252CEA6C00CC48E6 /* Assets.xcassets */,
 				CB78EA8A252CEA6C00CC48E6 /* LaunchScreen.storyboard */,
 				CB78EA8D252CEA6C00CC48E6 /* Info.plist */,
 				CB1FF99B252E849800ED7ACA /* apikeys.plist */,
-				CB1E477C258982F600B4FDF0 /* Footer.xib */,
 				CBE88D6B258ACB3A0077AC56 /* Localizable.strings */,
 			);
 			path = MarvelHeroes;
@@ -142,6 +140,8 @@
 		CB78EA95252CEFF700CC48E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CB78EA85252CEA6B00CC48E6 /* Main.storyboard */,
+				CB1E477C258982F600B4FDF0 /* Footer.xib */,
 				CB1FF9B6252EB35500ED7ACA /* CharacterCell.swift */,
 			);
 			path = View;
