@@ -94,16 +94,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AbI-cE-Pqo" userLabel="DownloadIndicatorView">
-                                <rect key="frame" x="0.0" y="331" width="414" height="115"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="725"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <activityIndicatorView contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" id="Hz5-Ee-oMQ">
-                                        <rect key="frame" x="0.0" y="35" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="35" width="414" height="654"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Downloading API data" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSr-gM-fsf">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="23"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="633"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -200,6 +200,11 @@
                             <constraint firstItem="WiY-QE-ewy" firstAttribute="bottom" secondItem="r5C-NQ-cZq" secondAttribute="bottom" id="gND-88-jyy"/>
                             <constraint firstItem="WiY-QE-ewy" firstAttribute="trailing" secondItem="r5C-NQ-cZq" secondAttribute="trailing" id="m2g-eM-U4R"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="pgK-YJ-e4g"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="NrV-eI-0Q1"/>
                     <connections>
