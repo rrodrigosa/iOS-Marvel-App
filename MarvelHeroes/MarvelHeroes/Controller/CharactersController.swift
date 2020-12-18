@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CharactersController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching, CharactersViewModelDelegate {
+class CharactersController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching, CharactersViewModelDelegate, AlertExtension {
     @IBOutlet var charactersTableView: UITableView!
     @IBOutlet weak var downloadIndicatorView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -64,7 +64,12 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func onFetchFailed(error: String) {
-        // TODO
+        activityIndicator.stopAnimating()
+        let title = "Error"
+        let retryAction = UIAlertAction(title: "Retry", style: .default, handler: { action in
+            self.charactersViewModel.fetchCharacters()
+        })
+        alert(title: title, message: error, actions: [retryAction])
     }
     
     // MARK: - Navigation
