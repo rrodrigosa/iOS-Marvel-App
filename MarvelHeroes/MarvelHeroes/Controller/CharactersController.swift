@@ -64,9 +64,8 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func onFetchFailed(error: String) {
-        activityIndicator.stopAnimating()
-        let title = "Error"
-        let retryAction = UIAlertAction(title: "Retry", style: .default, handler: { action in
+        let title = "Error".localized
+        let retryAction = UIAlertAction(title: "Retry".localized, style: .default, handler: { action in
             self.charactersViewModel.fetchCharacters()
         })
         alert(title: title, message: error, actions: [retryAction])
