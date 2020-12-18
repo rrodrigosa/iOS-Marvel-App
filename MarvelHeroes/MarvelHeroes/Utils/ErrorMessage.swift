@@ -13,7 +13,6 @@ enum ErrorMessage: Error {
     case resultNoData
     case statusCode
     case noStatusCode
-    case thumbnailDownload
     
     var message: String {
         switch self {
@@ -27,8 +26,6 @@ enum ErrorMessage: Error {
             return "Status code: %d"
         case .noStatusCode:
             return "No status code received"
-        case .thumbnailDownload:
-            return "Could not download thumbnail. Try again later"
         }
     }
 }
