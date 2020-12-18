@@ -22,6 +22,8 @@
 		CB78EA87252CEA6B00CC48E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB78EA85252CEA6B00CC48E6 /* Main.storyboard */; };
 		CB78EA89252CEA6C00CC48E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB78EA88252CEA6C00CC48E6 /* Assets.xcassets */; };
 		CB78EA8C252CEA6C00CC48E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB78EA8A252CEA6C00CC48E6 /* LaunchScreen.storyboard */; };
+		CB81BA06258BF46400447922 /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81BA05258BF46400447922 /* AlertExtension.swift */; };
+		CB81BA0B258C06E100447922 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81BA0A258C06E100447922 /* ErrorMessage.swift */; };
 		CBCAA8C1258426F400852E3D /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCAA8C0258426F400852E3D /* ImageManager.swift */; };
 		CBE88D69258ACB3A0077AC56 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CBE88D6B258ACB3A0077AC56 /* Localizable.strings */; };
 		FA3A1CE8DBA4ABBB2A59A811 /* Pods_MarvelHeroes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 126DB096D93BB6F33DF6BD76 /* Pods_MarvelHeroes.framework */; };
@@ -48,6 +50,8 @@
 		CB78EA88252CEA6C00CC48E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB78EA8B252CEA6C00CC48E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB78EA8D252CEA6C00CC48E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB81BA05258BF46400447922 /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
+		CB81BA0A258C06E100447922 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		CBCAA8C0258426F400852E3D /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		CBE88D62258ACA920077AC56 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main.strings"; sourceTree = "<group>"; };
 		CBE88D6A258ACB3A0077AC56 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -82,6 +86,8 @@
 				CBCAA8C0258426F400852E3D /* ImageManager.swift */,
 				CB1FF996252E3F7E00ED7ACA /* DataManager.swift */,
 				CB1E47832589845F00B4FDF0 /* FooterView.swift */,
+				CB81BA05258BF46400447922 /* AlertExtension.swift */,
+				CB81BA0A258C06E100447922 /* ErrorMessage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -291,10 +297,12 @@
 				CB1FF9AA252E987400ED7ACA /* APIReturnDataSet.swift in Sources */,
 				CB1FF9B7252EB35500ED7ACA /* CharacterCell.swift in Sources */,
 				CB1FF9B0252E9AC800ED7ACA /* Character.swift in Sources */,
+				CB81BA0B258C06E100447922 /* ErrorMessage.swift in Sources */,
 				CB1E47842589845F00B4FDF0 /* FooterView.swift in Sources */,
 				CB78EA80252CEA6B00CC48E6 /* AppDelegate.swift in Sources */,
 				CBCAA8C1258426F400852E3D /* ImageManager.swift in Sources */,
 				CB1FF9B4252EB2CD00ED7ACA /* CharactersController.swift in Sources */,
+				CB81BA06258BF46400447922 /* AlertExtension.swift in Sources */,
 				CB78EA82252CEA6B00CC48E6 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
