@@ -89,9 +89,7 @@
 				CBCAA8C0258426F400852E3D /* ImageManager.swift */,
 				CB1FF996252E3F7E00ED7ACA /* DataManager.swift */,
 				CB1E47832589845F00B4FDF0 /* FooterView.swift */,
-				CB81BA05258BF46400447922 /* AlertExtension.swift */,
 				CB81BA0A258C06E100447922 /* ErrorMessage.swift */,
-				CB81BA11258C30FC00447922 /* String+Localizable.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -164,6 +162,8 @@
 		CB81BA18258C573900447922 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CB81BA05258BF46400447922 /* AlertExtension.swift */,
+				CB81BA11258C30FC00447922 /* String+Localizable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
