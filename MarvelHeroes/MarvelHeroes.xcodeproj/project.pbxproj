@@ -112,10 +112,10 @@
 		CB78EA7E252CEA6B00CC48E6 /* MarvelHeroes */ = {
 			isa = PBXGroup;
 			children = (
-				CBD7DBF225840AD4000DF329 /* ViewModel */,
 				CB1FF995252E3F4A00ED7ACA /* Utils */,
 				CB78EA94252CEFEC00CC48E6 /* Model */,
 				CB78EA95252CEFF700CC48E6 /* View */,
+				CBD7DBF225840AD4000DF329 /* ViewModel */,
 				CB78EA96252CF00100CC48E6 /* Controller */,
 				CB78EA7F252CEA6B00CC48E6 /* AppDelegate.swift */,
 				CB78EA81252CEA6B00CC48E6 /* SceneDelegate.swift */,
