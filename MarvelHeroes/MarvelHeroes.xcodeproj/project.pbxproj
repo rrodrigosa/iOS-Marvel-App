@@ -83,6 +83,7 @@
 		CB111DCC258D55170082F1EA /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				CB1FF996252E3F7E00ED7ACA /* DataManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -93,7 +94,6 @@
 				CB111DCC258D55170082F1EA /* Networking */,
 				CB81BA18258C573900447922 /* Extensions */,
 				CBCAA8C0258426F400852E3D /* ImageManager.swift */,
-				CB1FF996252E3F7E00ED7ACA /* DataManager.swift */,
 				CB1E47832589845F00B4FDF0 /* FooterView.swift */,
 			);
 			path = Utils;
