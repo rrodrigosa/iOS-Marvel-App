@@ -8,3 +8,8 @@
 
 "Marvel Characters" = "Personagens da Marvel";
 "No description available" = "Sem descrição disponível";
+"No data received from API" = "Sem dados recebidos da API";
+"Could not decode API data into characters" = "Não foi possível decodificar os dados da API para os personagens";
+"No character data received from API" = "Sem dados de personagem recebidos da API";
+"Status code: %d" = "Código de status: %d";
+"No status code received" = "Código de status não recebido";
