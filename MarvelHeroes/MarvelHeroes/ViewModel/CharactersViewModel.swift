@@ -56,33 +56,28 @@ final class CharactersViewModel {
             (data: APIReturnDataSet?, results: [Character]?, error: String) in
             self.isFetchingAPIData = false
             
-            // Fetch ok
-            if let unwrappedResults = results {
-                self.characters.append(contentsOf: unwrappedResults)
+            guard let unwrappedAPIReturnDataSet = data, let unwrappedResults = results else {
+                self.delegate?.onFetchFailed(error: error)
+                return
+            }
+            self.characters.append(contentsOf: unwrappedResults)
+            
+            if let unwrappedAttributionText = unwrappedAPIReturnDataSet.attributionText {
+                self.marvelAttributionText = unwrappedAttributionText
+            }
+            if let unwrappedData = unwrappedAPIReturnDataSet.data {
+                if let unwrappedCount = unwrappedData.count {
+                    self.offset += unwrappedCount
+                }
                 
-                if let unwrappedAPIReturnDataSet = data {
-                    if let unwrappedAttributionText = unwrappedAPIReturnDataSet.attributionText {
-                        self.marvelAttributionText = unwrappedAttributionText
-                    }
-                    if let unwrappedData = unwrappedAPIReturnDataSet.data {
-                        if let unwrappedCount = unwrappedData.count {
-                            self.offset += unwrappedCount
-                        }
-                        
-                        if let unwrappedOffset = unwrappedData.offset {
-                            if (unwrappedOffset >= self.limit) {
-                                let indexPathsToReload = self.calculateIndexPathsToReload(from: unwrappedResults)
-                                self.delegate?.onFetchCompleted(indexPathsToReload: indexPathsToReload)
-                            } else {
-                                self.delegate?.onFetchCompleted(indexPathsToReload: .none)
-                            }
-                        }
+                if let unwrappedOffset = unwrappedData.offset {
+                    if (unwrappedOffset >= self.limit) {
+                        let indexPathsToReload = self.calculateIndexPathsToReload(from: unwrappedResults)
+                        self.delegate?.onFetchCompleted(indexPathsToReload: indexPathsToReload)
+                    } else {
+                        self.delegate?.onFetchCompleted(indexPathsToReload: .none)
                     }
                 }
-            }
-            // Fetch error
-            else {
-                self.delegate?.onFetchFailed(error: error)
             }
         }
     }
