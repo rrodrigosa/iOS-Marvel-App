@@ -82,7 +82,7 @@ final class CharactersViewModel {
             }
             // Fetch error
             else {
-                self.delegate?.onFetchFailed(error: "error")
+                self.delegate?.onFetchFailed(error: error)
             }
         }
     }

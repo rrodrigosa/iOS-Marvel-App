@@ -46,19 +46,24 @@ public class DataManager {
         
         AF.request(baseMarvelURL, parameters: params).validate().responseJSON { response in
             guard let responseData = response.data else {
-                completion(nil, [], "Error no data received")
+                completion(nil, [], ErrorMessage.apiNoData.message)
                 return
             }
             guard let marvelReturnData = self.decodeAPIReturnDataSet(data: responseData) else {
-                completion(nil, [], "Error initializating marvel data object")
+                completion(nil, [], ErrorMessage.decode.message)
                 return
             }
             guard marvelReturnData.code == 200 else {
-                completion(nil, [], "Error Return Code: \(String(describing: marvelReturnData.code))")
+                if let unwrappedMarvelReturnDataCode = marvelReturnData.code {
+                    let message = String(format: ErrorMessage.statusCode.message, unwrappedMarvelReturnDataCode)
+                    completion(nil, [], message)
+                    return
+                }
+                completion(nil, [], ErrorMessage.noStatusCode.message)
                 return
             }
             guard let results = marvelReturnData.data?.results else {
-                completion(nil, [], "No data returned")
+                completion(nil, [], ErrorMessage.resultNoData.message)
                 return
             }
             completion(marvelReturnData, results, "No Errors")
