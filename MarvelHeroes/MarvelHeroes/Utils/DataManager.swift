@@ -31,7 +31,7 @@ public class DataManager {
     }
     
     // MARK: -> requestData
-    func downloadCharacters(limit: Int, offset: Int, completion:  @escaping (_ dataSet: APIReturnDataSet?, _ results: [Character]?, _ errorString:String) -> Void) {
+    func downloadCharacters(limit: Int, offset: Int, completion:  @escaping (_ dataSet: APIReturnDataSet?, _ results: [Character]?, _ error: String) -> Void) {
         let dict: KeyDict = self.getKeys()
         let baseMarvelURL = "https://gateway.marvel.com/v1/public/characters"
         let ts = NSDate().timeIntervalSince1970.description
