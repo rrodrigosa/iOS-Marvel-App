@@ -39,7 +39,7 @@ final class CharactersViewModel {
     }
     
     func setCharacterNoDescription(at index: Int) {
-        characters[index].description = NSLocalizedString("No description available", comment: "")
+        characters[index].description = "No description available".localized
     }
     
     func getMarvelAttributionText() -> String {

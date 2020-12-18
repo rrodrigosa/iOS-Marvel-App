@@ -17,15 +17,15 @@ enum ErrorMessage: Error {
     var message: String {
         switch self {
         case .apiNoData:
-            return "No data received from API"
+            return "No data received from API".localized
         case .decode:
-            return "Could not decode API data into characters"
+            return "Could not decode API data into characters".localized
         case .resultNoData:
-            return "No data received on API result"
+            return "No character data received from API".localized
         case .statusCode:
-            return "Status code: %d"
+            return "Status code: %d".localized
         case .noStatusCode:
-            return "No status code received"
+            return "No status code received".localized
         }
     }
 }
