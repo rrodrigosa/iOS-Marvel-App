@@ -44,7 +44,7 @@ struct APIImageResult: Decodable {
         }
     }
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case _path = "path"
         case fileExtension = "extension"
     }
