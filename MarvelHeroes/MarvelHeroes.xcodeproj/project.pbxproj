@@ -85,6 +85,7 @@
 		CB1FF995252E3F4A00ED7ACA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				CB81BA18258C573900447922 /* Extensions */,
 				CBCAA8C0258426F400852E3D /* ImageManager.swift */,
 				CB1FF996252E3F7E00ED7ACA /* DataManager.swift */,
 				CB1E47832589845F00B4FDF0 /* FooterView.swift */,
@@ -158,6 +159,13 @@
 				CB1FF9BF252ECF7600ED7ACA /* CharacterCellDetailController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		CB81BA18258C573900447922 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		CBD7DBF225840AD4000DF329 /* ViewModel */ = {
