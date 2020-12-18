@@ -80,9 +80,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CB111DCC258D55170082F1EA /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		CB1FF995252E3F4A00ED7ACA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				CB111DCC258D55170082F1EA /* Networking */,
 				CB81BA18258C573900447922 /* Extensions */,
 				CBCAA8C0258426F400852E3D /* ImageManager.swift */,
 				CB1FF996252E3F7E00ED7ACA /* DataManager.swift */,
