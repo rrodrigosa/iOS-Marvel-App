@@ -32,7 +32,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: -> cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
-        cell.organizeCell(charactersViewModel: charactersViewModel, cell: cell, index: indexPath.row)
+        cell.configureCell(charactersViewModel: charactersViewModel, cell: cell, index: indexPath.row)
         return cell
     }
     

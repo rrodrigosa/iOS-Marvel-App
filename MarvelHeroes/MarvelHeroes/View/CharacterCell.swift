@@ -25,7 +25,7 @@ class CharacterCell: UITableViewCell {
     }
     
     // MARK: Helper organizeCell
-    func organizeCell(charactersViewModel: CharactersViewModel, cell: CharacterCell, index: Int) {
+    func configureCell(charactersViewModel: CharactersViewModel, cell: CharacterCell, index: Int) {
         changeAcessoryColor(cell: cell)
         let character = charactersViewModel.getCharacter(at: index)
         
