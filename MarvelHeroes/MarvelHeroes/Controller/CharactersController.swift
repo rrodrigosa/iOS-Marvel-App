@@ -98,9 +98,6 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         charactersTableView.prefetchDataSource = self
         charactersViewModel = CharactersViewModel(delegate: self)
         charactersViewModel.fetchCharacters()
-        
-        // remove empty cells
-        charactersTableView.tableFooterView = UIView()
     }
     
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
