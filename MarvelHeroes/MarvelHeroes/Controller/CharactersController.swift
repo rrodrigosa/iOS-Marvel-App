@@ -24,6 +24,10 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         viewDidLoadConfigure()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        deselectCell()
+    }
+    
     // MARK: - Table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return charactersViewModel.charactersCount
@@ -114,6 +118,12 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         marvelAttributionText = charactersViewModel.getMarvelAttributionText()
         if let unwrappedMarvelAttributionText = marvelAttributionText {
             footerView.updateFooterLabelText(marvelAttributionText: unwrappedMarvelAttributionText)
+        }
+    }
+    
+    private func deselectCell() {
+        if let index = self.charactersTableView.indexPathForSelectedRow {
+            self.charactersTableView.deselectRow(at: index, animated: false)
         }
     }
     
