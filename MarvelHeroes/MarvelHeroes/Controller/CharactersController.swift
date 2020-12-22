@@ -21,15 +21,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Marvel Characters".localized
-        charactersTableView.delegate = self
-        charactersTableView.dataSource = self
-        charactersTableView.prefetchDataSource = self
-        charactersViewModel = CharactersViewModel(delegate: self)
-        charactersViewModel.fetchCharacters()
-        
-        // remove empty cells
-        charactersTableView.tableFooterView = UIView()
+        viewDidLoadConfigure()
     }
     
     // MARK: - Table view data source
@@ -97,6 +89,18 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
             }
         }
+    }
+    
+    private func viewDidLoadConfigure() {
+        title = "Marvel Characters".localized
+        charactersTableView.delegate = self
+        charactersTableView.dataSource = self
+        charactersTableView.prefetchDataSource = self
+        charactersViewModel = CharactersViewModel(delegate: self)
+        charactersViewModel.fetchCharacters()
+        
+        // remove empty cells
+        charactersTableView.tableFooterView = UIView()
     }
     
     func isLoadingCell(for indexPath: IndexPath) -> Bool {

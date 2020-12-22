@@ -18,7 +18,10 @@ class CharacterCellDetailController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        viewDidLoadConfigure()
+    }
+    
+    private func viewDidLoadConfigure() {
         // Do any additional setup after loading the view.
         characterImgView.image = character?.image
         characterDescriptionLabel.text = character?.description
