@@ -49,78 +49,11 @@ class CharacterCell: UITableViewCell {
         cell.charactersImgView.image = nil
         
         // Checks if image already exists on user documents or if it's needed to be downloaded
-        configureImage(character: character, cell: cell) { (image) in
+        imageManager.configureImage(character: character, cell: cell) { (image) in
             self.addImageToCell(cell: cell, spinner: spinner, image: image)
         }
     }
     
-    // MARK: Helper imageManager
-    private func configureImage(character: Character, cell: CharacterCell, completion: @escaping (UIImage) -> Void) {
-        guard let unwrappedCharacterId = character.id, let unwrappedFileExtension = character.thumbnail?.fileExtension else {
-            completion(#imageLiteral(resourceName: "marvel_image_not_available"))
-            return
-        }
-        let characterId = String(unwrappedCharacterId)
-        let cachedImage = imageManager.imageCache.image(withIdentifier: characterId)
-        if let unwrappedCachedImage = cachedImage {
-            DispatchQueue.main.async {
-                completion(unwrappedCachedImage)
-            }
-        }
-        else {
-            DispatchQueue.global().async {
-                let imageExists = self.imageManager.checkIfImageExists(imageName: characterId, fileExtension: unwrappedFileExtension)
-                if imageExists == true {
-                    let imagePath = self.imageManager.imagePath(imageName: characterId, fileExtension: unwrappedFileExtension)
-                    if let unwrappedImagePath = imagePath {
-                        let resizedImage = self.imageManager.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
-                        if let unwrappedResizedImage = resizedImage {
-                            DispatchQueue.main.async {
-                                completion(unwrappedResizedImage)
-                            }
-                        }
-                    }
-                }
-                else {
-                    if let unwrappedImageUrl = character.thumbnail?.getUrlWithParameters() {
-                        if (unwrappedImageUrl.absoluteString.contains("image_not_available")) {
-                            DispatchQueue.main.async {
-                                completion(#imageLiteral(resourceName: "marvel_image_not_available"))
-                            }
-                        } else {
-                            self.downloadManager(imageUrl: unwrappedImageUrl, imageName: characterId, fileExtension: unwrappedFileExtension) { path in
-                                if let unwrappedImagePath = path {
-                                    let resizedImage = self.imageManager.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
-                                    if let unwrappedResizedImage = resizedImage {
-                                        DispatchQueue.main.async {
-                                            completion(unwrappedResizedImage)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else {
-                        DispatchQueue.main.async {
-                            completion(#imageLiteral(resourceName: "marvel_image_not_available"))
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    // MARK: Helper downloadManager
-    private func downloadManager(imageUrl: URL, imageName: String, fileExtension: String, completion: @escaping (URL?) -> Void) {
-        AF.request(imageUrl).responseImage { response in
-            if case .success(let image) = response.result {
-                let path = self.imageManager.storeImage(image: image, imageName: imageName, fileExtension: fileExtension)
-                completion(path)
-            } else {
-                completion(nil)
-            }
-        }
-    }
     
     // MARK: Helper startSpinner
     private func startSpinner(spinner: UIActivityIndicatorView, cell: CharacterCell) {

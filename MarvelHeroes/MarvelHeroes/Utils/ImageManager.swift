@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 import AlamofireImage
 
 class ImageManager {
@@ -14,6 +15,74 @@ class ImageManager {
     let imageCache = AutoPurgingImageCache()
     
     private init() {
+    }
+    
+    // MARK: Helper imageManager
+    func configureImage(character: Character, cell: CharacterCell, completion: @escaping (UIImage) -> Void) {
+        guard let unwrappedCharacterId = character.id, let unwrappedFileExtension = character.thumbnail?.fileExtension else {
+            completion(#imageLiteral(resourceName: "marvel_image_not_available"))
+            return
+        }
+        let characterId = String(unwrappedCharacterId)
+        let cachedImage = imageCache.image(withIdentifier: characterId)
+        if let unwrappedCachedImage = cachedImage {
+            DispatchQueue.main.async {
+                completion(unwrappedCachedImage)
+            }
+        }
+        else {
+            DispatchQueue.global().async {
+                let imageExists = self.checkIfImageExists(imageName: characterId, fileExtension: unwrappedFileExtension)
+                if imageExists == true {
+                    let imagePath = self.imagePath(imageName: characterId, fileExtension: unwrappedFileExtension)
+                    if let unwrappedImagePath = imagePath {
+                        let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
+                        if let unwrappedResizedImage = resizedImage {
+                            DispatchQueue.main.async {
+                                completion(unwrappedResizedImage)
+                            }
+                        }
+                    }
+                }
+                else {
+                    if let unwrappedImageUrl = character.thumbnail?.getUrlWithParameters() {
+                        if (unwrappedImageUrl.absoluteString.contains("image_not_available")) {
+                            DispatchQueue.main.async {
+                                completion(#imageLiteral(resourceName: "marvel_image_not_available"))
+                            }
+                        } else {
+                            self.downloadManager(imageUrl: unwrappedImageUrl, imageName: characterId, fileExtension: unwrappedFileExtension) { path in
+                                if let unwrappedImagePath = path {
+                                    let resizedImage = self.configureResizeImage(path: unwrappedImagePath, cell: cell, characterId: characterId)
+                                    if let unwrappedResizedImage = resizedImage {
+                                        DispatchQueue.main.async {
+                                            completion(unwrappedResizedImage)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        DispatchQueue.main.async {
+                            completion(#imageLiteral(resourceName: "marvel_image_not_available"))
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: Helper downloadManager
+    private func downloadManager(imageUrl: URL, imageName: String, fileExtension: String, completion: @escaping (URL?) -> Void) {
+        AF.request(imageUrl).responseImage { response in
+            if case .success(let image) = response.result {
+                let path = self.storeImage(image: image, imageName: imageName, fileExtension: fileExtension)
+                completion(path)
+            } else {
+                completion(nil)
+            }
+        }
     }
     
     func configureResizeImage(path: URL, cell: CharacterCell, characterId: String) -> UIImage? {
