@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Alamofire
-import AlamofireImage
 
 class CharacterCell: UITableViewCell {
     @IBOutlet weak var charactersContentView: UIView!

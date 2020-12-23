@@ -5,8 +5,6 @@
 //  Created by RodrigoSA on 12/11/20.
 //
 
-import Foundation
-import UIKit
 import Alamofire
 import AlamofireImage
 
