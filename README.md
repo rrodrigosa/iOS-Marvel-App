@@ -32,8 +32,8 @@ Now you only need a few steps:
 
 #### Todo
 Here are the next implementations I still want to test in the future:   
-- [ ] Caching the images to help with the asynchronously loading
-- [ ] Cleaner architecture pattern and code implementation
+- [x] Caching the images to help with the asynchronously loading
+- [x] Cleaner architecture pattern and code implementation
 - [ ] Implement SwiftUI
 - [ ] Remove apikeys.plist file from project directory and implement better solution for keys security
 
