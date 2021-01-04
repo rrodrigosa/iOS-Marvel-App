@@ -41,6 +41,7 @@ class CharacterCell: UITableViewCell {
         
         // Spinner
         let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.color = UIColor(named: "MarvelBackgroundRed")
         startSpinner(spinner: spinner, cell: cell)
         
         // clear cell image because of its reusability
