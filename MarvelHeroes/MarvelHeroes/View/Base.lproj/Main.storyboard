@@ -215,6 +215,41 @@
                                             <outlet property="charactersNameLabel" destination="pL7-uF-fwT" id="Oje-kv-XCf"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoadingCharacterCell" id="gNx-br-aP9" customClass="LoadingCharacterCell" customModule="MarvelHeroes" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="104.33333587646484" width="414" height="76.333335876464844"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gNx-br-aP9" id="bvY-ok-T2t">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="76.333335876464844"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lNo-sG-oW0">
+                                                    <rect key="frame" x="8" y="8.0000000000000036" width="398" height="60.333333333333343"/>
+                                                    <subviews>
+                                                        <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="tRr-6G-xVC">
+                                                            <rect key="frame" x="189" y="20.333333333333332" width="20" height="19.999999999999996"/>
+                                                            <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </activityIndicatorView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" name="MarvelBackgroundRed"/>
+                                                    <constraints>
+                                                        <constraint firstItem="tRr-6G-xVC" firstAttribute="centerX" secondItem="lNo-sG-oW0" secondAttribute="centerX" id="1vS-oe-8Wt"/>
+                                                        <constraint firstItem="tRr-6G-xVC" firstAttribute="centerY" secondItem="lNo-sG-oW0" secondAttribute="centerY" id="5nh-MO-sfS"/>
+                                                        <constraint firstAttribute="height" constant="60" id="x5W-qx-Fzq"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lNo-sG-oW0" firstAttribute="top" secondItem="bvY-ok-T2t" secondAttribute="top" constant="8" id="BmL-PO-hCi"/>
+                                                <constraint firstAttribute="trailing" secondItem="lNo-sG-oW0" secondAttribute="trailing" constant="8" id="NUR-1Z-oIV"/>
+                                                <constraint firstItem="lNo-sG-oW0" firstAttribute="leading" secondItem="bvY-ok-T2t" secondAttribute="leading" constant="8" id="Y6b-O9-sSO"/>
+                                                <constraint firstAttribute="bottom" secondItem="lNo-sG-oW0" secondAttribute="bottom" constant="8" id="nW8-kp-ToR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="activityIndicator" destination="tRr-6G-xVC" id="fEf-Hx-UD9"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
