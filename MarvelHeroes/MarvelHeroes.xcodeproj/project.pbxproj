@@ -24,6 +24,7 @@
 		CB78EA8C252CEA6C00CC48E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB78EA8A252CEA6C00CC48E6 /* LaunchScreen.storyboard */; };
 		CB81BA06258BF46400447922 /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81BA05258BF46400447922 /* AlertExtension.swift */; };
 		CB81BA12258C30FC00447922 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81BA11258C30FC00447922 /* String+Localizable.swift */; };
+		CB91724525A65F2E000FFA69 /* LoadingCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB91724425A65F2E000FFA69 /* LoadingCharacterCell.swift */; };
 		CBCAA8C1258426F400852E3D /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCAA8C0258426F400852E3D /* ImageManager.swift */; };
 		CBE88D69258ACB3A0077AC56 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CBE88D6B258ACB3A0077AC56 /* Localizable.strings */; };
 		FA3A1CE8DBA4ABBB2A59A811 /* Pods_MarvelHeroes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 126DB096D93BB6F33DF6BD76 /* Pods_MarvelHeroes.framework */; };
@@ -52,6 +53,7 @@
 		CB78EA8D252CEA6C00CC48E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB81BA05258BF46400447922 /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
 		CB81BA11258C30FC00447922 /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
+		CB91724425A65F2E000FFA69 /* LoadingCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCharacterCell.swift; sourceTree = "<group>"; };
 		CBCAA8C0258426F400852E3D /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		CBE88D62258ACA920077AC56 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main.strings"; sourceTree = "<group>"; };
 		CBE88D6A258ACB3A0077AC56 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				CB78EA85252CEA6B00CC48E6 /* Main.storyboard */,
 				CB1E477C258982F600B4FDF0 /* Footer.xib */,
 				CB1FF9B6252EB35500ED7ACA /* CharacterCell.swift */,
+				CB91724425A65F2E000FFA69 /* LoadingCharacterCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				CB1FF9B0252E9AC800ED7ACA /* Character.swift in Sources */,
 				CB1E47842589845F00B4FDF0 /* FooterView.swift in Sources */,
 				CB78EA80252CEA6B00CC48E6 /* AppDelegate.swift in Sources */,
+				CB91724525A65F2E000FFA69 /* LoadingCharacterCell.swift in Sources */,
 				CBCAA8C1258426F400852E3D /* ImageManager.swift in Sources */,
 				CB1FF9B4252EB2CD00ED7ACA /* CharactersController.swift in Sources */,
 				CB81BA06258BF46400447922 /* AlertExtension.swift in Sources */,
