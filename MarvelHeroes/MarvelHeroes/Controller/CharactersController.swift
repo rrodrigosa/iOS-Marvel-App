@@ -35,7 +35,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // MARK: -> cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if isLoadingCell(for: indexPath) {
+        if isLastCell(indexPath: indexPath) {
             reloadRows(indexPath: indexPath)
             let cell = tableView.dequeueReusableCell(withIdentifier: "LoadingCharacterCell", for: indexPath) as! LoadingCharacterCell
             cell.startSpinner()
@@ -49,7 +49,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // MARK: -> prefetchRowsAt
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if indexPaths.contains(where: isLoadingCell) {
+        if indexPaths.contains(where: isLastCell) {
             charactersViewModel.fetchCharacters()
         }
     }
@@ -111,7 +111,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         charactersViewModel.fetchCharacters()
     }
     
-    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+    func isLastCell(indexPath: IndexPath) -> Bool {
         return indexPath.row >= charactersViewModel.charactersCount - 1
     }
     
