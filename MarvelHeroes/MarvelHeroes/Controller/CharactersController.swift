@@ -35,9 +35,16 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // MARK: -> cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
-        cell.configureCell(charactersViewModel: charactersViewModel, cell: cell, index: indexPath.row)
-        return cell
+        if indexPath.row >= charactersViewModel.charactersCount - 1 {
+            reloadRows(indexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LoadingCharacterCell", for: indexPath) as! LoadingCharacterCell
+            cell.startSpinner()
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
+            cell.configureCell(charactersViewModel: charactersViewModel, cell: cell, index: indexPath.row)
+            return cell
+        }
     }
     
     // MARK: -> prefetchRowsAt
@@ -125,6 +132,12 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         if let index = self.charactersTableView.indexPathForSelectedRow {
             self.charactersTableView.deselectRow(at: index, animated: false)
         }
+    }
+    
+    private func reloadRows(indexPath: IndexPath) {
+        var indexPathList = [IndexPath]()
+        indexPathList.append(indexPath)
+        charactersTableView.reloadRows(at: indexPathList, with: .automatic)
     }
     
 }
