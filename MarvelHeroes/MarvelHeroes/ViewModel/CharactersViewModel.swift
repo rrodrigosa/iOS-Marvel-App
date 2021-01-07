@@ -60,7 +60,16 @@ final class CharactersViewModel {
                 self.delegate?.onFetchFailed(error: error)
                 return
             }
+            
+            if !self.characters.isEmpty {
+                // removes the blank character object before appending new data
+                self.characters.removeLast()
+            }
+            
             self.characters.append(contentsOf: unwrappedResults)
+            
+            // add a blank character at the end of the list, so a loading cell can be added to that position
+            self.characters.append(Character(id: 0, name: "", description: "", thumbnail: nil, image: nil))
             
             if let unwrappedAttributionText = unwrappedAPIReturnDataSet.attributionText {
                 self.marvelAttributionText = unwrappedAttributionText
