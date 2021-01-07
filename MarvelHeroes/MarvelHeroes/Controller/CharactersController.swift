@@ -35,7 +35,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // MARK: -> cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row >= charactersViewModel.charactersCount - 1 {
+        if isLoadingCell(for: indexPath) {
             reloadRows(indexPath: indexPath)
             let cell = tableView.dequeueReusableCell(withIdentifier: "LoadingCharacterCell", for: indexPath) as! LoadingCharacterCell
             cell.startSpinner()
