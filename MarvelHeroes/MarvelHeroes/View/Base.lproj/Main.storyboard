@@ -118,18 +118,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AbI-cE-Pqo" userLabel="DownloadIndicatorView">
-                                <rect key="frame" x="-1" y="-1" width="414" height="746"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AbI-cE-Pqo" userLabel="DownloadIndicatorView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="745"/>
                                 <subviews>
-                                    <activityIndicatorView contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" id="Hz5-Ee-oMQ">
-                                        <rect key="frame" x="0.0" y="34" width="414" height="676"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <activityIndicatorView contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Hz5-Ee-oMQ">
+                                        <rect key="frame" x="188.66666666666666" y="354" width="37" height="37"/>
                                         <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </activityIndicatorView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Downloading API data" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSr-gM-fsf">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="654"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading API data" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSr-gM-fsf">
+                                        <rect key="frame" x="114" y="323" width="186" height="23"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -139,6 +136,12 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" name="MarvelBackgroundRed"/>
+                                <constraints>
+                                    <constraint firstItem="Hz5-Ee-oMQ" firstAttribute="centerX" secondItem="AbI-cE-Pqo" secondAttribute="centerX" id="3Wd-vx-oC5"/>
+                                    <constraint firstItem="Hz5-Ee-oMQ" firstAttribute="centerY" secondItem="AbI-cE-Pqo" secondAttribute="centerY" id="4ai-ei-jv3"/>
+                                    <constraint firstItem="Hz5-Ee-oMQ" firstAttribute="top" secondItem="nSr-gM-fsf" secondAttribute="bottom" constant="8" id="8WQ-bp-UQp"/>
+                                    <constraint firstItem="nSr-gM-fsf" firstAttribute="centerX" secondItem="AbI-cE-Pqo" secondAttribute="centerX" id="lSV-oT-vFl"/>
+                                </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="e84-fl-sHu">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="745"/>
@@ -266,12 +269,21 @@
                         <constraints>
                             <constraint firstItem="WiY-QE-ewy" firstAttribute="top" secondItem="e84-fl-sHu" secondAttribute="bottom" constant="8" symbolic="YES" id="0xW-Mw-3mt"/>
                             <constraint firstItem="WiY-QE-ewy" firstAttribute="leading" secondItem="r5C-NQ-cZq" secondAttribute="leading" id="1so-Lj-wSr"/>
+                            <constraint firstItem="AbI-cE-Pqo" firstAttribute="top" secondItem="4XV-0b-zwz" secondAttribute="top" id="FRa-lt-oKv"/>
+                            <constraint firstItem="AbI-cE-Pqo" firstAttribute="leading" secondItem="4XV-0b-zwz" secondAttribute="leading" id="dqH-hh-4t4"/>
                             <constraint firstItem="e84-fl-sHu" firstAttribute="top" secondItem="r5C-NQ-cZq" secondAttribute="top" id="ftG-Bf-liz"/>
                             <constraint firstItem="WiY-QE-ewy" firstAttribute="bottom" secondItem="r5C-NQ-cZq" secondAttribute="bottom" id="gND-88-jyy"/>
+                            <constraint firstItem="r5C-NQ-cZq" firstAttribute="trailing" secondItem="AbI-cE-Pqo" secondAttribute="trailing" id="kM5-5d-TLb"/>
                             <constraint firstItem="WiY-QE-ewy" firstAttribute="trailing" secondItem="r5C-NQ-cZq" secondAttribute="trailing" id="m2g-eM-U4R"/>
                             <constraint firstItem="e84-fl-sHu" firstAttribute="trailing" secondItem="r5C-NQ-cZq" secondAttribute="trailing" id="rGm-Bq-50K"/>
                             <constraint firstItem="e84-fl-sHu" firstAttribute="leading" secondItem="r5C-NQ-cZq" secondAttribute="leading" id="vDb-Qk-SIE"/>
+                            <constraint firstItem="WiY-QE-ewy" firstAttribute="top" secondItem="AbI-cE-Pqo" secondAttribute="bottom" constant="8" symbolic="YES" id="xXJ-2l-2gA"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="e84-fl-sHu"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="NrV-eI-0Q1"/>
                     <connections>
