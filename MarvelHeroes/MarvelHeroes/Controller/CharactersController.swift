@@ -12,6 +12,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var downloadIndicatorView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var footerView: FooterView!
     
     let segueIdentifier = "CellDetails"
@@ -22,10 +23,56 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         viewDidLoadConfigure()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(searchTapped))
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        deselectCell()
+    
+    var searchBarActive = false
+    @objc func searchTapped(sender: UIBarButtonItem) {
+//        self.searchBar.searchBarStyle = .default
+//        self.searchBar.barStyle = .default
+//        self.searchBar.tintColor = .none
+//        self.searchBar.barTintColor = .none
+//        self.searchBar.tintAdjustmentMode = .normal
+//        self.searchBar.isTranslucent = false
+        print("print - settingsTapped")
+        
+        if searchBarActive {
+            searchBarActive = false
+            UIView.animate(withDuration: 1) {
+                print("print - animate 1")
+//                self.searchBar.center.y -= self.searchBar.bounds.height
+//                self.charactersTableView.center.y -= self.searchBar.bounds.height
+                self.searchBar.isHidden = true
+                
+                
+                
+//                self.charactersTableView.isHidden = false
+                self.view.layoutIfNeeded()
+            }
+        } else {
+            searchBarActive = true
+            UIView.animate(withDuration: 1) {
+                print("print - animate 2")
+//                self.searchBar.center.y += self.searchBar.bounds.height
+//                self.charactersTableView.center.y += self.searchBar.bounds.height
+                self.searchBar.isHidden = false
+                
+                
+                
+//                self.charactersTableView.isHidden = true
+                self.view.layoutIfNeeded()
+                
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("print - viewDidAppear")
+//        searchBar.center.x -= view.bounds.width
+//        searchBar.center.y -= searchBar.bounds.height
+        searchBar.isHidden = true
     }
     
     // MARK: - Table view data source

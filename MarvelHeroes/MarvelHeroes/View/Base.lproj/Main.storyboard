@@ -266,7 +266,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="r5C-NQ-cZq"/>
-                        <color key="backgroundColor" name="MarvelBackgroundRed"/>
+                        <color key="backgroundColor" systemColor="systemIndigoColor"/>
                         <constraints>
                             <constraint firstItem="WiY-QE-ewy" firstAttribute="top" secondItem="e84-fl-sHu" secondAttribute="bottom" constant="8" symbolic="YES" id="0xW-Mw-3mt"/>
                             <constraint firstItem="WiY-QE-ewy" firstAttribute="leading" secondItem="r5C-NQ-cZq" secondAttribute="leading" id="1so-Lj-wSr"/>
@@ -287,6 +287,7 @@
                         <outlet property="charactersTableView" destination="pgK-YJ-e4g" id="S1h-IC-FW3"/>
                         <outlet property="downloadIndicatorView" destination="AbI-cE-Pqo" id="2tf-oc-heF"/>
                         <outlet property="footerView" destination="WiY-QE-ewy" id="6Rt-7s-jPG"/>
+                        <outlet property="searchBar" destination="Dje-Ps-HSc" id="T47-Pd-nkj"/>
                         <segue destination="gk1-OV-o2z" kind="show" identifier="CellDetails" id="6PC-5F-6Og"/>
                     </connections>
                 </viewController>
@@ -300,6 +301,9 @@
         <namedColor name="MarvelBackgroundRed">
             <color red="0.78431372549019607" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
