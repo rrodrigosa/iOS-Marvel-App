@@ -29,6 +29,10 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(searchTapped))
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        deselectCell()
+    }
+    
     @objc func searchTapped(sender: UIBarButtonItem) {
         if searchBarActive {
             searchBarActive = false
