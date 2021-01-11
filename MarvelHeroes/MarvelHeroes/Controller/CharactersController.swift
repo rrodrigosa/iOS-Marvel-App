@@ -33,11 +33,13 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     @objc func searchTapped(sender: UIBarButtonItem) {
         if searchBarActive {
             searchBarActive = false
+            navigationItem.rightBarButtonItem?.title = "Search"
             UIView.animate(withDuration: 1) {
                 self.searchBar.isHidden = true
             }
         } else {
             searchBarActive = true
+            navigationItem.rightBarButtonItem?.title = "Close"
             UIView.animate(withDuration: 1) {
                 self.searchBar.isHidden = false
             }
