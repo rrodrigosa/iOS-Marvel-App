@@ -31,49 +31,17 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var searchBarActive = false
     @objc func searchTapped(sender: UIBarButtonItem) {
-//        self.searchBar.searchBarStyle = .default
-//        self.searchBar.barStyle = .default
-//        self.searchBar.tintColor = .none
-//        self.searchBar.barTintColor = .none
-//        self.searchBar.tintAdjustmentMode = .normal
-//        self.searchBar.isTranslucent = false
-        print("print - settingsTapped")
-        
         if searchBarActive {
             searchBarActive = false
             UIView.animate(withDuration: 1) {
-                print("print - animate 1")
-//                self.searchBar.center.y -= self.searchBar.bounds.height
-//                self.charactersTableView.center.y -= self.searchBar.bounds.height
                 self.searchBar.isHidden = true
-                
-                
-                
-//                self.charactersTableView.isHidden = false
-                self.view.layoutIfNeeded()
             }
         } else {
             searchBarActive = true
             UIView.animate(withDuration: 1) {
-                print("print - animate 2")
-//                self.searchBar.center.y += self.searchBar.bounds.height
-//                self.charactersTableView.center.y += self.searchBar.bounds.height
                 self.searchBar.isHidden = false
-                
-                
-                
-//                self.charactersTableView.isHidden = true
-                self.view.layoutIfNeeded()
-                
             }
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print("print - viewDidAppear")
-//        searchBar.center.x -= view.bounds.width
-//        searchBar.center.y -= searchBar.bounds.height
-        searchBar.isHidden = true
     }
     
     // MARK: - Table view data source
