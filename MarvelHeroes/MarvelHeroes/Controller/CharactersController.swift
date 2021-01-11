@@ -8,6 +8,7 @@
 import UIKit
 
 class CharactersController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching, CharactersViewModelDelegate, AlertExtension {
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet var charactersTableView: UITableView!
     @IBOutlet weak var downloadIndicatorView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -106,7 +107,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         guard let unwrappedIndexPathsToReload = indexPathsToReload else {
             activityIndicator.stopAnimating()
             downloadIndicatorView.isHidden = true
-            charactersTableView.isHidden = false
+            stackView.isHidden = false
             charactersTableView.reloadData()
             return
         }
