@@ -256,6 +256,7 @@
                                         </prototypes>
                                     </tableView>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WiY-QE-ewy" customClass="FooterView" customModule="MarvelHeroes" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="753" width="414" height="21"/>
