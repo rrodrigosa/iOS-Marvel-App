@@ -20,6 +20,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     let imageManager = ImageManager.sharedInstance
     private var charactersViewModel: CharactersViewModel!
     private var marvelAttributionText: String?
+    private var searchBarActive = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +29,6 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(searchTapped))
     }
     
-    
-    var searchBarActive = false
     @objc func searchTapped(sender: UIBarButtonItem) {
         if searchBarActive {
             searchBarActive = false
