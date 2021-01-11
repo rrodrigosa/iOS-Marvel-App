@@ -143,11 +143,11 @@
                                     <constraint firstItem="nSr-gM-fsf" firstAttribute="centerX" secondItem="AbI-cE-Pqo" secondAttribute="centerX" id="lSV-oT-vFl"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="e84-fl-sHu">
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="e84-fl-sHu">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="745"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dje-Ps-HSc">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                    <searchBar hidden="YES" contentMode="redraw" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dje-Ps-HSc">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pgK-YJ-e4g">
