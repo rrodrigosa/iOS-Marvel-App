@@ -289,6 +289,7 @@
                         <outlet property="downloadIndicatorView" destination="AbI-cE-Pqo" id="2tf-oc-heF"/>
                         <outlet property="footerView" destination="WiY-QE-ewy" id="6Rt-7s-jPG"/>
                         <outlet property="searchBar" destination="Dje-Ps-HSc" id="T47-Pd-nkj"/>
+                        <outlet property="stackView" destination="e84-fl-sHu" id="x5i-4P-S6Y"/>
                         <segue destination="gk1-OV-o2z" kind="show" identifier="CellDetails" id="6PC-5F-6Og"/>
                     </connections>
                 </viewController>
