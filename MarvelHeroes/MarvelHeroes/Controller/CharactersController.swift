@@ -157,10 +157,10 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
                         } else {
                             character.image = #imageLiteral(resourceName: "marvel_image_not_available")
                         }
-                        destination.character = character
-                        destination.marvelAttributionText = marvelAttributionText
                     }
                 }
+                destination.character = character
+                destination.marvelAttributionText = marvelAttributionText
             }
         }
     }
