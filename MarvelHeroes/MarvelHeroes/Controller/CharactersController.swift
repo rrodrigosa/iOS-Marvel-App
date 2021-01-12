@@ -40,6 +40,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         if searchBarActive {
             searchBarActive = false
             navigationItem.rightBarButtonItem?.title = "Search"
+            searchBar.text = ""
             searchBar.resignFirstResponder()
             // resets table with no filtered data
             charactersTableView.reloadData()
@@ -50,7 +51,6 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
             searchBarActive = true
             navigationItem.rightBarButtonItem?.title = "Close"
             searchBar.becomeFirstResponder()
-            searchBar.text = ""
             UIView.animate(withDuration: 0.5) {
                 self.searchBar.isHidden = false
             }
