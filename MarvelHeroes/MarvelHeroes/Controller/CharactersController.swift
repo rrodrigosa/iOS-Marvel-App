@@ -41,6 +41,8 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
             searchBarActive = false
             navigationItem.rightBarButtonItem?.title = "Search"
             searchBar.resignFirstResponder()
+            // resets table with no filtered data
+            charactersTableView.reloadData()
             UIView.animate(withDuration: 0.5) {
                 self.searchBar.isHidden = true
             }
@@ -55,8 +57,30 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    var filteredCharacters = [Character]()
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("print - bar text: \(searchText)")
+        filteredCharacters = charactersViewModel.getCharacters().filter { character in
+            if let unwrappedBool = character.name?.contains(searchText) {
+                if unwrappedBool { // remove
+                    print("print - name: \(character.name!) | Bool: \(unwrappedBool)")
+                    return unwrappedBool
+                }
+                return false
+            } else {
+                return false
+            }
+        }
+        
+        print("print - filteredCharacters count: \(filteredCharacters.count)")
+        charactersTableView.reloadData()
+    }
+    
+    var isFiltering: Bool {
+        guard let unwrappedBool = searchBar.text?.isEmpty else {
+            return false
+        }
+        return searchBarActive && !unwrappedBool
     }
     
     func searchBarConfigure() {
@@ -65,7 +89,11 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // MARK: - Table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return charactersViewModel.charactersCount
+        if isFiltering {
+            return filteredCharacters.count
+        } else {
+            return charactersViewModel.charactersCount
+        }
     }
     
     // MARK: -> cellForRowAt
@@ -142,6 +170,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         charactersTableView.delegate = self
         charactersTableView.dataSource = self
         charactersTableView.prefetchDataSource = self
+        charactersTableView.keyboardDismissMode = .onDrag
         charactersViewModel = CharactersViewModel(delegate: self)
         charactersViewModel.fetchCharacters()
     }
