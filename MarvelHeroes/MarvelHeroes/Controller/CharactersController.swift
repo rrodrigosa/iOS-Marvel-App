@@ -7,7 +7,8 @@
 
 import UIKit
 
-class CharactersController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching, CharactersViewModelDelegate, AlertExtension {
+class CharactersController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching, CharactersViewModelDelegate, AlertExtension, UISearchBarDelegate {
+    
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet var charactersTableView: UITableView!
     @IBOutlet weak var downloadIndicatorView: UIView!
@@ -27,6 +28,8 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         viewDidLoadConfigure()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(searchTapped))
+        searchBar.delegate = self
+        searchBar.placeholder = "Search by name"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,16 +40,27 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         if searchBarActive {
             searchBarActive = false
             navigationItem.rightBarButtonItem?.title = "Search"
-            UIView.animate(withDuration: 1) {
+            searchBar.resignFirstResponder()
+            UIView.animate(withDuration: 0.5) {
                 self.searchBar.isHidden = true
             }
         } else {
             searchBarActive = true
             navigationItem.rightBarButtonItem?.title = "Close"
-            UIView.animate(withDuration: 1) {
+            searchBar.becomeFirstResponder()
+            searchBar.text = ""
+            UIView.animate(withDuration: 0.5) {
                 self.searchBar.isHidden = false
             }
         }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("print - bar text: \(searchText)")
+    }
+    
+    func searchBarConfigure() {
+        
     }
     
     // MARK: - Table view data source
