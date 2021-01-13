@@ -39,10 +39,6 @@ final class CharactersViewModel {
         return characters
     }
     
-    func getFilteredCharacters() -> [Character] {
-        return filteredCharacters
-    }
-    
     func getCharacter(at index: Int) -> Character {
         return characters[index]
     }
