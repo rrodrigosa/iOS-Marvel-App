@@ -23,9 +23,14 @@ class CharacterCell: UITableViewCell {
     }
     
     // MARK: Helper organizeCell
-    func configureCell(charactersViewModel: CharactersViewModel, cell: CharacterCell, index: Int) {
+    func configureCell(charactersViewModel: CharactersViewModel, cell: CharacterCell, index: Int, isFiltering: Bool) {
         changeAcessoryColor(cell: cell)
-        let character = charactersViewModel.getCharacter(at: index)
+        var character = Character(id: nil, name: nil, description: nil, thumbnail: nil, image: nil)
+        if isFiltering {
+            character = charactersViewModel.getFilteredCharacter(at: index)
+        } else {
+            character = charactersViewModel.getCharacter(at: index)
+        }
         
         // Character name
         cell.charactersNameLabel.text = character.name

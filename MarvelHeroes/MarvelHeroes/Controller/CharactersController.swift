@@ -92,7 +92,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterCell", for: indexPath) as! CharacterCell
-            cell.configureCell(charactersViewModel: charactersViewModel, cell: cell, index: indexPath.row)
+            cell.configureCell(charactersViewModel: charactersViewModel, cell: cell, index: indexPath.row, isFiltering: isFiltering)
             return cell
         }
     }
