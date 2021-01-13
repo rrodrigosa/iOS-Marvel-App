@@ -36,23 +36,10 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @objc func searchTapped(sender: UIBarButtonItem) {
-        if searchBarActive {
-            searchBarActive = false
-            navigationItem.rightBarButtonItem?.title = "Search"
-            searchBar.text = ""
-            searchBar.resignFirstResponder()
-            // resets table with no filtered data
-            charactersTableView.reloadData()
-            UIView.animate(withDuration: 0.5) {
-                self.searchBar.isHidden = true
-            }
-        } else {
-            searchBarActive = true
-            navigationItem.rightBarButtonItem?.title = "Close"
-            searchBar.becomeFirstResponder()
-            UIView.animate(withDuration: 0.5) {
-                self.searchBar.isHidden = false
-            }
+        searchBarActive = true
+        searchBar.becomeFirstResponder()
+        UIView.animate(withDuration: 0.5) {
+            self.searchBar.isHidden = false
         }
     }
     
@@ -70,6 +57,17 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func searchBarConfigure() {
         
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBarActive = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        // resets table with no filtered data
+        charactersTableView.reloadData()
+        UIView.animate(withDuration: 0.5) {
+            self.searchBar.isHidden = true
+        }
     }
     
     // MARK: - Table view data source
