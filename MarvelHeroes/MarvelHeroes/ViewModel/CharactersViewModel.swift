@@ -109,11 +109,7 @@ final class CharactersViewModel {
     func filterCharacters(searchText: String) {
         filteredCharacters = getCharacters().filter { character in
             if let unwrappedBool = character.name?.contains(searchText) {
-                if unwrappedBool { // remove
-                    print("print - name: \(character.name!) | Bool: \(unwrappedBool)")
-                    return unwrappedBool
-                }
-                return false
+                return unwrappedBool
             } else {
                 return false
             }

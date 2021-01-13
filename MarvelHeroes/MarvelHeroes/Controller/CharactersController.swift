@@ -58,7 +58,6 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("print - bar text: \(searchText)")
         charactersViewModel.filterCharacters(searchText: searchText)
         charactersTableView.reloadData()
     }
