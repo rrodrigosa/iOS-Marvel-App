@@ -57,22 +57,9 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    var filteredCharacters = [Character]()
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("print - bar text: \(searchText)")
-        filteredCharacters = charactersViewModel.getCharacters().filter { character in
-            if let unwrappedBool = character.name?.contains(searchText) {
-                if unwrappedBool { // remove
-                    print("print - name: \(character.name!) | Bool: \(unwrappedBool)")
-                    return unwrappedBool
-                }
-                return false
-            } else {
-                return false
-            }
-        }
-        
-        print("print - filteredCharacters count: \(filteredCharacters.count)")
+        charactersViewModel.filterCharacters(searchText: searchText)
         charactersTableView.reloadData()
     }
     
@@ -90,7 +77,7 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: - Table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
-            return filteredCharacters.count
+            return charactersViewModel.filteredCharactersCount
         } else {
             return charactersViewModel.charactersCount
         }

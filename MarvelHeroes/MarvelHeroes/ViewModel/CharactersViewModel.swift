@@ -16,6 +16,7 @@ final class CharactersViewModel {
     private weak var delegate: CharactersViewModelDelegate?
     
     private var characters: [Character] = []
+    private var filteredCharacters: [Character] = []
     private let limit = 50
     private var offset = 0
     private var isFetchingAPIData = false
@@ -30,12 +31,24 @@ final class CharactersViewModel {
         return characters.count
     }
     
+    var filteredCharactersCount: Int {
+        return filteredCharacters.count
+    }
+    
     func getCharacters() -> [Character] {
         return characters
     }
     
+    func getFilteredCharacters() -> [Character] {
+        return filteredCharacters
+    }
+    
     func getCharacter(at index: Int) -> Character {
         return characters[index]
+    }
+    
+    func getFilteredCharacter(at index: Int) -> Character {
+        return filteredCharacters[index]
     }
     
     func setCharacterNoDescription(at index: Int) {
@@ -95,6 +108,20 @@ final class CharactersViewModel {
         let startIndex = characters.count - newCharacters.count
         let endIndex = startIndex + newCharacters.count
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+    }
+    
+    func filterCharacters(searchText: String) {
+        filteredCharacters = getCharacters().filter { character in
+            if let unwrappedBool = character.name?.contains(searchText) {
+                if unwrappedBool { // remove
+                    print("print - name: \(character.name!) | Bool: \(unwrappedBool)")
+                    return unwrappedBool
+                }
+                return false
+            } else {
+                return false
+            }
+        }
     }
     
 }
