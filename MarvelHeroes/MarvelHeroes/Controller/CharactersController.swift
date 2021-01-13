@@ -57,10 +57,6 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         return searchBarActive && !unwrappedBool
     }
     
-    func searchBarConfigure() {
-        
-    }
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBarActive = false
         navigationItem.rightBarButtonItem?.isEnabled = true
