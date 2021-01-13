@@ -29,7 +29,6 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(searchTapped))
         searchBar.delegate = self
-        searchBar.placeholder = "Search by name"
     }
     
     override func viewWillAppear(_ animated: Bool) {

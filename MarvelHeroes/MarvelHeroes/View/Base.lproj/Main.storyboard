@@ -146,12 +146,12 @@
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="e84-fl-sHu">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="745"/>
                                 <subviews>
-                                    <searchBar hidden="YES" contentMode="redraw" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dje-Ps-HSc">
+                                    <searchBar hidden="YES" contentMode="redraw" placeholder="Search by name" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dje-Ps-HSc">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pgK-YJ-e4g">
-                                        <rect key="frame" x="0.0" y="56" width="414" height="689"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="745"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" name="MarvelBackgroundRed"/>
                                         <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
