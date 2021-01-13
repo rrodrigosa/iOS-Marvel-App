@@ -37,6 +37,8 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @objc func searchTapped(sender: UIBarButtonItem) {
         searchBarActive = true
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItem?.tintColor = .clear
         searchBar.becomeFirstResponder()
         UIView.animate(withDuration: 0.5) {
             self.searchBar.isHidden = false
@@ -61,6 +63,8 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBarActive = false
+        navigationItem.rightBarButtonItem?.isEnabled = true
+        navigationItem.rightBarButtonItem?.tintColor = .white
         searchBar.text = ""
         searchBar.resignFirstResponder()
         // resets table with no filtered data
