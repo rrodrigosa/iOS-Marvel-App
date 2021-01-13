@@ -26,9 +26,6 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         viewDidLoadConfigure()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(searchTapped))
-        searchBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -156,6 +153,8 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     
     private func viewDidLoadConfigure() {
         title = "Marvel Characters".localized
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(searchTapped))
+        searchBar.delegate = self
         charactersTableView.delegate = self
         charactersTableView.dataSource = self
         charactersTableView.prefetchDataSource = self
