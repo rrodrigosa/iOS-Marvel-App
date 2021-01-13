@@ -135,7 +135,13 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         {
             let indexPath = sender as? IndexPath
             if let unwrappedSelectedRow = indexPath?.row {
-                var character = charactersViewModel.getCharacter(at: unwrappedSelectedRow)
+                var character = Character(id: nil, name: nil, description: nil, thumbnail: nil, image: nil)
+                if isFiltering {
+                    character = charactersViewModel.getFilteredCharacter(at: unwrappedSelectedRow)
+                } else {
+                    character = charactersViewModel.getCharacter(at: unwrappedSelectedRow)
+                }
+                
                 if let unwrappedCharacterId = character.id {
                     if let unwrappedFileExtension = character.thumbnail?.fileExtension {
                         let image = imageManager.retrieveImage(imageName: String(unwrappedCharacterId), fileExtension: unwrappedFileExtension)
