@@ -11,6 +11,7 @@ import AlamofireImage
 class ImageManager {
     static let sharedInstance = ImageManager()
     let imageCache = AutoPurgingImageCache()
+    private var dictionaryDataRequest: [Int:DataRequest] = [:]
     
     private init() {
     }
@@ -73,14 +74,32 @@ class ImageManager {
     
     // MARK: Helper downloadManager
     private func downloadManager(imageUrl: URL, imageName: String, fileExtension: String, completion: @escaping (URL?) -> Void) {
-        AF.request(imageUrl).responseImage { response in
+        guard let unwrappedId = Int(imageName) else {
+            return
+        }
+        // check if there is a open request with this character id
+        guard dictionaryDataRequest[unwrappedId] == nil else {
+            return
+        }
+        
+        let dataRequest = AF.request(imageUrl).responseImage { response in
             if case .success(let image) = response.result {
                 let path = self.storeImage(image: image, imageName: imageName, fileExtension: fileExtension)
+                self.dictionaryDataRequest[unwrappedId] = nil
                 completion(path)
             } else {
+                self.dictionaryDataRequest[unwrappedId] = nil
                 completion(nil)
             }
         }
+        dictionaryDataRequest[unwrappedId] = dataRequest
+    }
+    
+    func cancelDownload(characterId: Int) {
+        guard let unwrappedDictionary = dictionaryDataRequest[characterId] else {
+            return
+        }
+        unwrappedDictionary.cancel()
     }
     
     func configureResizeImage(path: URL, cell: CharacterCell, characterId: String) -> UIImage? {

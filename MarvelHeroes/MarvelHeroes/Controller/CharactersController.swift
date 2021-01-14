@@ -90,6 +90,15 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    // MARK: -> didEndDisplaying
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let id = charactersViewModel.getCharacter(at: indexPath.row).id
+        guard let unwrappedId = id else {
+            return
+        }
+        imageManager.cancelDownload(characterId: unwrappedId)
+    }
+    
     // MARK: -> prefetchRowsAt
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         if indexPaths.contains(where: isLastCell) {
