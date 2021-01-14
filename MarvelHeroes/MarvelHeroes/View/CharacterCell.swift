@@ -12,6 +12,7 @@ class CharacterCell: UITableViewCell {
     @IBOutlet weak var charactersImgView: UIImageView!
     @IBOutlet weak var charactersNameLabel: UILabel!
     @IBOutlet weak var charactersDescriptionLabel: UILabel!
+    @IBOutlet weak var imgViewActivityIndicator: UIActivityIndicatorView!
     
     let imageManager = ImageManager.sharedInstance
 
@@ -44,26 +45,15 @@ class CharacterCell: UITableViewCell {
             cell.charactersDescriptionLabel.text = character.description
         }
         
-        // Spinner
-        let spinner = UIActivityIndicatorView(style: .medium)
-        spinner.color = UIColor(named: "MarvelBackgroundRed")
-        startSpinner(spinner: spinner, cell: cell)
+        cell.imgViewActivityIndicator.startAnimating()
         
         // clear cell image because of its reusability
         cell.charactersImgView.image = nil
         
         // Checks if image already exists on user documents or if it's needed to be downloaded
         imageManager.configureImage(character: character, cell: cell) { (image) in
-            self.addImageToCell(cell: cell, spinner: spinner, image: image)
+            self.addImageToCell(cell: cell, spinner: cell.imgViewActivityIndicator, image: image)
         }
-    }
-    
-    
-    // MARK: Helper startSpinner
-    private func startSpinner(spinner: UIActivityIndicatorView, cell: CharacterCell) {
-        spinner.center = cell.charactersImgView.center
-        cell.charactersContentView.addSubview(spinner)
-        spinner.startAnimating()
     }
     
     // MARK: Helper addImageToCell
