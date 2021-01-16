@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct Character: Decodable {
+struct Character: Codable {
     let id: Int?
     let name: String?
     var description: String?
@@ -21,7 +21,7 @@ struct Character: Decodable {
     }
 }
 
-struct APIImageResult: Decodable {
+struct APIImageResult: Codable {
     let fileExtension: String?
     private let _path: String!
     

@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct APIReturnDataSet: Decodable {
+struct APIReturnDataSet: Codable {
     let code: Int?
     let status: String?
     let attributionText: String?
     
-    let data: APIData?
+    var data: APIData?
 }
 
-struct APIData: Decodable {
-    let offset: Int?
+struct APIData: Codable {
+    var offset: Int?
     let limit: Int?
     let total: Int?
-    let count: Int?
-    let results: [Character]?
+    var count: Int?
+    var results: [Character]?
 }
