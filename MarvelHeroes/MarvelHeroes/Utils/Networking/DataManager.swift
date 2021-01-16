@@ -30,8 +30,113 @@ class DataManager {
         }
     }
     
+    
+//    // MARK: -> loadCharactersFromDocuments
+//    func loadCharactersFromDocuments(limit: Int, offset: Int, completion:  @escaping (_ dataSet: APIReturnDataSet?, _ results: [Character]?, _ error: String) -> Void) {
+//        print("print - (loadCharactersFromDocuments)")
+//
+//        guard let responseData = retrieveAPIData() else {
+//            completion(nil, nil, ErrorMessage.apiNoData.message)
+//            return
+//        }
+//        guard let marvelReturnData = self.decodeAPIReturnDataSet(data: responseData) else {
+//            completion(nil, nil, ErrorMessage.decode.message)
+//            return
+//        }
+//        guard marvelReturnData.code == 200 else {
+//            // nil or something else
+//            if let unwrappedMarvelReturnDataCode = marvelReturnData.code {
+//                let message = String(format: ErrorMessage.statusCode.message, unwrappedMarvelReturnDataCode)
+//                completion(nil, nil, message)
+//                return
+//            }
+//            completion(nil, nil, ErrorMessage.noStatusCode.message)
+//            return
+//        }
+//        guard let results = marvelReturnData.data?.results else {
+//            completion(nil, nil, ErrorMessage.resultNoData.message)
+//            return
+//        }
+//        completion(marvelReturnData, results, "No Errors")
+//    }
+    
+    
+    func retrieveAPIDataFromDocuments() -> Data? {
+        if let filePath = filePath(),
+           let fileData = FileManager.default.contents(atPath: filePath.path) {
+            return fileData
+        }
+        return nil
+    }
+    
+    func storeAPIData(apiData: Data) {
+        if let filePath = filePath() {
+            do  {
+                try apiData.write(to: filePath, options: .atomic)
+            } catch _ {
+            }
+        }
+    }
+    
+    func encodeToData(apiReturnDataSet: APIReturnDataSet) -> Data? {
+        do {
+            let encoder = JSONEncoder()
+            let jsonData = try encoder.encode(apiReturnDataSet)
+            return jsonData
+        }catch{
+            return nil
+        }
+    }
+    
+    func retrieveDecodedData() -> APIReturnDataSet? {
+        guard let data = retrieveAPIDataFromDocuments() else {
+            return nil
+        }
+        return decodeAPIReturnDataSet(data: data)
+    }
+    
+    func fileManager(apiData: Data, apiReturnDataSet: APIReturnDataSet) {
+        // save everything
+        if apiReturnDataSet.data?.offset == 0 {
+            save(apiReturnDataSet: apiReturnDataSet)
+        }
+        // append the new values received by the api then save
+        else {
+            var apiReturnDataSetCopy = apiReturnDataSet
+            apiReturnDataSetCopy.data?.offset = 0
+            guard let resultsFromDocuments = retrieveDecodedData()?.data?.results else {
+                return
+            }
+            guard let newResults = apiReturnDataSet.data?.results else {
+                return
+            }
+            apiReturnDataSetCopy.data?.results = resultsFromDocuments
+            apiReturnDataSetCopy.data?.results?.append(contentsOf: newResults)
+            let count = apiReturnDataSetCopy.data?.results?.count
+            apiReturnDataSetCopy.data?.count = count
+            save(apiReturnDataSet: apiReturnDataSetCopy)
+        }
+    }
+    
+    private func save(apiReturnDataSet: APIReturnDataSet) {
+        guard let encodeToData = encodeToData(apiReturnDataSet: apiReturnDataSet) else {
+            return
+        }
+        storeAPIData(apiData: encodeToData)
+    }
+    
+    func filePath() -> URL? {
+        let fileManager = FileManager.default
+        guard let documentPath = fileManager.urls(for: .documentDirectory,
+                                                  in: FileManager.SearchPathDomainMask.userDomainMask).first else { return nil }
+        let appendedDocumentPath = documentPath.appendingPathComponent("apiData")
+//        print("path: \(appendedDocumentPath)")
+        return appendedDocumentPath
+    }
+    
     // MARK: -> requestData
     func downloadCharacters(limit: Int, offset: Int, completion:  @escaping (_ dataSet: APIReturnDataSet?, _ results: [Character]?, _ error: String) -> Void) {
+        print("print - (downloadCharacters)")
         let dict: KeyDict = self.getKeys()
         let baseMarvelURL = "https://gateway.marvel.com/v1/public/characters"
         let ts = NSDate().timeIntervalSince1970.description
@@ -53,6 +158,7 @@ class DataManager {
                 completion(nil, nil, ErrorMessage.decode.message)
                 return
             }
+            self.fileManager(apiData: responseData, apiReturnDataSet: marvelReturnData)
             guard marvelReturnData.code == 200 else {
                 // nil or something else
                 if let unwrappedMarvelReturnDataCode = marvelReturnData.code {
