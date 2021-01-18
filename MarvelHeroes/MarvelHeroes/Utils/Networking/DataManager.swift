@@ -61,7 +61,7 @@ class DataManager {
 //    }
     
     
-    func retrieveAPIDataFromDocuments() -> Data? {
+    private func retrieveAPIDataFromDocuments() -> Data? {
         if let filePath = filePath(),
            let fileData = FileManager.default.contents(atPath: filePath.path) {
             return fileData
@@ -69,7 +69,7 @@ class DataManager {
         return nil
     }
     
-    func storeAPIData(apiData: Data) {
+    private func storeAPIData(apiData: Data) {
         if let filePath = filePath() {
             do  {
                 try apiData.write(to: filePath, options: .atomic)
@@ -78,7 +78,7 @@ class DataManager {
         }
     }
     
-    func encodeToData(apiReturnDataSet: APIReturnDataSet) -> Data? {
+    private func encodeToData(apiReturnDataSet: APIReturnDataSet) -> Data? {
         do {
             let encoder = JSONEncoder()
             let jsonData = try encoder.encode(apiReturnDataSet)
@@ -88,14 +88,14 @@ class DataManager {
         }
     }
     
-    func retrieveDecodedData() -> APIReturnDataSet? {
+    private func retrieveDecodedData() -> APIReturnDataSet? {
         guard let data = retrieveAPIDataFromDocuments() else {
             return nil
         }
         return decodeAPIReturnDataSet(data: data)
     }
     
-    func fileManager(apiData: Data, apiReturnDataSet: APIReturnDataSet) {
+    private func fileManager(apiData: Data, apiReturnDataSet: APIReturnDataSet) {
         // save everything
         if apiReturnDataSet.data?.offset == 0 {
             save(apiReturnDataSet: apiReturnDataSet)
@@ -125,7 +125,7 @@ class DataManager {
         storeAPIData(apiData: encodeToData)
     }
     
-    func filePath() -> URL? {
+    private func filePath() -> URL? {
         let fileManager = FileManager.default
         guard let documentPath = fileManager.urls(for: .documentDirectory,
                                                   in: FileManager.SearchPathDomainMask.userDomainMask).first else { return nil }
