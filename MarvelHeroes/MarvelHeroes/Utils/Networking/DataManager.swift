@@ -31,34 +31,34 @@ class DataManager {
     }
     
     
-//    // MARK: -> loadCharactersFromDocuments
-//    func loadCharactersFromDocuments(limit: Int, offset: Int, completion:  @escaping (_ dataSet: APIReturnDataSet?, _ results: [Character]?, _ error: String) -> Void) {
-//        print("print - (loadCharactersFromDocuments)")
-//
-//        guard let responseData = retrieveAPIData() else {
-//            completion(nil, nil, ErrorMessage.apiNoData.message)
-//            return
-//        }
-//        guard let marvelReturnData = self.decodeAPIReturnDataSet(data: responseData) else {
-//            completion(nil, nil, ErrorMessage.decode.message)
-//            return
-//        }
-//        guard marvelReturnData.code == 200 else {
-//            // nil or something else
-//            if let unwrappedMarvelReturnDataCode = marvelReturnData.code {
-//                let message = String(format: ErrorMessage.statusCode.message, unwrappedMarvelReturnDataCode)
-//                completion(nil, nil, message)
-//                return
-//            }
-//            completion(nil, nil, ErrorMessage.noStatusCode.message)
-//            return
-//        }
-//        guard let results = marvelReturnData.data?.results else {
-//            completion(nil, nil, ErrorMessage.resultNoData.message)
-//            return
-//        }
-//        completion(marvelReturnData, results, "No Errors")
-//    }
+    // MARK: -> loadCharactersFromDocuments
+    func loadCharactersFromDocuments(completion:  @escaping (_ dataSet: APIReturnDataSet?, _ results: [Character]?, _ error: String) -> Void) {
+        print("print - (loadCharactersFromDocuments)")
+
+        guard let responseData = retrieveAPIDataFromDocuments() else {
+            completion(nil, nil, ErrorMessage.apiNoData.message)
+            return
+        }
+        guard let marvelReturnData = self.decodeAPIReturnDataSet(data: responseData) else {
+            completion(nil, nil, ErrorMessage.decode.message)
+            return
+        }
+        guard marvelReturnData.code == 200 else {
+            // nil or something else
+            if let unwrappedMarvelReturnDataCode = marvelReturnData.code {
+                let message = String(format: ErrorMessage.statusCode.message, unwrappedMarvelReturnDataCode)
+                completion(nil, nil, message)
+                return
+            }
+            completion(nil, nil, ErrorMessage.noStatusCode.message)
+            return
+        }
+        guard let results = marvelReturnData.data?.results else {
+            completion(nil, nil, ErrorMessage.resultNoData.message)
+            return
+        }
+        completion(marvelReturnData, results, "No Errors")
+    }
     
     
     private func retrieveAPIDataFromDocuments() -> Data? {
@@ -132,6 +132,14 @@ class DataManager {
         let appendedDocumentPath = documentPath.appendingPathComponent("apiData")
 //        print("path: \(appendedDocumentPath)")
         return appendedDocumentPath
+    }
+    
+    func apiDataExistsOnDocuments() -> Bool {
+        let fileManager = FileManager.default
+        guard let documentPath = fileManager.urls(for: .documentDirectory,
+                                                  in: FileManager.SearchPathDomainMask.userDomainMask).first else { return false }
+        let appendedDocumentPath = documentPath.appendingPathComponent("apiData")
+        return fileManager.fileExists(atPath: appendedDocumentPath.path)
     }
     
     // MARK: -> requestData

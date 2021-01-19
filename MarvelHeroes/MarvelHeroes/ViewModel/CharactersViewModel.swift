@@ -61,40 +61,52 @@ final class CharactersViewModel {
         }
         isFetchingAPIData = true
         
-        dataManager.downloadCharacters(limit: limit, offset: offset) {
-            (data: APIReturnDataSet?, results: [Character]?, error: String) in
-            self.isFetchingAPIData = false
-            
-            guard let unwrappedAPIReturnDataSet = data, let unwrappedResults = results else {
-                self.delegate?.onFetchFailed(error: error)
-                return
+        if dataManager.apiDataExistsOnDocuments() && offset == 0 {
+            dataManager.loadCharactersFromDocuments() {
+                (data: APIReturnDataSet?, results: [Character]?, error: String) in
+                self.configureCharacters(data: data, results: results, error: error)
+            }
+        }
+        else {
+            dataManager.downloadCharacters(limit: limit, offset: offset) {
+                (data: APIReturnDataSet?, results: [Character]?, error: String) in
+                self.configureCharacters(data: data, results: results, error: error)
+            }
+        }
+    }
+    
+    private func configureCharacters(data: APIReturnDataSet?, results: [Character]?, error: String) {
+        self.isFetchingAPIData = false
+        
+        guard let unwrappedAPIReturnDataSet = data, let unwrappedResults = results else {
+            self.delegate?.onFetchFailed(error: error)
+            return
+        }
+        
+        if !self.characters.isEmpty {
+            // removes the blank character object before appending new data
+            self.characters.removeLast()
+        }
+        
+        self.characters.append(contentsOf: unwrappedResults)
+        
+        // add a blank character at the end of the list, so a loading cell can be added to that position
+        self.characters.append(Character(id: 0, name: "", description: "", thumbnail: nil, image: nil))
+        
+        if let unwrappedAttributionText = unwrappedAPIReturnDataSet.attributionText {
+            self.marvelAttributionText = unwrappedAttributionText
+        }
+        if let unwrappedData = unwrappedAPIReturnDataSet.data {
+            if let unwrappedCount = unwrappedData.count {
+                self.offset += unwrappedCount
             }
             
-            if !self.characters.isEmpty {
-                // removes the blank character object before appending new data
-                self.characters.removeLast()
-            }
-            
-            self.characters.append(contentsOf: unwrappedResults)
-            
-            // add a blank character at the end of the list, so a loading cell can be added to that position
-            self.characters.append(Character(id: 0, name: "", description: "", thumbnail: nil, image: nil))
-            
-            if let unwrappedAttributionText = unwrappedAPIReturnDataSet.attributionText {
-                self.marvelAttributionText = unwrappedAttributionText
-            }
-            if let unwrappedData = unwrappedAPIReturnDataSet.data {
-                if let unwrappedCount = unwrappedData.count {
-                    self.offset += unwrappedCount
-                }
-                
-                if let unwrappedOffset = unwrappedData.offset {
-                    if (unwrappedOffset >= self.limit) {
-                        let indexPathsToReload = self.calculateIndexPathsToReload(from: unwrappedResults)
-                        self.delegate?.onFetchCompleted(indexPathsToReload: indexPathsToReload)
-                    } else {
-                        self.delegate?.onFetchCompleted(indexPathsToReload: .none)
-                    }
+            if let unwrappedOffset = unwrappedData.offset {
+                if (unwrappedOffset >= self.limit) {
+                    let indexPathsToReload = self.calculateIndexPathsToReload(from: unwrappedResults)
+                    self.delegate?.onFetchCompleted(indexPathsToReload: indexPathsToReload)
+                } else {
+                    self.delegate?.onFetchCompleted(indexPathsToReload: .none)
                 }
             }
         }
