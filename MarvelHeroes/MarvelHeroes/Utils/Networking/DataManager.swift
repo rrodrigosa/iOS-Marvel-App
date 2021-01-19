@@ -79,6 +79,7 @@ class DataManager {
     }
     
     private func encodeToData(apiReturnDataSet: APIReturnDataSet) -> Data? {
+        // enconde to data again so unnecessary fields from API are ignored
         do {
             let encoder = JSONEncoder()
             let jsonData = try encoder.encode(apiReturnDataSet)
