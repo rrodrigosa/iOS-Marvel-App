@@ -62,7 +62,7 @@ class DataManager {
     
     
     private func retrieveAPIDataFromDocuments() -> Data? {
-        if let filePath = filePath(),
+        if let filePath = jsonFilePath(),
            let fileData = FileManager.default.contents(atPath: filePath.path) {
             return fileData
         }
@@ -70,7 +70,7 @@ class DataManager {
     }
     
     private func storeAPIData(apiData: Data) {
-        if let filePath = filePath() {
+        if let filePath = jsonFilePath() {
             do  {
                 try apiData.write(to: filePath, options: .atomic)
             } catch _ {
@@ -125,11 +125,11 @@ class DataManager {
         storeAPIData(apiData: encodeToData)
     }
     
-    private func filePath() -> URL? {
+    private func jsonFilePath() -> URL? {
         let fileManager = FileManager.default
         guard let documentPath = fileManager.urls(for: .documentDirectory,
                                                   in: FileManager.SearchPathDomainMask.userDomainMask).first else { return nil }
-        let appendedDocumentPath = documentPath.appendingPathComponent("apiData")
+        let appendedDocumentPath = documentPath.appendingPathComponent("apiData.json")
 //        print("path: \(appendedDocumentPath)")
         return appendedDocumentPath
     }
@@ -138,7 +138,7 @@ class DataManager {
         let fileManager = FileManager.default
         guard let documentPath = fileManager.urls(for: .documentDirectory,
                                                   in: FileManager.SearchPathDomainMask.userDomainMask).first else { return false }
-        let appendedDocumentPath = documentPath.appendingPathComponent("apiData")
+        let appendedDocumentPath = documentPath.appendingPathComponent("apiData.json")
         return fileManager.fileExists(atPath: appendedDocumentPath.path)
     }
     
