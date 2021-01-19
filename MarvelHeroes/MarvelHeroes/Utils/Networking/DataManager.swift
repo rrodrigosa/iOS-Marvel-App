@@ -129,13 +129,9 @@ class DataManager {
     }
     
     private func fileManager(apiData: Data, apiReturnDataSet: APIReturnDataSet) {
-        guard let encodeToData = encodeToData(apiReturnDataSet: apiReturnDataSet) else {
-            return
-        }
-        
         // save everything
         if apiReturnDataSet.data?.offset == 0 {
-            storeAPIData(apiData: encodeToData)
+            configureToStoreAPIData(apiReturnDataSet: apiReturnDataSet)
         }
         // append the new values received by the api then save
         else {
@@ -151,8 +147,15 @@ class DataManager {
             apiReturnDataSetCopy.data?.results?.append(contentsOf: newResults)
             let count = apiReturnDataSetCopy.data?.results?.count
             apiReturnDataSetCopy.data?.count = count
-            storeAPIData(apiData: encodeToData)
+            configureToStoreAPIData(apiReturnDataSet: apiReturnDataSetCopy)
         }
+    }
+    
+    private func configureToStoreAPIData(apiReturnDataSet: APIReturnDataSet) {
+        guard let encodeToData = encodeToData(apiReturnDataSet: apiReturnDataSet) else {
+            return
+        }
+        storeAPIData(apiData: encodeToData)
     }
     
     private func encodeToData(apiReturnDataSet: APIReturnDataSet) -> Data? {
