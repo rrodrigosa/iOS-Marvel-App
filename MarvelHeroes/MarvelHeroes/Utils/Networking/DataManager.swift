@@ -60,6 +60,58 @@ class DataManager {
         completion(marvelReturnData, results, "No Errors")
     }
     
+    // MARK: -> requestData
+    func downloadCharacters(limit: Int, offset: Int, completion:  @escaping (_ dataSet: APIReturnDataSet?, _ results: [Character]?, _ error: String) -> Void) {
+        print("print - (downloadCharacters)")
+        let dict: KeyDict = self.getKeys()
+        let baseMarvelURL = "https://gateway.marvel.com/v1/public/characters"
+        let ts = NSDate().timeIntervalSince1970.description
+        
+        let params: Parameters = [
+            "apikey": dict.publicKey!,
+            "ts": ts,
+            "hash": (ts + dict.privateKey! + dict.publicKey!).md5(),
+            "limit" : limit,
+            "offset" : offset,
+        ]
+        
+        AF.request(baseMarvelURL, parameters: params).validate().responseJSON { response in
+            guard let responseData = response.data else {
+                completion(nil, nil, ErrorMessage.apiNoData.message)
+                return
+            }
+            guard let marvelReturnData = self.decodeAPIReturnDataSet(data: responseData) else {
+                completion(nil, nil, ErrorMessage.decode.message)
+                return
+            }
+            self.fileManager(apiData: responseData, apiReturnDataSet: marvelReturnData)
+            guard marvelReturnData.code == 200 else {
+                // nil or something else
+                if let unwrappedMarvelReturnDataCode = marvelReturnData.code {
+                    let message = String(format: ErrorMessage.statusCode.message, unwrappedMarvelReturnDataCode)
+                    completion(nil, nil, message)
+                    return
+                }
+                completion(nil, nil, ErrorMessage.noStatusCode.message)
+                return
+            }
+            guard let results = marvelReturnData.data?.results else {
+                completion(nil, nil, ErrorMessage.resultNoData.message)
+                return
+            }
+            completion(marvelReturnData, results, "No Errors")
+        }
+    }
+    
+    func decodeAPIReturnDataSet(data: Data) -> APIReturnDataSet? {
+        do {
+            let decodedData = try JSONDecoder().decode(APIReturnDataSet.self,
+                                                       from: data)
+            return decodedData
+        } catch {
+            return nil
+        }
+    }
     
     private func retrieveAPIDataFromDocuments() -> Data? {
         if let filePath = jsonFilePath(),
@@ -138,59 +190,6 @@ class DataManager {
                                                   in: FileManager.SearchPathDomainMask.userDomainMask).first else { return false }
         let appendedDocumentPath = documentPath.appendingPathComponent("apiData.json")
         return fileManager.fileExists(atPath: appendedDocumentPath.path)
-    }
-    
-    // MARK: -> requestData
-    func downloadCharacters(limit: Int, offset: Int, completion:  @escaping (_ dataSet: APIReturnDataSet?, _ results: [Character]?, _ error: String) -> Void) {
-        print("print - (downloadCharacters)")
-        let dict: KeyDict = self.getKeys()
-        let baseMarvelURL = "https://gateway.marvel.com/v1/public/characters"
-        let ts = NSDate().timeIntervalSince1970.description
-        
-        let params: Parameters = [
-            "apikey": dict.publicKey!,
-            "ts": ts,
-            "hash": (ts + dict.privateKey! + dict.publicKey!).md5(),
-            "limit" : limit,
-            "offset" : offset,
-        ]
-        
-        AF.request(baseMarvelURL, parameters: params).validate().responseJSON { response in
-            guard let responseData = response.data else {
-                completion(nil, nil, ErrorMessage.apiNoData.message)
-                return
-            }
-            guard let marvelReturnData = self.decodeAPIReturnDataSet(data: responseData) else {
-                completion(nil, nil, ErrorMessage.decode.message)
-                return
-            }
-            self.fileManager(apiData: responseData, apiReturnDataSet: marvelReturnData)
-            guard marvelReturnData.code == 200 else {
-                // nil or something else
-                if let unwrappedMarvelReturnDataCode = marvelReturnData.code {
-                    let message = String(format: ErrorMessage.statusCode.message, unwrappedMarvelReturnDataCode)
-                    completion(nil, nil, message)
-                    return
-                }
-                completion(nil, nil, ErrorMessage.noStatusCode.message)
-                return
-            }
-            guard let results = marvelReturnData.data?.results else {
-                completion(nil, nil, ErrorMessage.resultNoData.message)
-                return
-            }
-            completion(marvelReturnData, results, "No Errors")
-        }
-    }
-    
-    func decodeAPIReturnDataSet(data: Data) -> APIReturnDataSet? {
-        do {
-            let decodedData = try JSONDecoder().decode(APIReturnDataSet.self,
-                                                       from: data)
-            return decodedData
-        } catch {
-            return nil
-        }
     }
     
 }
