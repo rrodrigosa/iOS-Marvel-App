@@ -114,7 +114,7 @@ class DataManager {
     }
     
     private func retrieveAPIDataFromDocuments() -> Data? {
-        if let filePath = jsonFilePath(),
+        if let filePath = apiDataPath(),
            let fileData = FileManager.default.contents(atPath: filePath.path) {
             return fileData
         }
@@ -167,7 +167,7 @@ class DataManager {
     }
     
     private func storeAPIData(apiData: Data) {
-        if let filePath = jsonFilePath() {
+        if let filePath = apiDataPath() {
             do  {
                 try apiData.write(to: filePath, options: .atomic)
             } catch _ {
@@ -175,7 +175,7 @@ class DataManager {
         }
     }
     
-    private func jsonFilePath() -> URL? {
+    private func apiDataPath() -> URL? {
         let fileManager = FileManager.default
         guard let documentPath = fileManager.urls(for: .documentDirectory,
                                                   in: FileManager.SearchPathDomainMask.userDomainMask).first else { return nil }
