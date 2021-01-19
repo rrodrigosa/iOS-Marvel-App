@@ -121,26 +121,6 @@ class DataManager {
         return nil
     }
     
-    private func storeAPIData(apiData: Data) {
-        if let filePath = jsonFilePath() {
-            do  {
-                try apiData.write(to: filePath, options: .atomic)
-            } catch _ {
-            }
-        }
-    }
-    
-    private func encodeToData(apiReturnDataSet: APIReturnDataSet) -> Data? {
-        // encode to data again so unnecessary fields from API are ignored
-        do {
-            let encoder = JSONEncoder()
-            let jsonData = try encoder.encode(apiReturnDataSet)
-            return jsonData
-        }catch{
-            return nil
-        }
-    }
-    
     private func retrieveDecodedData() -> APIReturnDataSet? {
         guard let data = retrieveAPIDataFromDocuments() else {
             return nil
@@ -172,6 +152,26 @@ class DataManager {
             let count = apiReturnDataSetCopy.data?.results?.count
             apiReturnDataSetCopy.data?.count = count
             storeAPIData(apiData: encodeToData)
+        }
+    }
+    
+    private func encodeToData(apiReturnDataSet: APIReturnDataSet) -> Data? {
+        // encode to data again so unnecessary fields from API are ignored
+        do {
+            let encoder = JSONEncoder()
+            let jsonData = try encoder.encode(apiReturnDataSet)
+            return jsonData
+        }catch{
+            return nil
+        }
+    }
+    
+    private func storeAPIData(apiData: Data) {
+        if let filePath = jsonFilePath() {
+            do  {
+                try apiData.write(to: filePath, options: .atomic)
+            } catch _ {
+            }
         }
     }
     
