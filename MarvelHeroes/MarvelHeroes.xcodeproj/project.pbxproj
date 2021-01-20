@@ -24,6 +24,7 @@
 		CB78EA8C252CEA6C00CC48E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB78EA8A252CEA6C00CC48E6 /* LaunchScreen.storyboard */; };
 		CB81BA06258BF46400447922 /* AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81BA05258BF46400447922 /* AlertExtension.swift */; };
 		CB81BA12258C30FC00447922 /* String+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB81BA11258C30FC00447922 /* String+Localizable.swift */; };
+		CB8E0AB525B79C7F0065635E /* JsonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8E0AB425B79C7F0065635E /* JsonManager.swift */; };
 		CB91724525A65F2E000FFA69 /* LoadingCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB91724425A65F2E000FFA69 /* LoadingCharacterCell.swift */; };
 		CBCAA8C1258426F400852E3D /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCAA8C0258426F400852E3D /* ImageManager.swift */; };
 		CBE88D69258ACB3A0077AC56 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CBE88D6B258ACB3A0077AC56 /* Localizable.strings */; };
@@ -53,6 +54,7 @@
 		CB78EA8D252CEA6C00CC48E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB81BA05258BF46400447922 /* AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtension.swift; sourceTree = "<group>"; };
 		CB81BA11258C30FC00447922 /* String+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localizable.swift"; sourceTree = "<group>"; };
+		CB8E0AB425B79C7F0065635E /* JsonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonManager.swift; sourceTree = "<group>"; };
 		CB91724425A65F2E000FFA69 /* LoadingCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCharacterCell.swift; sourceTree = "<group>"; };
 		CBCAA8C0258426F400852E3D /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		CBE88D62258ACA920077AC56 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				CB81BA18258C573900447922 /* Extensions */,
 				CBCAA8C0258426F400852E3D /* ImageManager.swift */,
 				CB1E47832589845F00B4FDF0 /* FooterView.swift */,
+				CB8E0AB425B79C7F0065635E /* JsonManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB8E0AB525B79C7F0065635E /* JsonManager.swift in Sources */,
 				CB5381F9257EF71400F80EA2 /* CharactersViewModel.swift in Sources */,
 				CB1FF997252E3F7E00ED7ACA /* DataManager.swift in Sources */,
 				CB1FF9C0252ECF7600ED7ACA /* CharacterCellDetailController.swift in Sources */,
