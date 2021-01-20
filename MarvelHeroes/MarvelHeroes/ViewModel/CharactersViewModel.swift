@@ -14,6 +14,7 @@ protocol CharactersViewModelDelegate: AnyObject {
 
 final class CharactersViewModel {
     private weak var delegate: CharactersViewModelDelegate?
+    private let jsonManager = JsonManager()
     
     private var characters: [Character] = []
     private var filteredCharacters: [Character] = []
@@ -61,7 +62,7 @@ final class CharactersViewModel {
         }
         isFetchingAPIData = true
         
-        if dataManager.apiDataExistsOnDocuments() && offset == 0 {
+        if jsonManager.apiDataExistsOnDocuments() && offset == 0 {
             dataManager.loadCharactersFromDocuments() {
                 (data: APIReturnDataSet?, results: [Character]?, error: String) in
                 self.configureCharacters(data: data, results: results, error: error)
