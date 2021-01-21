@@ -56,6 +56,21 @@ class JsonManager {
         }
     }
     
+    func updateAPIDate() {
+        let key = "apiDataLastUpdateDate"
+        let currentDate = Date()
+        UserDefaults.standard.set(currentDate, forKey: key)
+    }
+    
+    func apiDateNeedsUpdate() -> Bool {
+        let key = "apiDataLastUpdateDate"
+        let storedDate = UserDefaults.standard.object(forKey: key) as! Date
+        let currentDate = Date()
+        let components = Calendar.current.dateComponents([.day], from: storedDate, to: currentDate)
+        let days = components.day
+        return days != 0
+    }
+    
     private func configureToStoreAPIData(apiReturnDataSet: APIReturnDataSet) {
         guard let encodeToData = encodeToData(apiReturnDataSet: apiReturnDataSet) else {
             return
