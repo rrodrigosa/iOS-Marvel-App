@@ -33,7 +33,7 @@ class JsonManager {
         return decodeAPIReturnDataSet(data: data)
     }
     
-    func fileManager(apiData: Data, apiReturnDataSet: APIReturnDataSet) {
+    func fileManager(apiReturnDataSet: APIReturnDataSet) {
         // save everything
         if apiReturnDataSet.data?.offset == 0 {
             configureToStoreAPIData(apiReturnDataSet: apiReturnDataSet)

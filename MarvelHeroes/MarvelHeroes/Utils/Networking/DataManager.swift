@@ -85,7 +85,7 @@ class DataManager {
                 completion(nil, nil, ErrorMessage.decode.message)
                 return
             }
-            self.jsonManager.fileManager(apiData: responseData, apiReturnDataSet: marvelReturnData)
+            self.jsonManager.fileManager(apiReturnDataSet: marvelReturnData)
             guard marvelReturnData.code == 200 else {
                 // nil or something else
                 if let unwrappedMarvelReturnDataCode = marvelReturnData.code {
