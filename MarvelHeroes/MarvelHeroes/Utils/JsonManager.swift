@@ -62,7 +62,7 @@ class JsonManager {
         UserDefaults.standard.set(currentDate, forKey: key)
     }
     
-    func apiDateNeedsUpdate() -> Bool {
+    func apiDataNeedsUpdate() -> Bool {
         let key = "apiDataLastUpdateDate"
         let storedDate = UserDefaults.standard.object(forKey: key) as! Date
         let currentDate = Date()
