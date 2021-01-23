@@ -79,7 +79,6 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: -> cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if isLastCell(indexPath: indexPath) && !charactersViewModel.allAPIDataRetrieved {
-            reloadRows(indexPath: indexPath)
             let cell = tableView.dequeueReusableCell(withIdentifier: "LoadingCharacterCell", for: indexPath) as! LoadingCharacterCell
             cell.startSpinner()
             return cell
@@ -193,12 +192,6 @@ class CharactersController: UIViewController, UITableViewDelegate, UITableViewDa
         if let index = self.charactersTableView.indexPathForSelectedRow {
             self.charactersTableView.deselectRow(at: index, animated: false)
         }
-    }
-    
-    private func reloadRows(indexPath: IndexPath) {
-        var indexPathList = [IndexPath]()
-        indexPathList.append(indexPath)
-        charactersTableView.reloadRows(at: indexPathList, with: .automatic)
     }
     
 }
