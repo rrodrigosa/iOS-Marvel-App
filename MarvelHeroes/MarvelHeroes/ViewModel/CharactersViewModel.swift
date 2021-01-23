@@ -63,7 +63,7 @@ final class CharactersViewModel {
         }
         isFetchingAPIData = true
         
-        if jsonManager.apiDataExistsOnDocuments() && offset == 0 {
+        if jsonManager.apiDataExistsOnDocuments() && offset == 0 && !jsonManager.apiDataNeedsUpdate() {
             dataManager.loadCharactersFromDocuments() {
                 (data: APIReturnDataSet?, results: [Character]?, error: String) in
                 self.configureCharacters(data: data, results: results, error: error)
