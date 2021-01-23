@@ -23,6 +23,7 @@ final class CharactersViewModel {
     private var isFetchingAPIData = false
     private let dataManager = DataManager()
     private var marvelAttributionText = ""
+    var allAPIDataRetrieved = false
     
     init(delegate: CharactersViewModelDelegate) {
         self.delegate = delegate
@@ -69,9 +70,11 @@ final class CharactersViewModel {
             }
         }
         else {
-            dataManager.downloadCharacters(limit: limit, offset: offset) {
-                (data: APIReturnDataSet?, results: [Character]?, error: String) in
-                self.configureCharacters(data: data, results: results, error: error)
+            if !allAPIDataRetrieved {
+                dataManager.downloadCharacters(limit: limit, offset: offset) {
+                    (data: APIReturnDataSet?, results: [Character]?, error: String) in
+                    self.configureCharacters(data: data, results: results, error: error)
+                }
             }
         }
     }
@@ -100,6 +103,12 @@ final class CharactersViewModel {
         if let unwrappedData = unwrappedAPIReturnDataSet.data {
             if let unwrappedCount = unwrappedData.count {
                 self.offset += unwrappedCount
+            }
+            
+            if let unwrappedTotal = unwrappedData.total {
+                if offset >= unwrappedTotal {
+                    allAPIDataRetrieved = true
+                }
             }
             
             if let unwrappedOffset = unwrappedData.offset {
