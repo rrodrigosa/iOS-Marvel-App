@@ -124,7 +124,7 @@ final class CharactersViewModel {
     }
     
     private func calculateIndexPathsToReload(from newCharacters: [Character]) -> [IndexPath] {
-        let startIndex = characters.count - newCharacters.count
+        let startIndex = (characters.count - 1) - newCharacters.count
         let endIndex = startIndex + newCharacters.count
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
